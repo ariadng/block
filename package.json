@@ -4,6 +4,9 @@
   "main": "index.js",
   "repository": "git@github.com:ariadng/block.git",
   "license": "MIT",
+  "scripts": {
+  	"dev": "nodemon ./src/index.ts"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "crypto-js": "^4.1.1",
