@@ -1,0 +1,21 @@
+{
+	"compilerOptions": {
+		"declaration": true,
+		"outDir": "dist",
+		"rootDir": "src",
+		"baseDir": "src",
+		"strict": true,
+		"lib": [
+			"esnext"
+		],
+		"esModuleInterop": true,
+		"paths": {
+			"@/*": [ "./*" ]
+		}
+	},
+	"ts-node": {
+		"require": [
+			"tsconfig-path/register"
+		]
+	}
+}
