@@ -5,7 +5,7 @@
   "repository": "git@github.com:ariadng/block.git",
   "license": "MIT",
   "scripts": {
-  	"dev": "nodemon ./src/index.ts"
+    "dev": "nodemon ./src/index.ts"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -25,6 +25,7 @@
     "@types/luxon": "^3.2.0",
     "@types/uuid": "^9.0.0",
     "nodemon": "^2.0.20",
+    "prisma": "^4.9.0",
     "ts-node": "^10.9.1",
     "tsc-alias": "^1.8.2",
     "tsconfig-paths": "^4.1.2"
