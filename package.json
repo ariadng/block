@@ -1,0 +1,25 @@
+{
+  "name": "block",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:ariadng/block.git",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "luxon": "^3.2.1",
+    "typescript": "^4.9.5",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.13",
+    "@types/crypto-js": "^4.1.1",
+    "@types/express": "^4.17.16",
+    "@types/jsonwebtoken": "^9.0.1",
+    "@types/luxon": "^3.2.0",
+    "@types/uuid": "^9.0.0"
+  }
+}
