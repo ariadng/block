@@ -28,10 +28,10 @@ function loadRoutes (app: Express) {
 // * Start server
 export function start () {
 	const app: Express = express();
-	const port = process.env.PORT || 4000;
+	const port = process.env.PORT ? parseInt(process.env.PORT) : 4000;
 	config(app);
 	loadRoutes(app);
-	app.listen(port, () => {
+	app.listen(port, '0.0.0.0', () => {
 		console.log(`[Server] Running on port ${port}...`)
 	});
 }
