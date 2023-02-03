@@ -15,7 +15,7 @@
 	},
 	"ts-node": {
 		"require": [
-			"tsconfig-path/register"
+			"tsconfig-paths/register"
 		]
 	}
 }
