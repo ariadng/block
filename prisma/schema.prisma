@@ -20,4 +20,15 @@ model User {
   updatedAt DateTime    @default(now())
   deletedAt DateTime?
   lastLogin DateTime?
+  sessions  Session[]
+}
+
+model Session {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String    @db.ObjectId
+  token     String    @unique
+  expiredAt DateTime
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now())
+  user      User      @relation(fields: [userId], references: [id])
 }
