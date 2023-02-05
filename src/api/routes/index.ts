@@ -2,12 +2,27 @@ import { Request, Response, Router } from "express";
 import { getAccount, updateAccount } from "../auth/account.routes";
 import { AdminMiddleware, AuthMiddleware } from "../auth/auth.middleware";
 import { AuthRouter } from "../auth/auth.routes";
+import { FileRouter } from "../resources/file.resource";
 import { UserRouter } from "../resources/user.resource";
 
+import multer from "multer";
+import { v4 as uuid } from "uuid";
+
 const router = Router();
+const upload = multer({
+	storage: multer.diskStorage({
+		destination: (req, file, cb) => {
+			cb(null, 'files/');
+		},
+		filename: (req, file, cb) => {
+			cb(null, uuid().replaceAll('-', '') + '.' + file.mimetype.split('/')[1]);
+		}
+	})
+});
 
 router.get('/', (req: Request, res: Response) => res.send("API"));
 router.use('/auth', AuthRouter);
+router.use('/file', AuthMiddleware, upload.single("file"), FileRouter);
 router.use('/user', AuthMiddleware, AdminMiddleware, UserRouter);
 
 // Account
