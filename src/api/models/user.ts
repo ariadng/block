@@ -87,6 +87,26 @@ export default class UserModel {
 		return user;
 	}
 
+	// Delete user by id
+	public static async delete(id: number | string): Promise<UserInterface|null> {
+		const userId = (typeof id === "string") ? parseInt(id) : id;
+
+		// Delete sessions
+		await prisma.session.deleteMany({
+			where: {
+				userId: userId,
+			},
+		});
+		
+		// Delete user
+		const user = await prisma.user.delete({
+			where: {
+				id: userId,
+			},
+		});
+		return user;
+	}
+
 	// Check whether an email has been used
 	public static async emailAvailable(email: string, id?: number): Promise<boolean> {
 		const user = await prisma.user.findFirst({

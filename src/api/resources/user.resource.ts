@@ -108,4 +108,21 @@ router.put('/:userId', async (req: Request, res: Response) => {
 	});
 });
 
+// Delete user by id
+router.delete('/:userId', async (req: Request, res: Response) => {
+	const userId = req.params.userId;
+	const user = await UserModel.delete(userId);
+	if (user === null) return res.json({
+		status: 404,
+		message: `Failed to get user with id ${userId}`,
+		data: null,
+	});
+
+	return res.json({
+		status: 200,
+		message: `Delete user with id ${userId} success`,
+		data: user,
+	});
+});
+
 export { router as UserRouter };
