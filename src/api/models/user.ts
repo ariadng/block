@@ -12,6 +12,23 @@ interface UserInterface {
 
 export default class UserModel {
 
+	// List users
+	public static async index(): Promise<UserInterface[]> {
+		const users = await prisma.user.findMany({
+			select: {
+				id: true,
+				email: true,
+				name: true,
+				role: true,
+				lastLogin: true,
+			},
+			orderBy: {
+				name: "asc"
+			}
+		});
+		return users;
+	}
+
 	// Get user by id
 	public static async get(id: number | string): Promise<UserInterface|null> {
 		const userId = (typeof id === "string") ? parseInt(id) : id;
