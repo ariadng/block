@@ -5,7 +5,9 @@
 	"repository": "git@github.com:ariadng/block.git",
 	"license": "MIT",
 	"scripts": {
-		"mongo": "docker-compose up -d",
+		"db:start": "docker-compose up -d",
+		"db:migrate": "prisma migrate dev",
+		"db:studio": "prisma studio",
 		"dev": "nodemon ./src/index.ts"
 	},
 	"dependencies": {

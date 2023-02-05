@@ -1,12 +1,13 @@
 version: '3.9'
 
 services:
-  mongodb:
-    image: mongo:latest
-    ports:
-      - 27017:27017
-    volumes:
-      - ./data:/data/db
+  db:
+    image: postgres:latest
+    restart: always
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=transisi
-      - MONGO_INITDB_ROOT_PASSWORD=secret
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes: 
+      - ./data:/var/lib/postgresql/data
