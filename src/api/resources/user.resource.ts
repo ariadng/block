@@ -57,4 +57,20 @@ router.post('/', async (req: Request, res: Response) => {
 	
 });
 
+// Get user by id
+router.get('/:userId', async (req: Request, res: Response) => {
+	const userId = req.params.userId;
+	const user = await UserModel.get(userId);
+	if (user === null) return res.json({
+		status: 404,
+		message: `Failed to get user with id ${userId}`,
+		data: null,
+	});
+	return res.json({
+		status: 200,
+		message: `Get user with id ${userId} success`,
+		data: user,
+	});
+});
+
 export { router as UserRouter };
