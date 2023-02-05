@@ -97,7 +97,6 @@ router.put('/:userId', async (req: Request, res: Response) => {
 	if (user === null) return res.json({
 		status: 500,
 		message: `Update user with id ${userId} failed`,
-		data: user,
 	});
 
 	// All is well
