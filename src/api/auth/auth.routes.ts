@@ -1,7 +1,8 @@
 import { Request, Response, Router } from "express";
 import validate from "@/api/utils/validate";
 import { PrismaClient, User } from '@prisma/client'
-import { createSession } from "./auth.utils";
+import { createSession, getAccessToken, getSessionFromAccessToken, validateAccessToken } from "./auth.utils";
+import { DateTime } from "luxon";
 
 const router = Router();
 const prisma = new PrismaClient();
@@ -50,6 +51,16 @@ router.post('/login', async (req: Request, res: Response) => {
 		message: "Failed to create session",
 	});
 
+	// Update user's last login time
+	await prisma.user.update({
+		where: {
+			id: user.id
+		},
+		data: {
+			updatedAt: DateTime.now().toJSDate().toISOString(),
+		}
+	})
+
 	// Login success
 	return res.json({
 		status: 200,
@@ -59,6 +70,41 @@ router.post('/login', async (req: Request, res: Response) => {
 		},
 	});
 
+
+});
+
+// [ User Logout ]
+router.get('/logout', async (req: Request, res: Response) => {
+
+	// Get access token
+	const accessToken = getAccessToken(req.header("Authorization"));
+
+	// No access token
+	if (accessToken === null) return res.json({
+		status: 400,
+		message: "Access token in request header is required",
+	});
+
+	// Get session
+	const session = await getSessionFromAccessToken(accessToken);
+
+	// Invalid access token
+	if (session === null) return res.json({
+		status: 401,
+		message: "Access token is invalid",
+	});
+
+	// Delete session
+	await prisma.session.delete({
+		where: {
+			id: session.id,
+		}
+	});
+
+	return res.json({
+		status: 200,
+		message: "Logout success",
+	});
 
 });
 
