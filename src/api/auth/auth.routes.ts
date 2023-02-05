@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express";
 import validate from "@/api/utils/validate";
 import { PrismaClient, User } from '@prisma/client'
-import { createSession, getAccessToken, getSessionFromAccessToken, validateAccessToken } from "./auth.utils";
+import { checkPassword, createSession, getAccessToken, getSessionFromAccessToken, validateAccessToken } from "./auth.utils";
 import { DateTime } from "luxon";
 
 const router = Router();
@@ -32,14 +32,19 @@ router.post('/login', async (req: Request, res: Response) => {
 	const user: User | null = await prisma.user.findFirst({
 		where: {
 			email: email,
-			password: password,
 		}
 	});
 
-	// Invalid credentials
+	// Invalid email
 	if (user === null) return res.json({
 		status: 401,
-		message: "Invalid credentials",
+		message: "Invalid email",
+	});
+
+	// Check password
+	if (!checkPassword(password, user.password)) return res.json({
+		status: 401,
+		message: "Invalid password",
 	});
 	
 	// Create new session

@@ -1,5 +1,5 @@
 import { PrismaClient, Session, User } from "@prisma/client";
-import { AES } from "crypto-js";
+import { AES, enc } from "crypto-js";
 import { DateTime } from "luxon";
 import { v4 as uuid } from "uuid";
 const prisma = new PrismaClient();
@@ -50,4 +50,10 @@ export async function createSession(userId: number): Promise<Session|null> {
 		expiredAt: expiration,
 	}});
 	return session;
+}
+
+// Check password
+export function checkPassword (from: string, to: string): boolean {
+	const decrypted = AES.decrypt(to, getAppKey()).toString(enc.Utf8);
+	return from === decrypted;
 }
