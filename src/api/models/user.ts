@@ -10,6 +10,7 @@ interface UserInterface {
     password?: string;
     name?: string;
     role?: string;
+    photo?: string | null;
     lastLogin?: Date | null;
 }
 
@@ -39,6 +40,7 @@ export default class UserModel {
 			email: data.email ? data.email : "",
 			name: data.name ? data.name : "",
 			role: data.role ? data.role : "viewer",
+			photo: data.photo ? data.photo : "",
 			password: password,
 		}});
 		if (user === null) return null;
@@ -62,6 +64,7 @@ export default class UserModel {
 				email: true,
 				name: true,
 				role: true,
+				photo: true,
 				lastLogin: true,
 			}
 		});
@@ -78,6 +81,7 @@ export default class UserModel {
 		if (typeof data.password !== "undefined") updated["password"] = UserModel.encryptPassword(data.password);
 		if (typeof data.role !== "undefined") updated["role"] = data.role;
 		if (typeof data.name !== "undefined") updated["name"] = data.name;
+		if (typeof data.photo !== "undefined") updated["photo"] = data.photo;
 		const user = await prisma.user.update({
 			where: {
 				id: userId,

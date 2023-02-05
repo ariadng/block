@@ -20,6 +20,7 @@ model User {
   updatedAt DateTime    @default(now())
   deletedAt DateTime?
   lastLogin DateTime?
+  photo     String?
   sessions  Session[]
 }
 

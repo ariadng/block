@@ -34,11 +34,11 @@ router.post('/', async (req: Request, res: Response) => {
 	});
 
 	// Get request body
-	const { email, password, role, name } = req.body;
+	const { email, password, role, name, photo } = req.body;
 
 	// Create new user
 	const user = await UserModel.store({
-		email, password, role, name
+		email, password, role, name, photo
 	});
 
 	// Failed to create new user
@@ -86,11 +86,11 @@ router.put('/:userId', async (req: Request, res: Response) => {
 	});
 
 	// Get request body
-	const { email, password, role, name } = req.body;
+	const { email, password, role, name, photo } = req.body;
 
 	// Update user
 	const user = await UserModel.update(userId, {
-		email, password, role, name
+		email, password, role, name, photo
 	});
 
 	// Failed to update user
