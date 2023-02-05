@@ -12,8 +12,8 @@ export const AuthMiddleware = async (req: Request, res: Response, next: NextFunc
 
 	// No access token
 	if (accessToken === null) return res.json({
-		status: 400,
-		message: "Access token in request header is required",
+		status: 401,
+		message: "Unauthorized access",
 	});
 
 	// Get session
@@ -22,7 +22,7 @@ export const AuthMiddleware = async (req: Request, res: Response, next: NextFunc
 	// Invalid access token
 	if (session === null) return res.json({
 		status: 401,
-		message: "Access token is invalid",
+		message: "Unauthorized access",
 	});
 
 	// Get authenticated user
