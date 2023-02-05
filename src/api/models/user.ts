@@ -6,6 +6,7 @@ interface UserInterface {
 	id: number;
     email: string;
     name: string;
+    role: string;
     lastLogin: Date | null;
 }
 
@@ -22,6 +23,7 @@ export default class UserModel {
 				id: true,
 				email: true,
 				name: true,
+				role: true,
 				lastLogin: true,
 			}
 		});

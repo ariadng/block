@@ -5,7 +5,7 @@ import { getAccessToken, getSessionFromAccessToken } from "./auth.utils";
 
 const prisma = new PrismaClient();
 
-const AuthMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+export const AuthMiddleware = async (req: Request, res: Response, next: NextFunction) => {
 	
 	// Get access token
 	const accessToken = getAccessToken(req.header("Authorization"));
@@ -39,4 +39,11 @@ const AuthMiddleware = async (req: Request, res: Response, next: NextFunction) =
 	next();
 };
 
-export default AuthMiddleware;
+export const AdminMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+	const user = req.body.user;
+	if (user === null || user.role !== "admin") return res.json({
+		status: 401,
+		message: "Unauthorized access",
+	});
+	next();
+};
