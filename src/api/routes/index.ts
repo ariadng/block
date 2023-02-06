@@ -7,6 +7,7 @@ import { UserRouter } from "../resources/user.resource";
 
 import multer from "multer";
 import { v4 as uuid } from "uuid";
+import { PageRouter } from "../resources/page.resource";
 
 const router = Router();
 const upload = multer({
@@ -24,6 +25,7 @@ router.get('/', (req: Request, res: Response) => res.send("API"));
 router.use('/auth', AuthRouter);
 router.use('/file', AuthMiddleware, upload.single("file"), FileRouter);
 router.use('/user', AuthMiddleware, AdminMiddleware, UserRouter);
+router.use('/page', AuthMiddleware, AdminMiddleware, PageRouter);
 
 // Account
 router.get('/auth/account', AuthMiddleware, getAccount);
