@@ -10,6 +10,7 @@ import { v4 as uuid } from "uuid";
 import { PageRouter } from "../resources/page.resource";
 import { PageContentRouter } from "../content/page.content";
 import { ArticleRouter } from "../resources/article.resource";
+import { ArticleContentRouter } from "../content/article.content";
 
 const router = Router();
 const upload = multer({
@@ -30,7 +31,9 @@ router.use('/user', AuthMiddleware, AdminMiddleware, UserRouter);
 router.use('/page', AuthMiddleware, AdminMiddleware, PageRouter);
 router.use('/article', AuthMiddleware, AdminMiddleware, ArticleRouter);
 
+// Content
 router.use('/content/page', PageContentRouter);
+router.use('/content/article', ArticleContentRouter);
 
 // Account
 router.get('/auth/account', AuthMiddleware, getAccount);
