@@ -4,8 +4,6 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import { ApiRouter } from './api/routes';
-import { AdminRouter } from './admin/routes';
-import { SiteRouter } from './site/routes';
 
 // * Configurations
 function config (app: Express) {
@@ -21,8 +19,6 @@ function config (app: Express) {
 // * Load routes
 function loadRoutes (app: Express) {
 	app.use('/api', ApiRouter);
-	// app.use('/admin', AdminRouter);
-	app.use('/', SiteRouter);
 }
 
 // * Start server
