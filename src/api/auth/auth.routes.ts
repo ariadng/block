@@ -38,13 +38,19 @@ router.post('/login', async (req: Request, res: Response) => {
 	// Invalid email
 	if (user === null) return res.json({
 		status: 401,
-		message: "Invalid email",
+		message: "Login failed",
+		errors: {
+			email: "Invalid email address"
+		}
 	});
 
 	// Check password
 	if (!checkPassword(password, user.password)) return res.json({
 		status: 401,
-		message: "Invalid password",
+		message: "Login failed",
+		errors: {
+			email: "Invalid email password"
+		}
 	});
 	
 	// Create new session
