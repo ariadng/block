@@ -1,0 +1,28 @@
+.LoginPage {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: #f7f7f7;
+
+	.LoginBox {
+		min-width: 360px;
+		min-height: 360px;
+		padding: 2rem;
+		border-radius: 0.5rem;
+		background-color: #ffffff;
+		box-shadow: 0 1px 3px rgb(0 0 0 /0.05);
+
+		.Text {
+			margin-bottom: 1rem;
+		}
+
+		.Actions {
+			margin-top: 2rem;
+			display: flex;
+			justify-content: flex-end;
+			justify-items: center;
+		}
+	}
+}
