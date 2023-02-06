@@ -21,7 +21,7 @@ function config (app: Express) {
 // * Load routes
 function loadRoutes (app: Express) {
 	app.use('/api', ApiRouter);
-	app.use('/admin', AdminRouter);
+	// app.use('/admin', AdminRouter);
 	app.use('/', SiteRouter);
 }
 
