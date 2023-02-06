@@ -11,6 +11,7 @@ import { PageRouter } from "../resources/page.resource";
 import { PageContentRouter } from "../content/page.content";
 import { ArticleRouter } from "../resources/article.resource";
 import { ArticleContentRouter } from "../content/article.content";
+import { CategoryRouter } from "../resources/category.resource";
 
 const router = Router();
 const upload = multer({
@@ -30,6 +31,7 @@ router.use('/file', AuthMiddleware, upload.single("file"), FileRouter);
 router.use('/user', AuthMiddleware, AdminMiddleware, UserRouter);
 router.use('/page', AuthMiddleware, AdminMiddleware, PageRouter);
 router.use('/article', AuthMiddleware, AdminMiddleware, ArticleRouter);
+router.use('/category', AuthMiddleware, AdminMiddleware, CategoryRouter);
 
 // Content
 router.use('/content/page', PageContentRouter);
