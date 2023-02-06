@@ -79,6 +79,27 @@ export default class PageModel {
 		return page;
 	}
 
+	// Get page by slug
+	public static async getBySlug(slug: string): Promise<PageInterface|null> {
+		const page = await prisma.page.findFirst({
+			where: {
+				slug: slug,
+			},
+			select: {
+				id: true,
+				slug: true,
+				title: true,
+				content: true,
+				summary: true,
+				createdAt: true,
+				updatedAt: true,
+				deletedAt: true,
+				publishedAt: true,
+			}
+		});
+		return page;
+	}
+
 	// Update page by id
 	public static async update(id: number | string, data: PageInterface): Promise<PageInterface|null> {
 		const pageId = (typeof id === "string") ? parseInt(id) : id;
