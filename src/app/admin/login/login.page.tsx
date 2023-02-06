@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextField, Button } from '@mui/material';
+import { TextField, Button, CircularProgress } from '@mui/material';
 import "./login.style.scss";
 import API from "../../utils/API";
 import { useNavigate } from "@tanstack/react-location";
@@ -10,6 +10,7 @@ export default function LoginPage () {
 
 	const [ formData, setFormData ] = useState({ email: "", password: "" });
 	const [ formErrors, setFormErrors ] = useState<{[key: string]: string | undefined}>({});
+	const [ isLoading, setIsLoading ] = useState<boolean>(false);
 
 	const handleInputChange: React.ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement> = (event) => {
 		event.preventDefault();
@@ -21,16 +22,20 @@ export default function LoginPage () {
 
 	const handleFormSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
 		event.preventDefault();
+		setIsLoading(true);
 		const response = await API.post("auth/login", formData);
-		// Errors
-		if (response.status === 401) {
-			setFormErrors(response.errors);
-		}
-		// Success
-		else if (response.status === 200) {
-			localStorage.setItem("accessToken", response.data.accessToken);
-			navigate({ to: '/admin/page' });
-		}
+		setTimeout(() => {
+			setIsLoading(false);
+			// Errors
+			if (response.status === 401) {
+				setFormErrors(response.errors);
+			}
+			// Success
+			else if (response.status === 200) {
+				localStorage.setItem("accessToken", response.data.accessToken);
+				navigate({ to: '/admin/page' });
+			}
+		}, 1000);
 	}
 
 	return (
@@ -44,7 +49,10 @@ export default function LoginPage () {
 					<TextField value={formData.email} onChange={handleInputChange} error={formErrors["email"] ? true : false} helperText={formErrors["email"] ? formErrors["email"] : ""} id="email" label="Email Address" variant="outlined" margin="normal" fullWidth autoFocus={true} />
 					<TextField value={formData.password} onChange={handleInputChange} error={formErrors["password"] ? true : false} helperText={formErrors["password"] ? formErrors["password"] : ""} id="password" label="Password" type="password" variant="outlined" margin="normal" fullWidth />
 					<div className="Actions">
-						<Button variant="contained" size="large" type="submit">Login</Button>
+						<div className="Secondary">
+							{isLoading && <CircularProgress />}
+						</div>
+						<Button variant="contained" size="large" type="submit" disabled={isLoading}>Login</Button>
 					</div>
 				</form>
 			</div>
