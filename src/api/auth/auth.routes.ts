@@ -49,7 +49,7 @@ router.post('/login', async (req: Request, res: Response) => {
 		status: 401,
 		message: "Login failed",
 		errors: {
-			email: "Invalid email password"
+			password: "Invalid password"
 		}
 	});
 	
