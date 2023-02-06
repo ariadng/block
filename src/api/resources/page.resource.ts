@@ -1,8 +1,6 @@
-import { PrismaClient } from "@prisma/client";
 import { Request, Response, Router } from "express";
 import { DateTime } from "luxon";
 import PageModel from "../models/page";
-import UserModel from "../models/user";
 import validate from "../utils/validate";
 
 const router = Router();

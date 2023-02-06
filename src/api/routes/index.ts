@@ -9,6 +9,7 @@ import multer from "multer";
 import { v4 as uuid } from "uuid";
 import { PageRouter } from "../resources/page.resource";
 import { PageContentRouter } from "../content/page.content";
+import { ArticleRouter } from "../resources/article.resource";
 
 const router = Router();
 const upload = multer({
@@ -27,6 +28,7 @@ router.use('/auth', AuthRouter);
 router.use('/file', AuthMiddleware, upload.single("file"), FileRouter);
 router.use('/user', AuthMiddleware, AdminMiddleware, UserRouter);
 router.use('/page', AuthMiddleware, AdminMiddleware, PageRouter);
+router.use('/article', AuthMiddleware, AdminMiddleware, ArticleRouter);
 
 router.use('/content/page', PageContentRouter);
 

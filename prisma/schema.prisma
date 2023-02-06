@@ -22,6 +22,7 @@ model User {
   lastLogin DateTime?
   photo     String?
   sessions  Session[]
+  articles  Article[]
 }
 
 model Session {
@@ -45,4 +46,19 @@ model Page {
   publishedAt DateTime?
   deletedAt   DateTime?
   photo       String?
+}
+
+model Article {
+  id          Int         @default(autoincrement()) @id
+  slug        String      @unique
+  title       String
+  content     Json
+  summary     String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @default(now())
+  publishedAt DateTime?
+  deletedAt   DateTime?
+  photo       String?
+  authorId    Int?
+  author      User?       @relation(fields: [authorId], references: [id])
 }
