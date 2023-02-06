@@ -1,12 +1,16 @@
 {
 	"compilerOptions": {
+		"jsx": "react",
 		"declaration": true,
+		"noEmit": true,
+		"sourceMap": true,
 		"outDir": "dist",
 		"rootDir": "src",
 		"baseUrl": "src",
 		"strict": true,
 		"lib": [
-			"esnext"
+			"esnext",
+			"dom"
 		],
 		"esModuleInterop": true,
 		"paths": {

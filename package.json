@@ -1,7 +1,7 @@
 {
 	"name": "block",
 	"version": "1.0.0",
-	"main": "./src/app/index.js",
+	"main": "./src/app/index.tsx",
 	"repository": "git@github.com:ariadng/block.git",
 	"license": "MIT",
 	"scripts": {
@@ -34,6 +34,7 @@
 		"@babel/plugin-transform-runtime": "^7.19.6",
 		"@babel/preset-env": "^7.20.2",
 		"@babel/preset-react": "^7.18.6",
+		"@babel/preset-typescript": "^7.18.6",
 		"@babel/runtime": "^7.20.13",
 		"@types/cors": "^2.8.13",
 		"@types/crypto-js": "^4.1.1",

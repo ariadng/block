@@ -2,7 +2,7 @@ const path = require("path");
 
 module.exports = {
 	mode	: "development",
-	entry	: "./src/app/index.js",
+	entry	: "./src/app/index.tsx",
 	output	: {
 		path	: path.resolve(__dirname, "public"),
 		filename: "main.js",
@@ -20,13 +20,14 @@ module.exports = {
 	resolve	: {
 		extensions	: [
 			".js", ".jsx",
+			".ts", ".tsx",
 			".json"
 		]
 	},
 	module	: {
 		rules	: [
 			{
-				test	: /\.(js|jsx)$/,
+				test	: /\.(js|ts)x?$/,
 				exclude	: /node_modules/,
 				use		: "babel-loader"
 			}
