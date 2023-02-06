@@ -29,7 +29,7 @@ export default function LoginPage () {
 		<div className="LoginPage">
 			<div className="LoginBox">
 				<div className="Text">
-					<h1>Dashboard</h1>
+					<h2>Dashboard</h2>
 					<p>Please login to manage the website.</p>
 				</div>
 				<form onSubmit={handleFormSubmit}>
