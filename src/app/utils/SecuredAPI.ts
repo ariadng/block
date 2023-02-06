@@ -1,8 +1,15 @@
-export default class API {
+import Auth from "./Auth";
+
+export default class SecuredAPI {
 
 	public static async get (path: string) {
 		const url = "/api";
-		const response = await fetch(url + "/" + path);
+		const response = await fetch(url + "/" + path, {
+			method: "GET",
+			headers: {
+				'Authorization': 'Bearer ' + Auth.getAccessToken(),
+			}
+		});
 		const json = await response.json();
 		return json;
 	}
@@ -12,6 +19,7 @@ export default class API {
 		const response = await fetch(url + "/" + path, {
 			method: "POST",
 			headers: {
+				'Authorization': 'Bearer ' + Auth.getAccessToken(),
 				'Accept': 'application/json',
       			'Content-Type': 'application/json'
 			},
@@ -26,6 +34,7 @@ export default class API {
 		const response = await fetch(url + "/" + path, {
 			method: "PUT",
 			headers: {
+				'Authorization': 'Bearer ' + Auth.getAccessToken(),
 				'Accept': 'application/json',
       			'Content-Type': 'application/json'
 			},
@@ -39,6 +48,9 @@ export default class API {
 		const url = "/api";
 		const response = await fetch(url + "/" + path, {
 			method: "DELETE",
+			headers: {
+				'Authorization': 'Bearer ' + Auth.getAccessToken(),
+			}
 		});
 		const json = await response.json();
 		return json;

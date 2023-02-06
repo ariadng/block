@@ -5,8 +5,9 @@ module.exports = {
 	mode	: "development",
 	entry	: "./src/app/index.tsx",
 	output	: {
-		path	: path.resolve(__dirname, "public"),
-		filename: "main.js",
+		path		: path.resolve(__dirname, "public"),
+		filename	: "main.js",
+		publicPath	: '/',
 	},
 	target		: "web",
 	devServer	: {
@@ -17,6 +18,14 @@ module.exports = {
 		open		: true,
 		hot			: true,
 		liveReload	: true,
+		proxy		: {
+			'/api': {
+				target: 'http://localhost:4000',
+				router: () => 'http://localhost:3000',
+				secure: false,
+				changeOrigin: true,
+			}
+		},
 		historyApiFallback: true,
 	},
 	resolve	: {

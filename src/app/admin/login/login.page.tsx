@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { TextField, Button } from '@mui/material';
 import "./login.style.scss";
 import API from "../../utils/API";
+import { useNavigate } from "@tanstack/react-location";
 
 export default function LoginPage () {
+
+	const navigate = useNavigate();
 
 	const [ formData, setFormData ] = useState({ email: "", password: "" });
 	const [ formErrors, setFormErrors ] = useState<{[key: string]: string | undefined}>({});
@@ -22,6 +25,11 @@ export default function LoginPage () {
 		// Errors
 		if (response.status === 401) {
 			setFormErrors(response.errors);
+		}
+		// Success
+		else if (response.status === 200) {
+			localStorage.setItem("accessToken", response.data.accessToken);
+			navigate({ to: '/admin/page' });
 		}
 	}
 
