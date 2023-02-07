@@ -18,6 +18,8 @@ export default function UserCard () {
 	const [isLoadingEdit, setIsLoadingEdit] = useState<boolean>(false);
 
 	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = React.useState(false);
+	const [isPasswordDialogOpen, setIsPasswordDialogOpen] = React.useState(false);
+	const [newPassword, setNewPassword] = useState<string>("");
 
 	const adminContext = useContext(AdminContext);
 
@@ -88,6 +90,25 @@ export default function UserCard () {
 		navigate({ to: "/admin/user" });
 	}
 
+	const changePassword = () => {
+		setIsPasswordDialogOpen(true);
+		setNewPassword("");
+	}
+
+	const cancelPassword = () => {
+		setIsPasswordDialogOpen(false);
+		setNewPassword("");
+	}
+
+	const submitPassword = async () => {
+		const response = await SecuredAPI.put("user/" + user.id, {
+			password: newPassword,
+		});
+		loadUsers();
+		setIsPasswordDialogOpen(false);
+		setNewPassword("");
+	}
+
 	useEffect(() => {
 		loadUser();
 	}, []);
@@ -121,7 +142,7 @@ export default function UserCard () {
 							<Icon>edit</Icon>
 							<div className="Label">Edit Info</div>
 						</Button>
-						<Button>
+						<Button onClick={() => { changePassword() }}>
 							<Icon>password</Icon>
 							<div className="Label">Change Password</div>
 						</Button>
@@ -169,6 +190,29 @@ export default function UserCard () {
 				<DialogActions>
 					<Button onClick={cancelDeleteUser}>No</Button>
 					<Button onClick={submitDeleteUser} autoFocus>Yes</Button>
+				</DialogActions>
+			</Dialog>
+
+			<Dialog open={isPasswordDialogOpen} onClose={cancelPassword}>
+				<DialogTitle>Change Password</DialogTitle>
+				<DialogContent>
+					<DialogContentText>
+						Please enter new password for this user.
+					</DialogContentText>
+					<TextField
+						autoFocus
+						margin="normal"
+						id="password"
+						type="password"
+						fullWidth
+						variant="outlined"
+						value={newPassword}
+						onChange={(event) => { event.preventDefault(); setNewPassword(event.target.value); }}
+					/>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={cancelPassword}>Cancel</Button>
+					<Button onClick={submitPassword} variant="contained">Submit</Button>
 				</DialogActions>
 			</Dialog>
 
