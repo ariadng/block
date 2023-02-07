@@ -6,6 +6,6 @@ export interface AdminContextInterface {
 } 
 
 export const AdminContext = createContext({
-	user: null,
+	user: { id: null, name: "", email: "" },
 	setUser: (data: any) => {},
 });

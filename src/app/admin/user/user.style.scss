@@ -146,9 +146,9 @@
 		.Details {
 			width: 100%;
 			padding: 3rem 2rem 1rem 2rem;
-			text-align: center;
 
 			.Name {
+				text-align: center;
 				font-size: 1.5rem;
 			}
 
@@ -185,5 +185,25 @@
 				}
 			}
 		}
+
+		.UserEdit {
+			width: 100%;
+			padding: 1rem 0;
+
+			form {
+				display: flex;
+				flex-direction: column;
+				gap: 1rem;
+			}
+
+			.FormActions {
+				margin-top: 1rem;
+				display: flex;
+				align-items: center;
+				justify-content: flex-end;
+				gap: 1rem;
+			}
+		}
+
 	}
 }

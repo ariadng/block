@@ -43,7 +43,7 @@ export default function UserLayout () {
 					{getFilteredUsers().map(user => (
 						<Link to={`/admin/user/${user.id}`} className="UserRow" key={user.id} getActiveProps={() => ({ className: 'Active' })}>
 							<span className="Photo">
-								<span className="Initials">{user.name.split(' ').map((a: string) => a[0]).join()}</span>
+								<span className="Initials">{user.name.split(' ').map((a: string) => a[0]).join('')}</span>
 							</span>
 							<span className="Details">
 								<span className="Name">{user.name}</span>
