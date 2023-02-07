@@ -7,7 +7,7 @@ const AppRoutes = [
 	{ path: "/", element: "Site" },
 	
 	// Admin
-	{ path: "admin", element: <AdminLayout />, loader: async () => ({ user: await Auth.getUser() }), children: [
+	{ path: "admin", element: <AdminLayout />, children: [
 		{ path: "/", element: <LoginPage /> },
 		{ path: "page", element: "admin page" },
 		{ path: "article", element: "admin article" },

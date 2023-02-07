@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { TextField, Button, CircularProgress } from '@mui/material';
 import "./login.style.scss";
 import API from "../../utils/API";
 import { useNavigate } from "@tanstack/react-location";
+import { AdminContext } from "../admin.context";
+import Auth from "../../utils/Auth";
 
 export default function LoginPage () {
 
 	const navigate = useNavigate();
+	const { setUser } = useContext(AdminContext);
 
 	const [ formData, setFormData ] = useState({ email: "", password: "" });
 	const [ formErrors, setFormErrors ] = useState<{[key: string]: string | undefined}>({});
@@ -24,7 +27,7 @@ export default function LoginPage () {
 		event.preventDefault();
 		setIsLoading(true);
 		const response = await API.post("auth/login", formData);
-		setTimeout(() => {
+		setTimeout(async () => {
 			setIsLoading(false);
 			// Errors
 			if (response.status === 401) {
@@ -33,6 +36,8 @@ export default function LoginPage () {
 			// Success
 			else if (response.status === 200) {
 				localStorage.setItem("accessToken", response.data.accessToken);
+				const user = await Auth.getUser();
+				setUser(user);
 				navigate({ to: '/admin/page' });
 			}
 		}, 1000);
