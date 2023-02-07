@@ -1,5 +1,7 @@
 import React from "react";
 import AdminLayout from "./admin/admin.layout";
+import ArticleIndex from "./admin/article/article.index";
+import ArticleLayout from "./admin/article/article.layout";
 import LoginPage from "./admin/login/login.page";
 import UserCreate from "./admin/user/user.create";
 import UserIndex from "./admin/user/user.index";
@@ -13,7 +15,9 @@ const AppRoutes = [
 	{ path: "admin", element: <AdminLayout />, children: [
 		{ path: "/", element: <LoginPage /> },
 		{ path: "page", element: "admin page" },
-		{ path: "article", element: "admin article" },
+		{ path: "article", element: <ArticleLayout />, children: [
+			{ path: "/", element: <ArticleIndex /> },
+		]},
 		{ path: "user", element: <UserLayout />, children: [
 			{ path: "/", element: <UserIndex /> },
 			{ path: "create", element: <UserCreate /> },
