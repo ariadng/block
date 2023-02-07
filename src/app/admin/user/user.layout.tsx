@@ -21,7 +21,7 @@ export default function UserLayout () {
 	}, []);
 
 	const getFilteredUsers = () => {
-		return users.filter(user => user.name.toLowerCase().includes(searchText));
+		return users.filter(user => user.name ? user.name.toLowerCase().includes(searchText) : false);
 	}
 
 	const handleSearchInput: React.ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement> = (event) => {
