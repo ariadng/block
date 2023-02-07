@@ -10,7 +10,8 @@
 		"db:studio": "prisma studio",
 		"api:dev": "nodemon ./src/index.ts",
 		"app:dev": "webpack-dev-server .",
-		"app:build": "webpack ."
+		"app:build": "webpack .",
+		"dev": "yarn api:dev & yarn app:dev"
 	},
 	"dependencies": {
 		"@emotion/react": "^11.10.5",
