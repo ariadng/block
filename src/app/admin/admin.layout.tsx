@@ -76,15 +76,15 @@ export default function AdminLayout () {
 			},
 			loadArticles: async () => {
 				const response = await SecuredAPI.get("article");
-				setUsers(response.data);
+				setArticles(response.data);
 			},
 			loadCategories: async () => {
 				const response = await SecuredAPI.get("category");
-				setUsers(response.data);
+				setCategories(response.data);
 			},
 			loadPages: async () => {
 				const response = await SecuredAPI.get("page");
-				setUsers(response.data);
+				setPages(response.data);
 			},
 			// - State
 			isLoadingUsers: isLoadingUsers,
