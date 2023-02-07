@@ -1,10 +1,12 @@
 import SecuredAPI from "../../utils/SecuredAPI";
 import React, { ReactNode, useContext, useEffect, useState } from "react";
-import { useMatch, useRouter } from "@tanstack/react-location";
-import { Button, CircularProgress, Icon, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
+import { useMatch, useNavigate, useRouter } from "@tanstack/react-location";
+import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Icon, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 import { AdminContext } from "../admin.context";
 
 export default function UserCard () {
+
+	const navigate = useNavigate();
 
 	const { params: {userId} } = useMatch();
 	const { list: { loadUsers } } = useContext(AdminContext);
@@ -14,6 +16,8 @@ export default function UserCard () {
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [isEditing, setIsEditing] = useState<boolean>(false);
 	const [isLoadingEdit, setIsLoadingEdit] = useState<boolean>(false);
+
+	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = React.useState(false);
 
 	const adminContext = useContext(AdminContext);
 
@@ -70,6 +74,20 @@ export default function UserCard () {
 		submitEdit();
 	}
 
+	const deleteUser = () => {
+		setIsDeleteDialogOpen(true);
+	}
+
+	const cancelDeleteUser = () => {
+		setIsDeleteDialogOpen(false);
+	}
+
+	const submitDeleteUser = async () => {
+		const response = await SecuredAPI.delete("user/" + user.id);
+		loadUsers();
+		navigate({ to: "/admin/user" });
+	}
+
 	useEffect(() => {
 		loadUser();
 	}, []);
@@ -107,7 +125,7 @@ export default function UserCard () {
 							<Icon>password</Icon>
 							<div className="Label">Change Password</div>
 						</Button>
-						<Button color="error">
+						<Button color="error" onClick={() => { deleteUser() }}>
 							<Icon>delete</Icon>
 							<div className="Label">Delete</div>
 						</Button>
@@ -137,6 +155,23 @@ export default function UserCard () {
 				</>}
 
 			</div>
+
+			<Dialog
+				open={isDeleteDialogOpen}
+				onClose={cancelDeleteUser}
+			>
+				<DialogTitle>Are you sure want to delete?</DialogTitle>
+				<DialogContent>
+					<DialogContentText>
+						This action cannot be undone. Please proceed with caution.
+					</DialogContentText>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={cancelDeleteUser}>No</Button>
+					<Button onClick={submitDeleteUser} autoFocus>Yes</Button>
+				</DialogActions>
+			</Dialog>
+
 		</div>
 	);
 
