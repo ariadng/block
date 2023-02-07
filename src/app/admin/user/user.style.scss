@@ -5,6 +5,75 @@
 	align-items: stretch;
 
 	.UserList {
-		
+		width: 420px;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		background-color: #fff;
+
+		.Search {
+			padding: 1rem;
+			flex-shrink: 0;
+			flex-grow: 0;
+			display: flex;
+			gap: 0.5rem;
+		}
+
+		.Rows {
+			flex-shrink: 0;
+			flex-grow: 1;
+			min-height: 0;
+			overflow-y: auto;
+
+			.UserRow {
+				padding: 1rem;
+				display: flex;
+				align-items: center;
+				gap: 1rem;
+				cursor: pointer;
+				border-bottom: 1px solid transparent;
+
+				&:not(:last-child) {
+					border-color: rgb(0 0 0 /0.02);
+				}
+
+				&:hover {
+					background-color: rgb(0 0 0 /0.01);
+				}
+
+				&:active {
+					background-color: rgb(0 0 0 /0.02);
+				}
+
+				.Photo {
+
+					.Initials {
+						width: 3rem;
+						height: 3rem;
+						display: flex;
+						align-items: center;
+						justify-content: center;						
+						font-size: 1.25rem;
+						font-weight: 600;
+						padding-top: 0.4rem;
+						border-radius: 50%;
+						color: #373737;
+						background-color: #eeeeee;
+					}
+				}
+				
+				.Details {
+					.Name {
+						font-weight: 600;
+					}
+
+					.Meta {
+						color: #666666;
+						display: flex;
+						gap: 0.25rem;
+					}
+				}
+			}
+		}
 	}
 }
