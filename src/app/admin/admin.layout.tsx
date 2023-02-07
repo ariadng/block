@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, Outlet, useMatch, useNavigate } from "@tanstack/react-location";
+import { Link, Outlet, useMatch, useNavigate, useRouter } from "@tanstack/react-location";
 import { Button, CircularProgress, Icon } from '@mui/material';
 import "./admin.style.scss";
 import SecuredAPI from "../utils/SecuredAPI";
@@ -9,14 +9,19 @@ import Auth from "../utils/Auth";
 export default function AdminLayout () {
 
 	const navigate = useNavigate();
+	const router = useRouter();
 
 	const [user, setUser] = useState<any>(null);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 
 	useEffect(() => {
-		if (user !== null) navigate({ to: "/admin/page" });
-		else navigate({ to: "/admin" })
-	}, [user]);
+		if (user !== null && !isLoading) {
+			if (router.state.location.href === "/admin") navigate({ to: "/admin/page" });
+		}
+		else if (user === null && !isLoading) {
+			navigate({ to: "/admin" });
+		}
+	}, [user, isLoading]);
 
 	const logout = async () => {
 		setIsLoading(true);
