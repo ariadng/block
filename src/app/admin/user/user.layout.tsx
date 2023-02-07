@@ -1,21 +1,21 @@
 import SecuredAPI from "../../utils/SecuredAPI";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./user.style.scss";
 import { Button, Icon, TextField } from "@mui/material";
 import { Link, Outlet } from "@tanstack/react-location";
+import { AdminContext } from "../admin.context";
 
 export default function UserLayout () {
 
-	const [users, setUsers] = useState<any[]>([]);
+	const { list: { users, loadUsers } } = useContext(AdminContext);
 	const [searchText, setSearchText] = useState<string>("");
 
-	const loadUsers = async () => {
-		const response = await SecuredAPI.get("user");
-		if (response.status === 200) setUsers(response.data);
+	const init = async () => {
+		await loadUsers();
 	}
 
 	useEffect(() => {
-		loadUsers();
+		init();
 	}, []);
 
 	const getFilteredUsers = () => {

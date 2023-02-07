@@ -7,6 +7,7 @@ import { AdminContext } from "../admin.context";
 export default function UserCard () {
 
 	const { params: {userId} } = useMatch();
+	const { list: { loadUsers } } = useContext(AdminContext);
 
 	const [user, setUser] = useState<any>(null);
 	const [editData, setEditData] = useState<any>(null);
@@ -41,11 +42,14 @@ export default function UserCard () {
 	const submitEdit = async () => {
 		setIsLoadingEdit(true)
 		const response = await SecuredAPI.put("user/" + user.id, editData);
-		setIsLoadingEdit(false);
-		if (response.status === 200) {
-			setIsEditing(false);
-			loadUser();
-		}
+		setTimeout(() => {
+			setIsLoadingEdit(false);
+			if (response.status === 200) {
+				setIsEditing(false);
+				loadUsers();
+				loadUser();
+			}
+		}, 1000)
 	};
 
 	const handleEditChange: React.ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement> = (event) => {
@@ -121,8 +125,11 @@ export default function UserCard () {
 									<MenuItem value="editor">Editor</MenuItem>
 								</Select>
 								<div className="FormActions">
-									<Button type="button" onClick={() => {cancelEdit()}}>Cancel</Button>
-									<Button variant="contained" type="submit">Save</Button>
+									{!isLoadingEdit && <>
+										<Button type="button" onClick={() => {cancelEdit()}}>Cancel</Button>
+										<Button variant="contained" type="submit">Save</Button>
+									</>}
+									{isLoadingEdit && <CircularProgress />}
 								</div>
 							</form>
 						</div>

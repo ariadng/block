@@ -48,9 +48,50 @@ export default function AdminLayout () {
 		}, 1000);
 	}, [user]);
 
+	// [ Admin Context ]
+	// - Data
+	const [ users, setUsers ] = useState<any[]>([]);
+	const [ articles, setArticles ] = useState<any[]>([]);
+	const [ categories, setCategories ] = useState<any[]>([]);
+	const [ pages, setPages ] = useState<any[]>([]);
+	// - State
+	const [ isLoadingUsers, setIsLoadingUsers ] = useState<boolean>(false);
+	const [ isLoadingArticles, setIsLoadingArticles ] = useState<boolean>(false);
+	const [ isLoadingCategories, setIsLoadingCategories ] = useState<boolean>(false);
+	const [ isLoadingPages, setIsLoadingPages ] = useState<boolean>(false);
+
 	const contextValue: AdminContextInterface = {
 		user: user,
 		setUser: setUser,
+		list: {
+			// - Data
+			users: users,
+			articles: articles,
+			categories: categories,
+			pages: pages,
+			// - Actions
+			loadUsers: async () => {
+				const response = await SecuredAPI.get("user");
+				setUsers(response.data);
+			},
+			loadArticles: async () => {
+				const response = await SecuredAPI.get("article");
+				setUsers(response.data);
+			},
+			loadCategories: async () => {
+				const response = await SecuredAPI.get("category");
+				setUsers(response.data);
+			},
+			loadPages: async () => {
+				const response = await SecuredAPI.get("page");
+				setUsers(response.data);
+			},
+			// - State
+			isLoadingUsers: isLoadingUsers,
+			isLoadingArticles: isLoadingArticles,
+			isLoadingCategories: isLoadingCategories,
+			isLoadingPages: isLoadingPages,
+		}
 	};
 	
 	if (isLoading) return (
