@@ -9,6 +9,8 @@
 		height: 100%;
 		display: flex;
 		flex-direction: column;
+		flex-shrink: 0;
+		flex-grow: 0;
 		background-color: #fff;
 		box-shadow: 0 0 4px rgb(0 0 0 /0.05);
 
@@ -17,7 +19,20 @@
 			flex-shrink: 0;
 			flex-grow: 0;
 			display: flex;
-			gap: 0.5rem;
+			gap: 1rem;
+
+			button {
+				white-space: nowrap;
+				gap: 0.25rem;
+
+				.material-icons {
+					margin-left: 0.5rem;
+				}
+
+				.Label {
+					margin-right: 0.75rem;
+				}
+			}
 		}
 
 		.Rows {
@@ -34,6 +49,8 @@
 				cursor: pointer;
 				border-bottom: 1px solid transparent;
 				transition: all 0.2s ease-out;
+				color: #363636;
+				text-decoration: none;
 
 				&:not(:last-child) {
 					border-color: rgb(0 0 0 /0.02);
@@ -46,6 +63,10 @@
 				&:active {
 					opacity: 0.85;
 					background-color: rgb(0 0 0 /0.03);
+				}
+
+				&.Active {
+					box-shadow: inset 4px 0 0 #0099ff;
 				}
 
 				.Photo {
@@ -75,6 +96,92 @@
 						display: flex;
 						gap: 0.25rem;
 					}
+				}
+			}
+		}
+	}
+
+	.UserView {
+		flex-shrink: 0;
+		flex-grow: 1;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}
+
+.UserCard {
+	width: 420px;
+	border-radius: 0.5rem;
+	background-color: #ffffff;
+	box-shadow: 0 2px 4px rgb(0 0 0 /0.1);
+
+	.Profile {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		.Photo {
+			position: absolute;
+			top: -2.5rem;
+
+			.Initials {
+				width: 5rem;
+				height: 5rem;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 2rem;
+				font-weight: 600;
+				padding-top: 0.4rem;
+				border-radius: 50%;
+				color: #373737;
+				letter-spacing: -1px;
+				background-color: #eeeeee;
+				border: 4px solid #ffffff;
+			}
+		}
+
+		.Details {
+			width: 100%;
+			padding: 3rem 2rem 1rem 2rem;
+			text-align: center;
+
+			.Name {
+				font-size: 1.5rem;
+			}
+
+			.Meta {
+				margin-top: 0.5rem;
+				width: 100%;
+				color: #464646;
+
+				.MetaItem {
+					padding: 0.5rem 0;
+					display: flex;
+					gap: 0.5rem;
+					border-bottom: 1px solid transparent;
+
+					&:not(:last-child) {
+						border-color: rgb(0 0 0 /0.05);
+					}
+				}
+			}
+		}
+
+		.Actions {
+			padding: 0 1rem 1rem;
+			display: flex;
+			gap: 1rem;
+			align-items: center;
+			
+			button {
+				flex-direction: column;
+				gap: 0.5rem;
+
+				.material-icons {
+					font-size: 1.25rem;
 				}
 			}
 		}
