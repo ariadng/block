@@ -2,10 +2,12 @@ import SecuredAPI from "../../utils/SecuredAPI";
 import React, { useContext, useEffect, useState } from "react";
 import "./user.style.scss";
 import { Button, Icon, TextField } from "@mui/material";
-import { Link, Outlet } from "@tanstack/react-location";
+import { Link, Outlet, useNavigate } from "@tanstack/react-location";
 import { AdminContext } from "../admin.context";
 
 export default function UserLayout () {
+
+	const navigate = useNavigate();
 
 	const { list: { users, loadUsers } } = useContext(AdminContext);
 	const [searchText, setSearchText] = useState<string>("");
@@ -28,13 +30,17 @@ export default function UserLayout () {
 		setSearchText(value);
 	};
 
+	const goToCreate = () => {
+		navigate({ to: "/admin/user/create" });
+	};
+
 	return (
 		<div className="UserLayout">
 
 			<div className="UserList">
 				<div className="Search">
 					<TextField value={searchText} onChange={handleSearchInput} label="Search..." variant="outlined" size="small" type="search" fullWidth />
-					<Button variant="contained">
+					<Button variant="contained" onClick={() => { goToCreate() }}>
 						<Icon>add</Icon>
 						<span className="Label">Add New</span>
 					</Button>

@@ -147,6 +147,14 @@
 			width: 100%;
 			padding: 3rem 2rem 1rem 2rem;
 
+			&.Create {
+				padding: 1rem 2rem;
+
+				h4 {
+					margin-bottom: 2rem;
+				}
+			}
+
 			.Name {
 				text-align: center;
 				font-size: 1.5rem;
