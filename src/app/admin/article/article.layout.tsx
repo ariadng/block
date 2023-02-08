@@ -49,7 +49,9 @@ export default function ArticleLayout () {
 					{getFilteredArticles().map(article => (
 						<Link to={`/admin/article/${article.id}`} className="ArticleRow" key={article.id} getActiveProps={() => ({ className: 'Active' })}>
 							<span className="Photo">
-								<span className="Thumbnail"></span>
+								<span className="Thumbnail">
+									{article.photo && <img src={article.photo} />}
+								</span>
 							</span>
 							<span className="Details">
 								<span className="Name">{article.title}</span>
