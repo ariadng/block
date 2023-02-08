@@ -1,0 +1,32 @@
+.Tooltip {
+	position: absolute;
+	z-index: 1000;
+	padding: 0.5rem 1rem;
+	color: #f7f7f7;
+	background-color: rgb(0 0 0 /0.75);
+	border-radius: 0.5rem;
+	transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+	backdrop-filter: blur(5px);
+	
+	&.Invisible {
+		opacity: 0;
+		pointer-events: none;
+		transform: translateY(8px);
+	}
+	
+	&.Visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	
+	&::before {
+		position: absolute;
+		top: 100%;
+		left: calc(50% - 0.5rem);
+		content: "";
+		border-left: 0.5rem solid transparent;
+		border-right: 0.5rem solid transparent;
+		border-top: 0.5rem solid rgb(0 0 0 /0.75);
+		backdrop-filter: blur(5px);
+	}
+}
