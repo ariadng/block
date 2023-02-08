@@ -5,7 +5,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { AdminContext } from "../admin.context";
 import ReactMarkdown from "react-markdown";
 import { DateTime } from "luxon";
-import { title } from "process";
+import { Typo } from "../../typo";
 
 export default function ArticleView () {
 
@@ -138,6 +138,13 @@ export default function ArticleView () {
 		const value = event.target.value;
 		setArticleEdit({...articleEdit, title: {...articleEdit.title, [language]: value}});
 	};
+	const getEditContent = (): string => {
+		const content = typeof articleEdit.content === "string" ? JSON.parse(articleEdit.content) : articleEdit.content;
+		return content[language];
+	}
+	const handleEditContentChange = (value: string) => {
+		setArticleEdit({...articleEdit, content: {...articleEdit.content, [language]: value}});
+	};
 
 	const openFeaturedImageFileSelector = () => {
 		if (featuredImageFileSelector.current) {
@@ -221,12 +228,14 @@ export default function ArticleView () {
 				</div>}
 
 				<div className="Content">
-					{!isEditingArticle && <ReactMarkdown>
-						{getContent()}
-					</ReactMarkdown>}
+					
+
+					{!isEditingArticle && <div dangerouslySetInnerHTML={{__html: getContent()}}></div>}
+
 
 					{ isEditingArticle && <>
 						<label className="EditLabel">Content ({language})</label>
+						<Typo value={getEditContent()} onChange={handleEditContentChange} />
 					</>}
 				</div>
 			</div>
