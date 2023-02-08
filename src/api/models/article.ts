@@ -151,7 +151,7 @@ export default class ArticleModel {
 		if (typeof data.deletedAt !== "undefined") updated["deletedAt"] = data.deletedAt;
 		if (typeof data.authorId !== "undefined") updated["authorId"] = data.authorId;
 		if (typeof data.photo !== "undefined") updated["photo"] = data.photo;
-		updated["categoryIds"] = data.categoryIds ? data.categoryIds : oldArticle.categories.map((cat: any) => cat.id);
+		updated["categoryIds"] = data.categoryIds ? data.categoryIds : oldArticle.categories.map((cat: any) => cat.category.id);
 		const article = await prisma.article.update({
 			where: {
 				id: articleId,
