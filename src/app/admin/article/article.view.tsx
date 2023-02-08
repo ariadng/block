@@ -56,6 +56,22 @@ export default function ArticleView () {
 		navigate({ to: "/admin/article" });
 	}
 
+	// Publish Article
+	const publishArticle = async () => {
+		const response = await SecuredAPI.put("article/" + article.id + '/publish', {});
+		if (response.status === 200) {
+			loadArticles();
+			setArticle(response.data);
+		}
+	}
+	const unpublishArticle = async () => {
+		const response = await SecuredAPI.put("article/" + article.id + '/unpublish', {});
+		if (response.status === 200) {
+			loadArticles();
+			setArticle(response.data);
+		}
+	}
+
 	// Categories Editor
 	const getCategoryIds = () => {
 		if (!article) return [];
@@ -139,10 +155,9 @@ export default function ArticleView () {
 						</div>
 					</div>
 					<div className="Actions">
-						{ article.publishedAt && <Button variant="outlined" color="error">Archive</Button>}
-						{ article.publishedAt && <Button variant="outlined">Unpublish</Button>}
+						{ article.publishedAt && <Button variant="outlined" onClick={() => {unpublishArticle()}}>Unpublish</Button>}
 						{ !article.publishedAt && <Button variant="outlined" color="error" onClick={() => {deleteArticle()}}>Delete Draft</Button>}
-						{ !article.publishedAt && <Button variant="contained">Publish</Button>}
+						{ !article.publishedAt && <Button variant="contained" onClick={() => {publishArticle()}}>Publish</Button>}
 					</div>
 				</div>
 
