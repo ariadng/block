@@ -4,9 +4,15 @@ const router = Router();
 
 // Upload file
 router.post('/', async (req: Request, res: Response) => {
+	if (req.file) return res.json({
+		status: 200,
+		data: {
+			path: '/static/' + req.file.filename,
+		}
+	});
+	// Failed
 	return res.json({
-		file: req.file,
-		body: req.body
+		status: 500,
 	})
 });
 

@@ -24,6 +24,12 @@ module.exports = {
 				router: () => 'http://localhost:3000',
 				secure: false,
 				changeOrigin: true,
+			},
+			'/static': {
+				target: 'http://localhost:4000',
+				router: () => 'http://localhost:3000',
+				secure: false,
+				changeOrigin: true,
 			}
 		},
 		historyApiFallback: true,

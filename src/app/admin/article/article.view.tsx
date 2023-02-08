@@ -1,10 +1,11 @@
 import SecuredAPI from "../../utils/SecuredAPI";
-import { Button, Checkbox, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControlLabel, FormGroup } from "@mui/material";
+import { Button, Checkbox, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControlLabel, FormGroup, Icon } from "@mui/material";
 import { useMatch, useNavigate } from "@tanstack/react-location";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { AdminContext } from "../admin.context";
 import ReactMarkdown from "react-markdown";
 import { DateTime } from "luxon";
+import { title } from "process";
 
 export default function ArticleView () {
 
@@ -13,8 +14,8 @@ export default function ArticleView () {
 	const { params: {articleId} } = useMatch();
 	const { language, list: { categories, loadCategories, loadArticles } } = useContext(AdminContext);
 
-	const [article, setArticle] = useState<any>(null);
-	const [isLoading, setIsLoading] = useState<boolean>(true);
+	const [ article, setArticle ] = useState<any>(null);
+	const [ isLoading, setIsLoading ] = useState<boolean>(true);
 	
 	const loadArticle = async () => {
 		setIsLoading(true);
@@ -42,7 +43,7 @@ export default function ArticleView () {
 		return DateTime.fromISO(article.updatedAt).toLocaleString(DateTime.DATETIME_MED)
 	}
 
-	// Delete Article
+	// [ Delete Article ]
 	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 	const deleteArticle = () => {
 		setIsDeleteDialogOpen(true);
@@ -72,7 +73,7 @@ export default function ArticleView () {
 		}
 	}
 
-	// Categories Editor
+	// [ Categories Editor ]
 	const getCategoryIds = () => {
 		if (!article) return [];
 		return article.categories.map((cat: any) => cat.category.id);
@@ -105,6 +106,70 @@ export default function ArticleView () {
 		}
 	};
 
+	// [ Article Editor ]
+
+	const [ articleEdit, setArticleEdit ] = useState<any>(null);
+	const [ isEditingArticle, setIsEditingArticle ] = useState<boolean>(false);
+	const featuredImageFileSelector = useRef<HTMLInputElement>(null);
+	const [ isUploadingFeaturedImage, setIsUploadingFeaturedImage ] = useState<boolean>(false);
+
+	const editArticle = () => {
+		setArticleEdit({...article});
+	};
+	const discardEditArticle = () => {
+		setIsEditingArticle(false);
+		setArticleEdit(null);
+	};
+	const saveEditArticle = async () => {
+		const response = await SecuredAPI.put("article/" + article.id, articleEdit);
+		if (response.status === 200) {
+			loadArticles();
+			setArticle(response.data);
+			setIsEditingArticle(false);
+			setArticleEdit(null);
+		}
+	};
+
+	const getEditTitle = (): string => {
+		const title = typeof articleEdit.title === "string" ? JSON.parse(articleEdit.title) : articleEdit.title;
+		return title[language];
+	}
+	const handleEditTitleChange: React.ChangeEventHandler<HTMLTextAreaElement> = (event) => {
+		const value = event.target.value;
+		setArticleEdit({...articleEdit, title: {...articleEdit.title, [language]: value}});
+	};
+
+	const openFeaturedImageFileSelector = () => {
+		if (featuredImageFileSelector.current) {
+			featuredImageFileSelector.current.click();
+		}
+	};
+	const removeFeaturedImage = () => {
+		setArticleEdit({...articleEdit, photo: null });
+	}
+	const handleFeaturedImageFileSelector: React.ChangeEventHandler<HTMLInputElement> = async (event) => {
+		if (event.target.files && event.target.files.length > 0) {
+			setIsUploadingFeaturedImage(true);
+			const file = event.target.files[0];
+			let formData = new FormData();
+			formData.set("file", file);
+			const response = await SecuredAPI.post("file", formData);
+			if (response.status === 200) {
+				setTimeout(() => {
+					setIsUploadingFeaturedImage(false);
+					setArticleEdit({...articleEdit, photo: response.data.path });
+				}, 1000);
+			} else {
+				console.error(response);
+			}
+		}
+	};
+
+	useEffect(() => {
+		setIsEditingArticle(articleEdit !== null);
+	}, [articleEdit])
+
+	// [ Initialization ]
 	useEffect(() => {
 		loadArticle();
 		loadCategories();
@@ -116,19 +181,53 @@ export default function ArticleView () {
 		</div>
 	);
 
+	// [ Render UI ]
 	return (
-		<div className="ArticleViewer">
+		<div className={`ArticleViewer ${isEditingArticle ? 'Edit' : ''}`}>
 			<div className="Article">
 				<div className="Title">
-					<h1>{getTitle()}</h1>
+					{ !isEditingArticle && <h1>{getTitle()}</h1> }
+					{ isEditingArticle && <>
+						<div className="TitleEditor">
+							<label className="EditLabel">Title ({language})</label>
+							<textarea value={getEditTitle()} onChange={handleEditTitleChange} placeholder="Enter title..." />
+						</div>
+					</> }
 				</div>
-				{article.photo && <div className="FeaturedImage">
-					<img src={article.photo} />
+
+				{<div className="FeaturedImage">
+					{ isEditingArticle && <>
+						<label className="EditLabel">Featured Image</label>
+						<div className="FeaturedImageEditor">
+							<div className="Overlay">
+								{!articleEdit.photo && !isUploadingFeaturedImage && <>
+									<Icon>image</Icon>
+									<Button onClick={() => {openFeaturedImageFileSelector()}}>Upload Image</Button>
+								</>}
+								{articleEdit.photo && !isUploadingFeaturedImage && <>
+									<Button className="ChangeButton" variant="contained" onClick={() => {openFeaturedImageFileSelector()}}>Change Image</Button>
+									<Button className="ChangeButton" variant="contained" color="error" onClick={() => {removeFeaturedImage()}}>Remove</Button>
+								</>}
+								{!articleEdit.photo && isUploadingFeaturedImage && <>
+									<CircularProgress />
+								</>}
+							</div>
+							{ articleEdit.photo && <img src={articleEdit.photo} /> }
+							<input ref={featuredImageFileSelector} onChange={handleFeaturedImageFileSelector} type="file" />
+						</div>
+					</>}
+
+					{ !isEditingArticle && <img src={article.photo} /> }
 				</div>}
+
 				<div className="Content">
-					<ReactMarkdown>
+					{!isEditingArticle && <ReactMarkdown>
 						{getContent()}
-					</ReactMarkdown>
+					</ReactMarkdown>}
+
+					{ isEditingArticle && <>
+						<label className="EditLabel">Content ({language})</label>
+					</>}
 				</div>
 			</div>
 			<div className="Sidebar">
@@ -137,7 +236,13 @@ export default function ArticleView () {
 					<div className="Title">
 						<div className="Label">Article</div>
 						<div className="TitleActions">
-							<Button>Edit Content</Button>
+							{ !isEditingArticle && <>
+								<Button onClick={() => {editArticle()}}>Edit Content</Button>
+							</>}
+							{ isEditingArticle && <>
+								<Button color="error" onClick={() => {discardEditArticle()}}>Discard</Button>
+								<Button onClick={() => {saveEditArticle()}}>Save</Button>
+							</>}
 						</div>
 					</div>
 					<div className="Content">
@@ -155,9 +260,9 @@ export default function ArticleView () {
 						</div>
 					</div>
 					<div className="Actions">
-						{ article.publishedAt && <Button variant="outlined" onClick={() => {unpublishArticle()}}>Unpublish</Button>}
-						{ !article.publishedAt && <Button variant="outlined" color="error" onClick={() => {deleteArticle()}}>Delete Draft</Button>}
-						{ !article.publishedAt && <Button variant="contained" onClick={() => {publishArticle()}}>Publish</Button>}
+						{ article.publishedAt && <Button variant="outlined" onClick={() => {unpublishArticle()}} disabled={isEditingArticle}>Unpublish</Button>}
+						{ !article.publishedAt && <Button variant="outlined" color="error" onClick={() => {deleteArticle()}} disabled={isEditingArticle}>Delete Draft</Button>}
+						{ !article.publishedAt && <Button variant="contained" onClick={() => {publishArticle()}} disabled={isEditingArticle}>Publish</Button>}
 					</div>
 				</div>
 

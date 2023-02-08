@@ -157,12 +157,12 @@ export default class ArticleModel {
 				id: articleId,
 			},
 			data: {
-				slug: updated.slug ? updated.slug : undefined,
-				title: updated.title ? updated.title : undefined,
-				content: updated.content ? updated.content : undefined,
-				summary: updated.summary ? updated.summary : undefined,
-				photo: updated.photo ? updated.photo : undefined,
-				authorId: updated.authorId ? updated.authorId : undefined,
+				slug: typeof updated.slug !== "undefined" ? updated.slug : undefined,
+				title: typeof updated.title !== "undefined" ? updated.title : undefined,
+				content: typeof updated.content !== "undefined" ? updated.content : undefined,
+				summary: typeof updated.summary !== "undefined" ? updated.summary : undefined,
+				photo: typeof updated.photo !== "undefined" ? updated.photo : undefined,
+				authorId: typeof updated.authorId !== "undefined" ? updated.authorId : undefined,
 				publishedAt: typeof updated.publishedAt !== "undefined" ? updated.publishedAt : undefined,
 				deletedAt: typeof updated.deletedAt !== "undefined" ? updated.deletedAt : undefined,
 				categories: {

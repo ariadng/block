@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import { ApiRouter } from './api/routes';
+import path from 'path';
 
 // * Configurations
 function config (app: Express) {
@@ -14,6 +15,8 @@ function config (app: Express) {
 	app.use(bodyParser.urlencoded({ extended: true }));
 	// CORS
 	app.use(cors());
+	// Static Files
+	app.use('/static', express.static(path.join(__dirname, '../files')))
 }
 
 // * Load routes

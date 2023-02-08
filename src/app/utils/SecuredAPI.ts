@@ -14,16 +14,19 @@ export default class SecuredAPI {
 		return json;
 	}
 
-	public static async post (path: string, data: {[key: string]: any}) {
+	public static async post (path: string, data: FormData | {[key: string]: any}) {
 		const url = "/api";
+		let headers: {[key: string]: any} = {
+			'Authorization': 'Bearer ' + Auth.getAccessToken(),
+			'Accept': 'application/json',
+		};
+		if (!(data instanceof FormData)) {
+			headers['Content-Type'] = 'application/json';
+		}
 		const response = await fetch(url + "/" + path, {
 			method: "POST",
-			headers: {
-				'Authorization': 'Bearer ' + Auth.getAccessToken(),
-				'Accept': 'application/json',
-      			'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(data),
+			headers: {...headers},
+			body: data instanceof FormData ? data : JSON.stringify(data),
 		});
 		const json = await response.json();
 		return json;
