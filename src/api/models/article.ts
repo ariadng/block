@@ -187,7 +187,13 @@ export default class ArticleModel {
 
 		const article = await this.get(articleId);
 		if (article === null) return null;
-		if (article.deletedAt === null) return null;
+		// if (article.deletedAt === null) return null;
+
+		await prisma.categoriesOnArticles.deleteMany({
+			where: {
+				articleId: articleId,
+			}
+		});
 
 		// Delete article
 		const deletedArticle = await prisma.article.delete({

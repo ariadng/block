@@ -1,6 +1,6 @@
 import SecuredAPI from "../../utils/SecuredAPI";
-import { Button, Checkbox, CircularProgress, FormControlLabel, FormGroup } from "@mui/material";
-import { useMatch } from "@tanstack/react-location";
+import { Button, Checkbox, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControlLabel, FormGroup } from "@mui/material";
+import { useMatch, useNavigate } from "@tanstack/react-location";
 import React, { useContext, useEffect, useState } from "react";
 import { AdminContext } from "../admin.context";
 import ReactMarkdown from "react-markdown";
@@ -8,8 +8,10 @@ import { DateTime } from "luxon";
 
 export default function ArticleView () {
 
+	const navigate = useNavigate();
+
 	const { params: {articleId} } = useMatch();
-	const { language, list: { categories, loadCategories } } = useContext(AdminContext);
+	const { language, list: { categories, loadCategories, loadArticles } } = useContext(AdminContext);
 
 	const [article, setArticle] = useState<any>(null);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -40,7 +42,21 @@ export default function ArticleView () {
 		return DateTime.fromISO(article.updatedAt).toLocaleString(DateTime.DATETIME_MED)
 	}
 
-	// Categories editor
+	// Delete Article
+	const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+	const deleteArticle = () => {
+		setIsDeleteDialogOpen(true);
+	}
+	const cancelDeleteArticle = () => {
+		setIsDeleteDialogOpen(false);
+	}
+	const submitDeleteArticle = async () => {
+		const response = await SecuredAPI.delete("article/" + article.id);
+		loadArticles();
+		navigate({ to: "/admin/article" });
+	}
+
+	// Categories Editor
 	const getCategoryIds = () => {
 		if (!article) return [];
 		return article.categories.map((cat: any) => cat.category.id);
@@ -125,7 +141,7 @@ export default function ArticleView () {
 					<div className="Actions">
 						{ article.publishedAt && <Button variant="outlined" color="error">Archive</Button>}
 						{ article.publishedAt && <Button variant="outlined">Unpublish</Button>}
-						{ !article.publishedAt && <Button variant="outlined" color="error">Delete Draft</Button>}
+						{ !article.publishedAt && <Button variant="outlined" color="error" onClick={() => {deleteArticle()}}>Delete Draft</Button>}
 						{ !article.publishedAt && <Button variant="contained">Publish</Button>}
 					</div>
 				</div>
@@ -168,6 +184,24 @@ export default function ArticleView () {
 				</div>
 
 			</div>
+
+			{/* Delete Article Dialog */}
+			<Dialog
+				open={isDeleteDialogOpen}
+				onClose={cancelDeleteArticle}
+			>
+				<DialogTitle>Are you sure want to delete?</DialogTitle>
+				<DialogContent>
+					<DialogContentText>
+						This action cannot be undone. Please proceed with caution.
+					</DialogContentText>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={cancelDeleteArticle}>No</Button>
+					<Button onClick={submitDeleteArticle} autoFocus>Yes</Button>
+				</DialogActions>
+			</Dialog>
+			
 		</div>
 	);
 }
