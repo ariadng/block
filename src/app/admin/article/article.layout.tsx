@@ -9,7 +9,7 @@ export default function ArticleLayout () {
 
 	const navigate = useNavigate();
 
-	const { list: { articles, loadArticles } } = useContext(AdminContext);
+	const { language, list: { articles, loadArticles } } = useContext(AdminContext);
 	const [searchText, setSearchText] = useState<string>("");
 
 	const init = async () => {
@@ -21,7 +21,7 @@ export default function ArticleLayout () {
 	}, []);
 
 	const getFilteredArticles = () => {
-		return articles.filter(article => article.title.toLowerCase().includes(searchText));
+		return articles.filter(article => getArticleTitle(article).toLowerCase().includes(searchText));
 	}
 
 	const handleSearchInput: React.ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement> = (event) => {
@@ -33,6 +33,10 @@ export default function ArticleLayout () {
 	const goToCreate = () => {
 		navigate({ to: "/admin/article/create" });
 	};
+
+	const getArticleTitle = (article: any): string => {
+		return article.title[language];
+	}
 
 	return (
 		<div className="ArticleLayout">
@@ -54,7 +58,7 @@ export default function ArticleLayout () {
 								</span>
 							</span>
 							<span className="Details">
-								<span className="Name">{article.title}</span>
+								<span className="Name">{getArticleTitle(article)}</span>
 								<span className="Meta">
 									<span className="MetaItem">
 										<Icon>schedule</Icon>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, Outlet, useMatch, useNavigate, useRouter } from "@tanstack/react-location";
-import { Button, CircularProgress, Icon } from '@mui/material';
+import { Button, CircularProgress, Icon, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import "./admin.style.scss";
 import SecuredAPI from "../utils/SecuredAPI";
 import { AdminContext, AdminContextInterface } from "./admin.context";
@@ -48,7 +48,16 @@ export default function AdminLayout () {
 		}, 1000);
 	}, [user]);
 
+	const handleLanguageSwitch = (
+		event: React.MouseEvent<HTMLElement>,
+		value: string | null,
+	) => {
+		if (value !== null) setLanguage(value);
+	};
+
 	// [ Admin Context ]
+	// - Language
+	const [ language, setLanguage ] = useState<string>("en");
 	// - Data
 	const [ users, setUsers ] = useState<any[]>([]);
 	const [ articles, setArticles ] = useState<any[]>([]);
@@ -63,6 +72,11 @@ export default function AdminLayout () {
 	const contextValue: AdminContextInterface = {
 		user: user,
 		setUser: setUser,
+
+		// - Language
+		language: language,
+		setLanguage: setLanguage,
+
 		list: {
 			// - Data
 			users: users,
@@ -128,6 +142,19 @@ export default function AdminLayout () {
 						</Link>
 					</div>
 					<div className="Actions">
+						<ToggleButtonGroup
+							value={language}
+							exclusive
+							onChange={handleLanguageSwitch}
+							size="small"
+						>
+							<ToggleButton value="en">
+								English
+							</ToggleButton>
+							<ToggleButton value="id">
+								Bahasa Indonesia
+							</ToggleButton>
+						</ToggleButtonGroup>
 						<Link to="/admin/account" className="MenuItem" getActiveProps={() => ({ className: 'Active' })}>
 							<Icon>account_circle</Icon>
 							<span className="Label">{user.name}</span>

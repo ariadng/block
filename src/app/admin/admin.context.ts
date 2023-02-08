@@ -3,6 +3,9 @@ import React, { createContext, Dispatch } from "react";
 export interface AdminContextInterface {
 	user: null | any,
 	setUser: any,
+
+	language: string,
+	setLanguage: Function,
 	
 	list: {
 		// - Data
@@ -26,6 +29,9 @@ export interface AdminContextInterface {
 export const AdminContext = createContext<AdminContextInterface>({
 	user: { id: null, name: "", email: "" },
 	setUser: (data: any) => {},
+
+	language: "en",
+	setLanguage: () => {},
 
 	list: {
 		// - Data

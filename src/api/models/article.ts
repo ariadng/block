@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 interface ArticleInterface {
 	id?: number;
     slug?: string;
-    title?: string;
+    title?: any;
     content?: any;
     summary?: string;
     photo?: string | null;
@@ -45,8 +45,8 @@ export default class ArticleModel {
 		if (!(await this.slugAvailable(data.slug ? data.slug : ""))) return null;
 		const article = await prisma.article.create({data: {
 			slug: data.slug ? data.slug : "",
-			title: data.title ? data.title : "",
-			content: data.content ? data.content : "",
+			title: data.title ? data.title : {},
+			content: data.content ? data.content : null,
 			summary: data.summary ? data.summary : "",
 			authorId: data.authorId ? data.authorId : null,
 			photo: data.photo ? data.photo : null,

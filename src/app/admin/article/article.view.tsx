@@ -8,6 +8,7 @@ import ReactMarkdown from "react-markdown";
 export default function ArticleView () {
 
 	const { params: {articleId} } = useMatch();
+	const { language } = useContext(AdminContext);
 
 	const [article, setArticle] = useState<any>(null);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -21,6 +22,17 @@ export default function ArticleView () {
 		setTimeout(() => {
 			setIsLoading(false);
 		}, 1000);
+	}
+
+	const getTitle = () => {
+		const title = typeof article.title === "string" ? JSON.parse(article.title) : article.title;
+		return title[language];
+	}
+
+	const getContent = () => {
+		if (article.content === null) return "";
+		const content = typeof article.content === "string" ? JSON.parse(article.content) : article.content;
+		return content[language];
 	}
 
 	useEffect(() => {
@@ -37,18 +49,25 @@ export default function ArticleView () {
 		<div className="ArticleViewer">
 			<div className="Article">
 				<div className="Title">
-					<h1>{article.title}</h1>
+					<h1>{getTitle()}</h1>
 				</div>
 				{article.photo && <div className="FeaturedImage">
 					<img src={article.photo} />
 				</div>}
 				<div className="Content">
 					<ReactMarkdown>
-						{article.content}
+						{getContent()}
 					</ReactMarkdown>
 				</div>
 			</div>
-			<div className="Sidebar">sidebar</div>
+			<div className="Sidebar">
+				<div className="SidebarPanel">
+					<div className="Title">Article</div>
+					<div className="Content">
+
+					</div>
+				</div>
+			</div>
 		</div>
 	);
 }
