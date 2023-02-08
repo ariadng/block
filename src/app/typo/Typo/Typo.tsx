@@ -45,7 +45,6 @@ export function Typo ({ value, onChange }: Props) {
 
 	return (
 		<div className="Typo">
-			{html}
 			{ (defaultValue.current === "") && <div className="Placeholder">Type something...</div> }
 			<div
 				className="TypoEditor"
