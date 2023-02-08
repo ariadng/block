@@ -107,14 +107,14 @@ export default class CategoryModel {
 		if (category === null) return null;
 
 		// Clear article's categoryId
-		await prisma.article.updateMany({
-			where: {
-				categoryId: categoryId,
-			},
-			data: {
-				categoryId: null,
-			}
-		})
+		// await prisma.article.updateMany({
+		// 	where: {
+		// 		categoryId: categoryId,
+		// 	},
+		// 	data: {
+		// 		categoryId: null,
+		// 	}
+		// })
 
 		// Delete category
 		const deletedcategory = await prisma.category.delete({

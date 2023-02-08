@@ -1,5 +1,5 @@
 import SecuredAPI from "../../utils/SecuredAPI";
-import { Button, CircularProgress } from "@mui/material";
+import { Button, Checkbox, CircularProgress, FormControlLabel, FormGroup } from "@mui/material";
 import { useMatch } from "@tanstack/react-location";
 import React, { useContext, useEffect, useState } from "react";
 import { AdminContext } from "../admin.context";
@@ -9,10 +9,12 @@ import { DateTime } from "luxon";
 export default function ArticleView () {
 
 	const { params: {articleId} } = useMatch();
-	const { language } = useContext(AdminContext);
+	const { language, list: { categories, loadCategories } } = useContext(AdminContext);
 
 	const [article, setArticle] = useState<any>(null);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
+	
+	const [isEditingCategories, setIsEditingCategories] = useState<boolean>(true);
 
 	const loadArticle = async () => {
 		setIsLoading(true);
@@ -40,8 +42,39 @@ export default function ArticleView () {
 		return DateTime.fromISO(article.updatedAt).toLocaleString(DateTime.DATETIME_MED)
 	}
 
+	// Categories editor
+	const getCategoryIds = () => {
+		if (!article) return [];
+		return article.categories.map((cat: any) => cat.id);
+	};
+	const [editorCategories, setEditorCategories] = useState<any[]>(getCategoryIds());
+	const editCategories = () => {
+		setEditorCategories(getCategoryIds());
+		setIsEditingCategories(true);
+	};
+	const discardEditCategories = () => {
+		setEditorCategories(getCategoryIds());
+		setIsEditingCategories(false);
+	};
+	const saveEditCategories = () => {
+		setIsEditingCategories(false);
+	};
+	const isCategoryChecked = (categoryId: number) => {
+		const index = editorCategories.findIndex((cat: any) => cat.id === categoryId);
+		return index >= 0;
+	}
+	const handleCategoryChange = (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
+		const value = parseInt(event.target.value);
+		if (checked) {
+			setEditorCategories([...editorCategories, value]);
+		} else {
+			setEditorCategories(editorCategories.filter(cat => cat !== value));
+		}
+	};
+
 	useEffect(() => {
 		loadArticle();
+		loadCategories();
 	}, [articleId])
 
 	if (isLoading) return (
@@ -100,11 +133,28 @@ export default function ArticleView () {
 					<div className="Title">
 						<div className="Label">Category</div>
 						<div className="TitleActions">
-							<Button>Edit</Button>
+							{ !isEditingCategories && <Button onClick={() => { editCategories() }}>Edit</Button> }
+							{ isEditingCategories && <>
+								<Button color="error" onClick={() => { discardEditCategories() }}>Discard</Button>
+								<Button onClick={() => { saveEditCategories() }}>Save</Button>
+							</>}
 						</div>
 					</div>
 					<div className="Content">
-						<p>The article is listed under these categories:</p>
+						{ !isEditingCategories && <>
+							{article.categories.length === 0 && <p>This article doesn't belong to any category.</p>}
+						</>}
+						{ isEditingCategories && <>
+							<p>Please select one or more categories.</p>
+							<FormGroup className="Options">
+								{ categories.map(category => (
+									<label className="Option" key={category.id}>
+										<Checkbox size="small" value={category.id} checked={editorCategories.includes(category.id)} onChange={handleCategoryChange} />
+										<div className="Text">{category.title}</div>
+									</label>
+								))}
+							</FormGroup>
+						</>}
 					</div>
 				</div>
 

@@ -14,6 +14,9 @@ interface ArticleInterface {
     publishedAt?: Date | null;
     deletedAt?: Date | null;
 	authorId?: number | null;
+	// Category
+	categoryIds?: number[],
+	categories?: any;
 }
 
 export default class ArticleModel {
@@ -32,6 +35,7 @@ export default class ArticleModel {
 				deletedAt: true,
 				authorId: true,
 				photo: true,
+				categories: true,
 			},
 			orderBy: {
 				title: "asc"
@@ -43,14 +47,22 @@ export default class ArticleModel {
 	// Create new article
 	public static async store(data: ArticleInterface) {
 		if (!(await this.slugAvailable(data.slug ? data.slug : ""))) return null;
-		const article = await prisma.article.create({data: {
-			slug: data.slug ? data.slug : "",
-			title: data.title ? data.title : {},
-			content: data.content ? data.content : null,
-			summary: data.summary ? data.summary : "",
-			authorId: data.authorId ? data.authorId : null,
-			photo: data.photo ? data.photo : null,
-		}});
+		const article = await prisma.article.create({
+			data: {
+				slug: data.slug ? data.slug : "",
+				title: data.title ? data.title : {},
+				content: data.content ? data.content : null,
+				summary: data.summary ? data.summary : "",
+				authorId: data.authorId ? data.authorId : null,
+				photo: data.photo ? data.photo : null,
+				categories: {
+					create: data.categoryIds ? data.categoryIds.map(catId => ({ categoryId: catId })) : [],
+				},
+			},
+			include: {
+				categories: true,
+			}
+		});
 		if (article === null) return null;
 		return {
 			id: article.id,
@@ -60,6 +72,7 @@ export default class ArticleModel {
 			summary: article.summary,
 			authorId: article.authorId,
 			photo: article.photo,
+			categories: article.categories,
 		}
 	}
 
@@ -82,6 +95,7 @@ export default class ArticleModel {
 				publishedAt: true,
 				authorId: true,
 				photo: true,
+				categories: true,
 			}
 		});
 		return article;
@@ -105,6 +119,7 @@ export default class ArticleModel {
 				publishedAt: true,
 				authorId: true,
 				photo: true,
+				categories: true,
 			}
 		});
 		return article;
@@ -124,6 +139,7 @@ export default class ArticleModel {
 		if (typeof data.deletedAt !== "undefined") updated["deletedAt"] = data.deletedAt;
 		if (typeof data.authorId !== "undefined") updated["authorId"] = data.authorId;
 		if (typeof data.photo !== "undefined") updated["photo"] = data.photo;
+		if (typeof data.categoryIds !== "undefined") updated["categoryIds"] = data.categoryIds;
 		const article = await prisma.article.update({
 			where: {
 				id: articleId,
@@ -137,7 +153,11 @@ export default class ArticleModel {
 				authorId: updated.authorId ? updated.authorId : undefined,
 				publishedAt: typeof updated.publishedAt !== "undefined" ? updated.publishedAt : undefined,
 				deletedAt: typeof updated.deletedAt !== "undefined" ? updated.deletedAt : undefined,
+				categories: {}
 			},
+			include: {
+				categories: true,
+			}
 		});
 		return article;
 	}

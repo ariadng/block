@@ -223,13 +223,9 @@
 
 			.Content {
 				padding: 1rem;
-
-				p {
-					font-size: 0.875rem;
-					line-height: 1.2;
-					color: #666666;
-				}
-
+				font-size: 0.875rem;
+				line-height: 1.2;
+				
 				.ContentRow {
 					margin-bottom: 1rem;
 					font-size: 0.875rem;
@@ -241,6 +237,42 @@
 						width: 35%;
 						flex-shrink: 0;
 						color: #666666;
+					}
+					
+					.Value {
+						color: #373737;
+					}
+				}
+
+				.Options {
+					border: 1px solid #eaeaea;
+					border-radius: 0.5rem;
+					overflow: hidden;
+				}
+
+				.Option {
+					display: flex;
+					align-items: center;
+					cursor: pointer;
+					transition: all 0.2s ease-out;
+					user-select: none;
+
+					&:not(:last-child) {
+						border-bottom: 1px solid #eaeaea;
+					}
+
+					&:hover {
+						background-color: #f7f7f7;
+					}
+
+					&:active {
+						background-color: #eaeaea;
+						opacity: 0.85;
+					}
+
+					.Text {
+						position: relative;
+						top: 1px;
 					}
 				}
 			}
