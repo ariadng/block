@@ -60,7 +60,11 @@ export default class ArticleModel {
 				},
 			},
 			include: {
-				categories: true,
+				categories: {
+					include: {
+						category: true,
+					}
+				},
 			}
 		});
 		if (article === null) return null;
@@ -95,7 +99,11 @@ export default class ArticleModel {
 				publishedAt: true,
 				authorId: true,
 				photo: true,
-				categories: true,
+				categories: {
+					include: {
+						category: true,
+					}
+				},
 			}
 		});
 		return article;
@@ -119,7 +127,11 @@ export default class ArticleModel {
 				publishedAt: true,
 				authorId: true,
 				photo: true,
-				categories: true,
+				categories: {
+					include: {
+						category: true,
+					}
+				},
 			}
 		});
 		return article;
@@ -128,8 +140,8 @@ export default class ArticleModel {
 	// Update article by id
 	public static async update(id: number | string, data: ArticleInterface): Promise<ArticleInterface|null> {
 		const articleId = (typeof id === "string") ? parseInt(id) : id;
-		const articleExists = (await this.get(articleId)) !== null;
-		if (!articleExists) return null;
+		const oldArticle = await this.get(articleId);
+		if (!oldArticle) return null;
 		let updated: ArticleInterface = {};
 		if (typeof data.slug !== "undefined" && (await this.slugAvailable(data.slug, articleId))) updated["slug"] = data.slug;
 		if (typeof data.title !== "undefined") updated["title"] = data.title;
@@ -139,7 +151,7 @@ export default class ArticleModel {
 		if (typeof data.deletedAt !== "undefined") updated["deletedAt"] = data.deletedAt;
 		if (typeof data.authorId !== "undefined") updated["authorId"] = data.authorId;
 		if (typeof data.photo !== "undefined") updated["photo"] = data.photo;
-		if (typeof data.categoryIds !== "undefined") updated["categoryIds"] = data.categoryIds;
+		updated["categoryIds"] = data.categoryIds ? data.categoryIds : oldArticle.categories.map((cat: any) => cat.id);
 		const article = await prisma.article.update({
 			where: {
 				id: articleId,
@@ -153,10 +165,17 @@ export default class ArticleModel {
 				authorId: updated.authorId ? updated.authorId : undefined,
 				publishedAt: typeof updated.publishedAt !== "undefined" ? updated.publishedAt : undefined,
 				deletedAt: typeof updated.deletedAt !== "undefined" ? updated.deletedAt : undefined,
-				categories: {}
+				categories: {
+					deleteMany: {},
+					create: updated.categoryIds ? updated.categoryIds.map(catId => ({ categoryId: catId })) : [],
+				},
 			},
 			include: {
-				categories: true,
+				categories: {
+					include: {
+						category: true,
+					}
+				},
 			}
 		});
 		return article;

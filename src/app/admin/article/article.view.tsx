@@ -14,8 +14,6 @@ export default function ArticleView () {
 	const [article, setArticle] = useState<any>(null);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	
-	const [isEditingCategories, setIsEditingCategories] = useState<boolean>(true);
-
 	const loadArticle = async () => {
 		setIsLoading(true);
 		const response = await SecuredAPI.get("article/" + articleId);
@@ -45,8 +43,9 @@ export default function ArticleView () {
 	// Categories editor
 	const getCategoryIds = () => {
 		if (!article) return [];
-		return article.categories.map((cat: any) => cat.id);
+		return article.categories.map((cat: any) => cat.category.id);
 	};
+	const [isEditingCategories, setIsEditingCategories] = useState<boolean>(false);
 	const [editorCategories, setEditorCategories] = useState<any[]>(getCategoryIds());
 	const editCategories = () => {
 		setEditorCategories(getCategoryIds());
@@ -56,13 +55,15 @@ export default function ArticleView () {
 		setEditorCategories(getCategoryIds());
 		setIsEditingCategories(false);
 	};
-	const saveEditCategories = () => {
-		setIsEditingCategories(false);
+	const saveEditCategories = async () => {
+		const response = await SecuredAPI.put("article/" + article.id, {
+			categoryIds: editorCategories.filter(cat => typeof cat === "number"),
+		});
+		if (response.status === 200) {
+			setArticle(response.data);
+			setIsEditingCategories(false);
+		}
 	};
-	const isCategoryChecked = (categoryId: number) => {
-		const index = editorCategories.findIndex((cat: any) => cat.id === categoryId);
-		return index >= 0;
-	}
 	const handleCategoryChange = (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
 		const value = parseInt(event.target.value);
 		if (checked) {
@@ -143,6 +144,14 @@ export default function ArticleView () {
 					<div className="Content">
 						{ !isEditingCategories && <>
 							{article.categories.length === 0 && <p>This article doesn't belong to any category.</p>}
+							{article.categories.length > 0 && <>
+								<p>Article belongs to these categories:</p>
+								<ul>
+									{article.categories.map((cat: any) => (
+										<li key={cat.id}>{cat.category.title}</li>
+									))}
+								</ul>
+							</>}
 						</>}
 						{ isEditingCategories && <>
 							<p>Please select one or more categories.</p>

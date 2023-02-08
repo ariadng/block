@@ -86,11 +86,11 @@ router.put('/:articleId', async (req: Request, res: Response) => {
 	});
 
 	// Get request body
-	const { slug, title, content, summary, authorId, photo } = req.body;
+	const { slug, title, content, summary, authorId, photo, categoryIds } = req.body;
 
 	// Update article
 	const article = await ArticleModel.update(articleId, {
-		slug, title, content, summary, authorId, photo
+		slug, title, content, summary, authorId, photo, categoryIds
 	});
 
 	// Failed to update article
