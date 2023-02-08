@@ -4,6 +4,7 @@ import { useMatch } from "@tanstack/react-location";
 import React, { useContext, useEffect, useState } from "react";
 import { AdminContext } from "../admin.context";
 import ReactMarkdown from "react-markdown";
+import { DateTime } from "luxon";
 
 export default function ArticleView () {
 
@@ -35,6 +36,10 @@ export default function ArticleView () {
 		return content[language];
 	}
 
+	const getLastUpdate = () => {
+		return DateTime.fromISO(article.updatedAt).toLocaleString(DateTime.DATETIME_MED)
+	}
+
 	useEffect(() => {
 		loadArticle();
 	}, [articleId])
@@ -61,12 +66,48 @@ export default function ArticleView () {
 				</div>
 			</div>
 			<div className="Sidebar">
+				
 				<div className="SidebarPanel">
-					<div className="Title">Article</div>
+					<div className="Title">
+						<div className="Label">Article</div>
+						<div className="TitleActions">
+							<Button>Edit Content</Button>
+						</div>
+					</div>
 					<div className="Content">
-
+						<div className="ContentRow">
+							<div className="Label">Slug</div>
+							<div className="Value">{article.slug}</div>
+						</div>
+						<div className="ContentRow">
+							<div className="Label">Status</div>
+							<div className="Value">{article.publishedAt ? "Published" : "Draft"}</div>
+						</div>
+						<div className="ContentRow">
+							<div className="Label">Last Update</div>
+							<div className="Value">{getLastUpdate()}</div>
+						</div>
+					</div>
+					<div className="Actions">
+						{ article.publishedAt && <Button variant="outlined" color="error">Archive</Button>}
+						{ article.publishedAt && <Button variant="outlined">Unpublish</Button>}
+						{ !article.publishedAt && <Button variant="outlined" color="error">Delete Draft</Button>}
+						{ !article.publishedAt && <Button variant="contained">Publish</Button>}
 					</div>
 				</div>
+
+				<div className="SidebarPanel">
+					<div className="Title">
+						<div className="Label">Category</div>
+						<div className="TitleActions">
+							<Button>Edit</Button>
+						</div>
+					</div>
+					<div className="Content">
+						<p>The article is listed under these categories:</p>
+					</div>
+				</div>
+
 			</div>
 		</div>
 	);

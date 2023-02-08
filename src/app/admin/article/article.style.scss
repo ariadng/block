@@ -198,10 +198,60 @@
 		border-left: 1px solid #e7e7e7;
 
 		.SidebarPanel {
-			padding: 1rem;
-			font-weight: 600;
-			color: #373737;
-			border-bottom: 1px solid #e7e7e7;
+
+			&:not(:first-child) {
+				border-top: 1px solid #e7e7e7;
+			}
+			
+			.Title {
+				padding: 0 1rem;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				border-bottom: 1px solid #e7e7e7;
+				
+				.Label {
+					padding: 1rem 0;
+					font-weight: 600;
+					color: #373737;
+				}
+
+				.TitleActions {
+					padding: 0.5rem 0;
+				}
+			}
+
+			.Content {
+				padding: 1rem;
+
+				p {
+					font-size: 0.875rem;
+					line-height: 1.2;
+					color: #666666;
+				}
+
+				.ContentRow {
+					margin-bottom: 1rem;
+					font-size: 0.875rem;
+					display: flex;
+					align-items: flex-start;
+					line-height: 1.2;
+					
+					.Label {
+						width: 35%;
+						flex-shrink: 0;
+						color: #666666;
+					}
+				}
+			}
+
+			.Actions {
+				padding: 0 1rem 1rem;
+				display: flex;
+				justify-content: flex-end;
+				gap: 0.5rem;
+			}
+
 		}
 	}
 }
