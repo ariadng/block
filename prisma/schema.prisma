@@ -52,7 +52,7 @@ model Article {
   id          Int         @default(autoincrement()) @id
   slug        String      @unique
   title       String
-  content     Json
+  content     String
   summary     String
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @default(now())
