@@ -8,6 +8,7 @@ interface ArticleInterface {
     title?: string;
     content?: any;
     summary?: string;
+    photo?: string | null;
     createdAt?: Date | null;
     updatedAt?: Date | null;
     publishedAt?: Date | null;
@@ -30,6 +31,7 @@ export default class ArticleModel {
 				publishedAt: true,
 				deletedAt: true,
 				authorId: true,
+				photo: true,
 			},
 			orderBy: {
 				title: "asc"
@@ -47,6 +49,7 @@ export default class ArticleModel {
 			content: data.content ? data.content : "",
 			summary: data.summary ? data.summary : "",
 			authorId: data.authorId ? data.authorId : null,
+			photo: data.photo ? data.photo : null,
 		}});
 		if (article === null) return null;
 		return {
@@ -56,6 +59,7 @@ export default class ArticleModel {
 			content: article.content,
 			summary: article.summary,
 			authorId: article.authorId,
+			photo: article.photo,
 		}
 	}
 
@@ -77,6 +81,7 @@ export default class ArticleModel {
 				deletedAt: true,
 				publishedAt: true,
 				authorId: true,
+				photo: true,
 			}
 		});
 		return article;
@@ -99,6 +104,7 @@ export default class ArticleModel {
 				deletedAt: true,
 				publishedAt: true,
 				authorId: true,
+				photo: true,
 			}
 		});
 		return article;
@@ -117,6 +123,7 @@ export default class ArticleModel {
 		if (typeof data.publishedAt !== "undefined") updated["publishedAt"] = data.publishedAt;
 		if (typeof data.deletedAt !== "undefined") updated["deletedAt"] = data.deletedAt;
 		if (typeof data.authorId !== "undefined") updated["authorId"] = data.authorId;
+		if (typeof data.photo !== "undefined") updated["photo"] = data.photo;
 		const article = await prisma.article.update({
 			where: {
 				id: articleId,
@@ -126,6 +133,7 @@ export default class ArticleModel {
 				title: updated.title ? updated.title : undefined,
 				content: updated.content ? updated.content : undefined,
 				summary: updated.summary ? updated.summary : undefined,
+				photo: updated.photo ? updated.photo : undefined,
 				authorId: updated.authorId ? updated.authorId : undefined,
 				publishedAt: typeof updated.publishedAt !== "undefined" ? updated.publishedAt : undefined,
 				deletedAt: typeof updated.deletedAt !== "undefined" ? updated.deletedAt : undefined,

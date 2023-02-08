@@ -34,11 +34,11 @@ router.post('/', async (req: Request, res: Response) => {
 	});
 
 	// Get request body
-	const { slug, title, content, summary, authorId } = req.body;
+	const { slug, title, content, summary, authorId, photo } = req.body;
 
 	// Create new article
 	const article = await ArticleModel.store({
-		slug, title, content, summary, authorId
+		slug, title, content, summary, authorId, photo
 	});
 
 	// Failed to create new article
@@ -86,11 +86,11 @@ router.put('/:articleId', async (req: Request, res: Response) => {
 	});
 
 	// Get request body
-	const { slug, title, content, summary, authorId } = req.body;
+	const { slug, title, content, summary, authorId, photo } = req.body;
 
 	// Update article
 	const article = await ArticleModel.update(articleId, {
-		slug, title, content, summary, authorId
+		slug, title, content, summary, authorId, photo
 	});
 
 	// Failed to update article
