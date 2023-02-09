@@ -1,10 +1,14 @@
 .Typo {
 	position: relative;
+	padding: 2rem;
+	display: flex;
+	align-items: stretch;
+	gap: 1rem;
 
 	.Placeholder {
 		position: absolute;
-		top: 0;
-		left: 0;
+		top: 2rem;
+		left: 2rem;
 		pointer-events: none;
 		opacity: 0.75;
 	}
@@ -12,8 +16,39 @@
 
 .TypoEditor {
 	min-height: 200px;
+	flex-grow: 1;
+	flex-shrink: 0;
+	flex-basis: 0;
+	min-width: 0;
 
 	&:focus {
 		outline: none;
+	}
+
+	a {
+		color: #0099ff;
+		text-decoration: none;
+	}
+}
+
+.TypoMarkdown {
+	flex-grow: 1;
+	flex-shrink: 0;
+	flex-basis: 0;
+	min-width: 0;
+
+	pre {
+		white-space: pre-wrap;
+	}
+}
+
+.TypoHTML {
+	flex-grow: 1;
+	flex-shrink: 0;
+	flex-basis: 0;
+	min-width: 0;
+
+	pre {
+		white-space: pre-wrap;
 	}
 }

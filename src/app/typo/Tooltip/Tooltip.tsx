@@ -28,7 +28,17 @@ export function Tooltip ({
 			top: top ? top + "px" : 0,
 			left: left ? left + "px" : 0,
 		}}>
-			Tooltip
+			<div className="Group">
+				<button><div className="Icon">format_bold</div></button>
+				<button><div className="Icon">format_italic</div></button>
+			</div>
+			<div className="Group">
+				<button><div className="Icon">format_paragraph</div></button>
+				<button><div className="Icon">title</div></button>
+				<button><div className="Icon">format_list_bulleted</div></button>
+				<button><div className="Icon">format_list_numbered</div></button>
+				<button><div className="Icon">format_quote</div></button>
+			</div>
 		</div>
 	);
 }

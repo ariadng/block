@@ -3,11 +3,13 @@ import AdminLayout from "./admin/admin.layout";
 import ArticleIndex from "./admin/article/article.index";
 import ArticleLayout from "./admin/article/article.layout";
 import ArticleView from "./admin/article/article.view";
+import Editor from "./admin/editor";
 import LoginPage from "./admin/login/login.page";
 import UserCreate from "./admin/user/user.create";
 import UserIndex from "./admin/user/user.index";
 import UserLayout from "./admin/user/user.layout";
 import UserCard from "./admin/user/user.view";
+import { Typo } from "./typo";
 
 const AppRoutes = [
 	{ path: "/", element: "Site" },
@@ -27,6 +29,7 @@ const AppRoutes = [
 		]},
 		{ path: "settings", element: "admin settings" },
 		{ path: "account", element: "admin account" },
+		{ path: "editor", element: <Editor /> },
 	]},
 ]
 

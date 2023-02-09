@@ -47,6 +47,7 @@ h6 {
 	line-height: 1;
 }
 p {
+	min-height: calc(1.68 * 1rem + 1rem);
 	line-height: 1.68;
-	margin-bottom: 1rem;
+	padding-bottom: 1rem;
 }
