@@ -114,13 +114,13 @@
 				outline: none;
 			}
 
-			h1	{ margin-top: 2.34rem; margin-bottom: 2.34rem; font-size: 2.34rem; line-height: 1.34; }
-			h2	{ margin-top: 2.34rem; margin-bottom: 2.34rem; font-size: 2.00rem; line-height: 1.34; }
-			h3	{ margin-top: 2.00rem; margin-bottom: 2.00rem; font-size: 1.68rem; line-height: 1.34; }
-			h4	{ margin-top: 1.68rem; margin-bottom: 1.68rem; font-size: 1.34rem; line-height: 1.34; }
-			h5	{ margin-top: 1.34rem; margin-bottom: 1.34rem; font-size: 1.00rem; line-height: 1.34; }
-			h6	{ margin-top: 1.00rem; margin-bottom: 1.00rem; font-size: 0.88rem; line-height: 1.34; }
-			p	{ margin-top: 0.00rem; margin-bottom: 1.00rem; font-size: 1.00rem; line-height: 2.00; }
+			h1	{ padding-top: 2.34rem; padding-bottom: 2.34rem; font-size: 2.34rem; line-height: 1.34; }
+			h2	{ padding-top: 2.34rem; padding-bottom: 2.34rem; font-size: 2.00rem; line-height: 1.34; }
+			h3	{ padding-top: 2.00rem; padding-bottom: 2.00rem; font-size: 1.68rem; line-height: 1.34; }
+			h4	{ padding-top: 1.68rem; padding-bottom: 1.68rem; font-size: 1.34rem; line-height: 1.34; }
+			h5	{ padding-top: 1.34rem; padding-bottom: 1.34rem; font-size: 1.00rem; line-height: 1.34; }
+			h6	{ padding-top: 1.00rem; padding-bottom: 1.00rem; font-size: 0.88rem; line-height: 1.34; }
+			p	{ padding-top: 0.00rem; padding-bottom: 1.00rem; font-size: 1.00rem; line-height: 2.00; }
 
 			h1, h2, h3, h4, h5, h6, p {
 				&:first-child {
@@ -137,6 +137,16 @@
 
 				&:active {
 					opacity: 0.75;
+				}
+			}
+
+			.ContentImage {
+				margin-bottom: 1rem;
+
+				img {
+					display: block;
+					width: 100%;
+					height: auto;
 				}
 			}
 

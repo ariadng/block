@@ -61,12 +61,23 @@ export default function TypoEditor ({
 		}
 	}
 
+	const updateHTML = (input?: string) => {
+		if (input) {
+			const sanitizedHtml = TypoUtils.sanitizeHTML(input);
+			const markdownString = TypoUtils.htmlToMarkdown(sanitizedHtml);
+			setMarkdown(markdownString);
+		} else {
+			if (!htmlContentEditorRef.current) return;
+			const sanitizedHtml = TypoUtils.sanitizeHTML(htmlContentEditorRef.current.innerHTML);
+			const markdownString = TypoUtils.htmlToMarkdown(sanitizedHtml);
+			setMarkdown(markdownString);
+		}
+	};
+
 	const handleHTMLChange: React.FormEventHandler<HTMLDivElement> = (event) => {
 		if (editorOptions.input === "html") {
 			const unsanitizedHtml = event.currentTarget.innerHTML;
-			const sanitizedHtml = TypoUtils.sanitizeHTML(unsanitizedHtml);
-			const markdownString = TypoUtils.htmlToMarkdown(sanitizedHtml);
-			setMarkdown(markdownString);
+			updateHTML(unsanitizedHtml);
 		}
 	};
 
@@ -74,7 +85,6 @@ export default function TypoEditor ({
 		if (htmlContentEditorRef.current) {
 			const element = TypoUtils.getSelectionParentElement();
 			const parent = htmlContentEditorRef.current.parentElement;
-			console.log(TypoUtils.isSelectionEmptyParagraph(), TypoUtils.getSelectionParentElement()?.innerText)
 			if (parent && htmlContentEditorRef.current.contains(element) && TypoUtils.isSelectionEmptyParagraph()) {
 				const pos = TypoUtils.getSelectionRelativePosition(parent);
 				if (pos) {
@@ -122,7 +132,7 @@ export default function TypoEditor ({
 					<div className="EditorToolbar">
 						<div className="EditorName">HTML</div>
 					</div>
-					<TypoInsert show={showInsert} position={insertPosition} />
+					<TypoInsert show={showInsert} position={insertPosition} onUpdate={() => {updateHTML()}} />
 					<div ref={htmlContentEditorRef} className="ContentEditor" dangerouslySetInnerHTML={{__html: rawHtml}} contentEditable={editorOptions.input === "html"} suppressContentEditableWarning={true} onInput={handleHTMLChange} onKeyDown={handleHTMLKeyDown}></div>
 				</div>
 

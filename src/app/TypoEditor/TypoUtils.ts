@@ -17,10 +17,12 @@ export default class TypoUtils {
 
 	public static sanitizeHTML (input: string): string {
 		const sanitizeConf = {
-			allowedTags: ["b", "i", "a", "p", "h2", "h3", "h4", "h5", "h6", "div"],
+			allowedTags: ["b", "i", "a", "p", "h2", "h3", "h4", "h5", "h6", "div", "img"],
 			allowedAttributes: {
 				p: [ "class", "data-id" ],
-				a: [ "class", "href" ]
+				a: [ "class", "href" ],
+				img: [ "class", "src" ],
+				div: [ "class" ],
 			},
 		};
 		const sanitizedHtml = sanitizeHtml(input, sanitizeConf);
