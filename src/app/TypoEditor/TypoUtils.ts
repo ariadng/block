@@ -55,6 +55,47 @@ export default class TypoUtils {
 		return null;
 	}
 
-	public execCommand () {}
+	public static getSelectionPosition () {
+		const selection = this.getSelection();
+		if (!selection) return null;
+
+		const range = selection.getRangeAt(0);
+		const bounds = range.getBoundingClientRect();
+
+		const top = bounds.top;
+		const left = bounds.left;
+		const width = bounds.width;
+		const height = bounds.height;
+	}
+
+	public static insertElementAfterCursor (element: HTMLElement) {
+		const selection = this.getSelection();
+		if (!selection) return;
+
+		const anchorNode = selection.anchorNode;
+		if (!anchorNode) return;
+
+		const container = (anchorNode.nodeType !== Node.TEXT_NODE && anchorNode.nodeType !== Node.COMMENT_NODE) ? anchorNode as HTMLElement : anchorNode.parentElement;
+		if (!container) return;
+
+		if (container.classList.contains("ContentEditor")) {
+			const parent = container;
+			parent.appendChild(element);
+			return;
+		}
+
+		const parent = container.parentElement;
+		if (!parent) return;
+		
+		parent.insertBefore(element, container.nextSibling);
+		
+		let range = new Range();
+		
+		if (!element.firstChild) return;
+		range.setStart(element.firstChild, 0);
+		range.setEnd(element.firstChild, 0);
+
+		TypoUtils.setSelection(range);
+	}
 
 }

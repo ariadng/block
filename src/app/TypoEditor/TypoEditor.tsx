@@ -20,7 +20,7 @@ export default function TypoEditor ({
 	// Content Data
 
 	const [ markdown, setMarkdown ] = useState<string>(value);
-	const [ rawHtml, setRawHtml ] = useState<string>(TypoUtils.markdownToHTML(value));
+	const [ rawHtml, setRawHtml ] = useState<string>((value !== "") ? TypoUtils.markdownToHTML(value) : "<p></p>");
 	const [ html, setHtml ] = useState<string>(TypoUtils.markdownToHTML(value));
 
 	// Markdown Editing
@@ -48,36 +48,9 @@ export default function TypoEditor ({
 	const handleHTMLKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (event) => {
 		if (event.key === "Enter" && !event.shiftKey) {
 			event.preventDefault();
-			const selection = TypoUtils.getSelection();
-			if (!selection) return;
-
-			const anchorNode = selection.anchorNode;
-			if (!anchorNode) return;
-
-			const container = (anchorNode.nodeType !== Node.TEXT_NODE && anchorNode.nodeType !== Node.COMMENT_NODE) ? anchorNode as HTMLElement : anchorNode.parentElement;
-			if (!container) return;
-
 			const newElement = document.createElement("p");
 			newElement.appendChild(document.createTextNode(""));
-
-			if (container.classList.contains("ContentEditor")) {
-				return;
-			}
-			
-			const parent = container.parentElement;
-			if (!parent) return;
-			
-			parent.insertBefore(newElement, container.nextSibling);
-			
-			let range = new Range();
-			
-			if (!newElement.firstChild) return;
-			range.setStart(newElement.firstChild, 0);
-			range.setEnd(newElement.firstChild, 0);
-
-			TypoUtils.setSelection(range);
-
-			// console.log(selection)
+			TypoUtils.insertElementAfterCursor(newElement);
 		}
 	}
 

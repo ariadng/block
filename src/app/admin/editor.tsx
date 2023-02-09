@@ -5,7 +5,7 @@ import "./editor.scss";
 
 export default function Editor () {
 
-	const [ content, setContent ] = useState<string>("## Test");
+	const [ content, setContent ] = useState<string>("");
 
 	return (
 		<div className="EditorPage">
