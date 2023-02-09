@@ -65,34 +65,41 @@ export default class TypoUtils {
 		const height = bounds.height;
 	}
 
-	public static insertElementAfterCursor (element: HTMLElement) {
+	public static getSelectionElement () : HTMLElement | null {
 		const selection = this.getSelection();
-		if (!selection) return;
-
+		if (!selection) return null;
 		const anchorNode = selection.anchorNode;
-		if (!anchorNode) return;
+		if (!anchorNode) return null;
+		return anchorNode as HTMLElement;
+	}
 
+	public static getSelectionParentElement () : HTMLElement | null {
+		const anchorNode = this.getSelectionElement();
+		if (!anchorNode) return null;
 		const container = (anchorNode.nodeType !== Node.TEXT_NODE && anchorNode.nodeType !== Node.COMMENT_NODE) ? anchorNode as HTMLElement : anchorNode.parentElement;
-		if (!container) return;
+		if (!container) return null;
+		return container as HTMLElement;
+	}
 
-		if (container.classList.contains("ContentEditor")) {
-			const parent = container;
-			parent.appendChild(element);
-			return;
-		}
-
-		const parent = container.parentElement;
-		if (!parent) return;
-		
-		parent.insertBefore(element, container.nextSibling);
-		
+	public static setCursorToElement (element: HTMLElement) {
 		let range = new Range();
-		
 		if (!element.firstChild) return;
 		range.setStart(element.firstChild, 0);
 		range.setEnd(element.firstChild, 0);
-
 		TypoUtils.setSelection(range);
+	}
+
+	public static insertElementAfterCursor (element: HTMLElement) {
+		const container = this.getSelectionParentElement();
+		if (!container) return;
+		if (container.classList.contains("ContentEditor")) {
+			container.appendChild(element);
+			return;
+		}
+		const parent = container.parentElement;
+		if (!parent) return;
+		parent.insertBefore(element, container.nextSibling);
+		this.setCursorToElement(element);
 	}
 
 }
