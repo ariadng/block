@@ -9,7 +9,7 @@ export default function Editor () {
 
 	return (
 		<div className="EditorPage">
-			<TypoEditor value={content} onUpdate={(value) => setContent(value)} />
+			<TypoEditor value={content} onUpdate={(value) => setContent(value)} options={{ input: "html" }} />
 		</div>
 	)
 }
