@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./TypoEditor.scss";
+import TypoInsert from "./TypoInsert";
 import { TypoOptions, TypoOptionsDefault } from "./TypoOptions";
 import TypoUtils from "./TypoUtils";
 
@@ -22,6 +23,12 @@ export default function TypoEditor ({
 	const [ markdown, setMarkdown ] = useState<string>(value);
 	const [ rawHtml, setRawHtml ] = useState<string>((value !== "") ? TypoUtils.markdownToHTML(value) : "<p></p>");
 	const [ html, setHtml ] = useState<string>(TypoUtils.markdownToHTML(value));
+
+	const htmlContentEditorRef = useRef<HTMLDivElement>(null);
+
+	// Insert Tool
+	const [ showInsert, setShowInsert ] = useState<boolean>(false);
+	const [ insertPosition, setInsertPosition ] = useState<{ top: number, left: number }>({ top: 0, left: 0 });
 
 	// Markdown Editing
 
@@ -63,6 +70,34 @@ export default function TypoEditor ({
 		}
 	};
 
+	const handleDocumentSelectionChange = (event: Event) => {
+		if (htmlContentEditorRef.current) {
+			const element = TypoUtils.getSelectionParentElement();
+			const parent = htmlContentEditorRef.current.parentElement;
+			console.log(TypoUtils.isSelectionEmptyParagraph(), TypoUtils.getSelectionParentElement()?.innerText)
+			if (parent && htmlContentEditorRef.current.contains(element) && TypoUtils.isSelectionEmptyParagraph()) {
+				const pos = TypoUtils.getSelectionRelativePosition(parent);
+				if (pos) {
+					setShowInsert(true);
+					setInsertPosition({
+						top: pos.top,
+						left: pos.left,
+					});
+				}
+			} else {
+				setShowInsert(false);
+			}
+		}
+	};
+
+	// Add event listeners
+	useEffect(() => {
+		document.addEventListener("selectionchange", handleDocumentSelectionChange);
+		return () => {
+			document.removeEventListener("selectionchange", handleDocumentSelectionChange);
+		}
+	}, []);
+
 	return (
 		<div className="TypoEditor">
 
@@ -87,7 +122,8 @@ export default function TypoEditor ({
 					<div className="EditorToolbar">
 						<div className="EditorName">HTML</div>
 					</div>
-					<div className="ContentEditor" dangerouslySetInnerHTML={{__html: rawHtml}} contentEditable={editorOptions.input === "html"} suppressContentEditableWarning={true} onInput={handleHTMLChange} onKeyDown={handleHTMLKeyDown}></div>
+					<TypoInsert show={showInsert} position={insertPosition} />
+					<div ref={htmlContentEditorRef} className="ContentEditor" dangerouslySetInnerHTML={{__html: rawHtml}} contentEditable={editorOptions.input === "html"} suppressContentEditableWarning={true} onInput={handleHTMLChange} onKeyDown={handleHTMLKeyDown}></div>
 				</div>
 
 				{/* HTML Preview */}

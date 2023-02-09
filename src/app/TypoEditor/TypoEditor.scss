@@ -1,8 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
+
 :root {
 	--font-sans: "Arial", sans-serif;
 	--font-mono: "Consolas", monospace;
 	--font-serif: "Merriweather", "Georgia", serif;
+	--font-icon: "Material Symbols Outlined";
+}
+
+.Icon {
+	font-family: var(--font-icon);
+	font-weight: normal;
+	font-style: normal;
+	font-size: 24px;
+	line-height: 1;
+	font-variation-settings:
+		'FILL' 1,
+		'wght' 400,
+		'GRAD' 0,
+		'opsz' 24;
 }
 
 .TypoEditor {
@@ -67,6 +83,8 @@
 
 	// Markdown Editor
 	.MarkdownEditor {
+		position: relative;
+		
 		.ContentEditor {
 			width: 100%;
 			height: 100%;
@@ -83,6 +101,8 @@
 
 	// HTML Editor & Preview
 	.HTMLEditor, .HTMLPreview {
+		position: relative;
+		
 		.ContentEditor {
 			width: 100%;
 			height: 100%;

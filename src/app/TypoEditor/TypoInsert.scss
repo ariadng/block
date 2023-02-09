@@ -1,0 +1,48 @@
+.TypoInsert {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 5000;
+	transition: opacity 0.2s;
+
+	&.Invisible {
+		opacity: 0;
+	}
+
+	&.Visible {
+		opacity: 1;
+	}
+
+	.PlusButton {
+		width: 1.25rem;
+		height: 1.25rem;
+		padding: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border: none;
+		color: #ffffff;
+		background-color: #00ac4d;
+		border-radius: 50%;
+		cursor: pointer;
+		transition: all 0.2s;
+		
+		&:hover {
+			background-color: #09c45d;
+		}
+		
+		&:active {
+			opacity: 0.75;
+		}
+
+		.Icon {
+			font-size: 1.25rem;
+		}
+	}
+
+	&.Opened {
+		.PlusButton {
+			transform: rotate(45deg);
+		}
+	}
+}

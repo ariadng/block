@@ -52,17 +52,22 @@ export default class TypoUtils {
 		return null;
 	}
 
-	public static getSelectionPosition () {
-		const selection = this.getSelection();
-		if (!selection) return null;
+	public static getSelectionPosition (): null | { top: number, left: number, width: number, height: number } {
+		const element = this.getSelectionParentElement();
+		if (!element) return null;
+		const bounds = element.getBoundingClientRect();
+		return bounds;
+	}
 
-		const range = selection.getRangeAt(0);
-		const bounds = range.getBoundingClientRect();
-
-		const top = bounds.top;
-		const left = bounds.left;
-		const width = bounds.width;
-		const height = bounds.height;
+	public static getSelectionRelativePosition (reference: HTMLElement) : null | { top: number, left: number, width: number, height: number } {
+		const selectionPosition = this.getSelectionPosition();
+		if (!selectionPosition) return null;
+		const refBounds = reference.getBoundingClientRect();
+		const top = selectionPosition.top - refBounds.top;
+		const left = selectionPosition.left - refBounds.left;
+		const width = selectionPosition.width;
+		const height = selectionPosition.height;
+		return { top, left, width, height };
 	}
 
 	public static getSelectionElement () : HTMLElement | null {
@@ -100,6 +105,16 @@ export default class TypoUtils {
 		if (!parent) return;
 		parent.insertBefore(element, container.nextSibling);
 		this.setCursorToElement(element);
+	}
+
+	public static isSelectionEmptyParagraph (): boolean {
+		const element = this.getSelectionParentElement();
+		if (!element) return false;
+		if (element.tagName.toLowerCase() !== "p") return false;
+		if (element.children.length > 1) return false;
+		if (!element.firstChild) return true;
+		if (element.innerText.trim() === "") return true;
+		return false;
 	}
 
 }
