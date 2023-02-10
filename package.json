@@ -9,9 +9,11 @@
 		"db:migrate": "prisma migrate dev",
 		"db:studio": "prisma studio",
 		"api:dev": "nodemon ./src/index.ts",
+		"api:build": "npx tsc",
 		"app:dev": "webpack-dev-server .",
 		"app:build": "webpack .",
-		"dev": "yarn api:dev & yarn app:dev"
+		"dev": "concurrently \"yarn api:dev\" \"yarn app:dev\"",
+		"build": "yarn api:build && yarn app:build"
 	},
 	"dependencies": {
 		"@emotion/react": "^11.10.5",
@@ -56,13 +58,14 @@
 		"@types/jsonwebtoken": "^9.0.1",
 		"@types/luxon": "^3.2.0",
 		"@types/multer": "^1.4.7",
-		"@types/node": "^18.11.18",
+		"@types/node": "^18.13.0",
 		"@types/sanitize-html": "^2.8.0",
 		"@types/showdown": "^2.0.0",
 		"@types/turndown": "^5.0.1",
 		"@types/uuid": "^9.0.0",
 		"babel-eslint": "^10.1.0",
 		"babel-loader": "^9.1.2",
+		"concurrently": "^7.6.0",
 		"css-loader": "^6.7.3",
 		"dotenv-webpack": "^8.0.1",
 		"nodemon": "^2.0.20",
