@@ -13,7 +13,8 @@
 		"app:dev": "webpack-dev-server .",
 		"app:build": "webpack .",
 		"dev": "concurrently \"yarn api:dev\" \"yarn app:dev\"",
-		"build": "yarn api:build && yarn app:build"
+		"build": "yarn api:build && yarn app:build",
+		"start": "node dist/index.js"
 	},
 	"dependencies": {
 		"@emotion/react": "^11.10.5",

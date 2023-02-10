@@ -1,8 +1,8 @@
 import { Request, Response, Router } from "express";
-import validate from "@/api/utils/validate";
 import { PrismaClient, User } from '@prisma/client'
 import { checkPassword, createSession, getAccessToken, getSessionFromAccessToken, validateAccessToken } from "./auth.utils";
 import { DateTime } from "luxon";
+import validate from "../utils/validate";
 
 const router = Router();
 const prisma = new PrismaClient();

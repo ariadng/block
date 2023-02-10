@@ -16,12 +16,19 @@ function config (app: Express) {
 	// CORS
 	app.use(cors());
 	// Static Files
-	app.use('/static', express.static(path.join(__dirname, '../files')))
+	app.use('/static', express.static(path.join(__dirname, '../files')));
+	app.use(express.static(path.join(__dirname, '../public')));
 }
 
 // * Load routes
 function loadRoutes (app: Express) {
 	app.use('/api', ApiRouter);
+	// Catch all requests that don't match any route
+    app.get("*", (req, res) => {
+		res.sendFile(
+			path.join(__dirname, "../public/index.html")
+		);
+    });
 }
 
 // * Start server
