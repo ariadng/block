@@ -38,7 +38,7 @@ model Session {
 model Page {
   id          Int         @default(autoincrement()) @id
   slug        String      @unique
-  title       String
+  title       Json
   content     Json
   summary     String
   createdAt   DateTime    @default(now())

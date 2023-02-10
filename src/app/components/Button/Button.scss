@@ -1,0 +1,77 @@
+.Button {
+
+	--label-color: #373737;
+	--background-color: #ffffff;
+	--border-color: #d7d7d7;
+
+	--hovered-label-color: #373737;
+	--hovered-background-color: #f7f7f7;
+	--hovered-border-color: #c7c7c7;
+
+	--pressed-label-color: #373737;
+	--pressed-background-color: #eaeaea;
+	--pressed-border-color: #c7c7c7;
+
+	height: 2.5rem;
+	padding: 0 1rem;
+	display: inline-flex;
+	align-items: center;
+	font-weight: 500;
+	font-size: 0.875rem;
+	color: var(--label-color);
+	background-color: var(--background-color);
+	border: 1px solid var(--border-color);
+	cursor: pointer;
+	transition: all 0.2s;
+
+	&:hover {
+		color: var(--hovered-label-color);
+		background-color: var(--hovered-background-color);
+		border: 1px solid var(--hovered-border-color);
+	}
+
+	&:active {
+		opacity: 0.85;
+		color: var(--pressed-label-color);
+		background-color: var(--pressed-background-color);
+		border: 1px solid var(--pressed-border-color);
+	}
+
+	// [ Icons ]
+	.LeadingIcon {
+		position: relative;
+		left: -0.5rem;
+		transition: all 0.2s;
+	}
+	.TrailingIcon {
+		position: relative;
+		right: -0.5rem;
+		transition: all 0.2s;
+	}
+	&.LeadingIconOnly {
+		padding: 0 0.5rem;
+		.LeadingIcon {
+			left: 0;
+		}
+	}
+	&.TrailingIconOnly {
+		padding: 0 0.5rem;
+		.TrailingIcon {
+			right: 0;
+		}
+	}
+
+	// [ Color: Primary ]
+	&.Color_primary {
+		--label-color: #e7e7e7;
+		--background-color: #272727;
+		--border-color: #272727;
+		--hovered-label-color: #e7e7e7;
+		--hovered-background-color: #404040;
+		--hovered-border-color: #404040;
+		--pressed-label-color: #e7e7e7;
+		--pressed-background-color: #404040;
+		--pressed-border-color: #404040;
+	}
+
+}

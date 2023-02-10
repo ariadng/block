@@ -1,0 +1,67 @@
+.PageEditorToolbarContainer {
+	flex-shrink: 0;
+	flex-grow: 0;
+	box-shadow: 0 0 1rem rgba(0,0,0,.1);
+}
+
+.PageEditorToolbar {
+	height: 4rem;
+	padding: 0 0.75rem;
+	display: flex;
+	align-items: center;
+	background: #ffffff;
+
+	.Leading {
+		width: 30%;
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.Center {
+		width: 40%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 0.5rem;
+
+		.Title {
+			font-weight: 600;
+		}
+	}
+
+	.Trailing {
+		width: 30%;
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+}
+
+.PageEditorInsertMenu {
+	height: 0;
+	padding: 0 0.75rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0.5rem;
+	background: #ffffff;
+	border-top: 1px solid #e7e7e7;
+	overflow: hidden;
+	transition: all 0.2s;
+}
+
+// Insert Menu Open
+.InsertMenuOpen {
+	.InsertMenuToggle {
+		.LeadingIcon {
+			transform: rotate(45deg);
+		}
+	}
+	.PageEditorInsertMenu {
+		height: 4rem;
+	}
+}

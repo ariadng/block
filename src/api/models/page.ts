@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 interface PageInterface {
 	id?: number;
     slug?: string;
-    title?: string;
+    title?: any;
     content?: any;
     summary?: string;
     createdAt?: Date | null;
@@ -43,8 +43,8 @@ export default class PageModel {
 		if (!(await this.slugAvailable(data.slug ? data.slug : ""))) return null;
 		const page = await prisma.page.create({data: {
 			slug: data.slug ? data.slug : "",
-			title: data.title ? data.title : "",
-			content: data.content ? data.content : "",
+			title: data.title ? data.title : {},
+			content: data.content ? data.content : {},
 			summary: data.summary ? data.summary : "",
 		}});
 		if (page === null) return null;
