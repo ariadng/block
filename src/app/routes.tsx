@@ -6,6 +6,8 @@ import ArticleLayout from "./admin/article/article.layout";
 import ArticleView from "./admin/article/article.view";
 import Editor from "./admin/editor";
 import LoginPage from "./admin/login/login.page";
+import PageIndex from "./admin/page/page.index";
+import PageLayout from "./admin/page/page.layout";
 import UserCreate from "./admin/user/user.create";
 import UserIndex from "./admin/user/user.index";
 import UserLayout from "./admin/user/user.layout";
@@ -18,7 +20,11 @@ const AppRoutes = [
 	// Admin
 	{ path: "admin", element: <AdminLayout />, children: [
 		{ path: "/", element: <LoginPage /> },
-		{ path: "page", element: "admin page" },
+		{ path: "page", element: <PageLayout />, children: [
+			{ path: "/", element: <PageIndex /> },
+			{ path: "/create", element: <ArticleCreate /> },
+			{ path: "/:articleId", element: <ArticleView /> },
+		]},
 		{ path: "article", element: <ArticleLayout />, children: [
 			{ path: "/", element: <ArticleIndex /> },
 			{ path: "/create", element: <ArticleCreate /> },
