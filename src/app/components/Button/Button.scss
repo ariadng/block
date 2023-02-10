@@ -31,7 +31,6 @@
 	}
 
 	&:active {
-		opacity: 0.85;
 		color: var(--pressed-label-color);
 		background-color: var(--pressed-background-color);
 		border: 1px solid var(--pressed-border-color);
@@ -70,8 +69,26 @@
 		--hovered-background-color: #404040;
 		--hovered-border-color: #404040;
 		--pressed-label-color: #e7e7e7;
-		--pressed-background-color: #404040;
-		--pressed-border-color: #404040;
+		--pressed-background-color: #171717;
+		--pressed-border-color: #171717;
+	}
+
+	// [ Color: Accent ]
+	&.Color_accent {
+		--label-color: #ffffff;
+		--background-color: #880088;
+		--border-color: #880088;
+		--hovered-label-color: #ffffff;
+		--hovered-background-color: #990099;
+		--hovered-border-color: #990099;
+		--pressed-label-color: #ffffff;
+		--pressed-background-color: #730073;
+		--pressed-border-color: #730073;
+	}
+
+	// [ Shape: Pill ]
+	&.Shape_pill {
+		border-radius: 1.25rem;
 	}
 
 }

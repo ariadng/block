@@ -6,7 +6,8 @@ interface Props {
 	label?: string,
 	leadingIcon?: string,
 	trailingIcon?: string,
-	color?: "default" | "primary",
+	color?: "default" | "primary" | "accent",
+	shape?: "default" | "pill",
 	disabled?: boolean,
 	value?: any,
 	className?: string,
@@ -18,6 +19,7 @@ export default function Button ({
 	leadingIcon,
 	trailingIcon,
 	color,
+	shape,
 	disabled,
 	value,
 	className,
@@ -27,6 +29,7 @@ export default function Button ({
 	const getClassName = () : string => {
 		let name: string = "Button";
 		if (color) name += " Color_" + color;
+		if (shape) name += " Shape_" + shape;
 		if (!label && leadingIcon && !trailingIcon) name += " LeadingIconOnly";
 		if (!label && !leadingIcon && trailingIcon) name += " TrailingIconOnly";
 		if (className) name += " " + className;

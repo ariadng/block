@@ -1,0 +1,13 @@
+.View {
+
+	@apply flex;
+	
+	&.Alignment_Layout_Horizontal {
+		flex-direction: row;
+	}
+	
+	&.Alignment_Layout_Vertical {
+		flex-direction: column;
+	}
+
+}

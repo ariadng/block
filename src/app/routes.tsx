@@ -25,7 +25,7 @@ const AppRoutes = [
 		{ path: "page", element: <PageLayout />, children: [
 			{ path: "/", element: <PageIndex /> },
 			{ path: "/create", element: <PageCreate /> },
-			{ path: "/:articleId", element: <PageViewer /> },
+			{ path: "/:pageId", element: <PageViewer /> },
 		]},
 		{ path: "article", element: <ArticleLayout />, children: [
 			{ path: "/", element: <ArticleIndex /> },

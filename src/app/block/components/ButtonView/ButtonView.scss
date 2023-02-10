@@ -1,0 +1,46 @@
+.ButtonView {
+
+	--bg-color: rgb(241, 245, 249);
+	--label-color: rgb(30, 41, 59);
+	--hovered-bg-color: rgb(226, 232, 240);
+	--hovered-label-color: rgb(30, 41, 59);
+	--pressed-bg-color: rgb(203, 213, 225);
+	--pressed-label-color: rgb(30, 41, 59);
+
+	@apply h-14 px-6;
+	@apply flex items-center;
+	background-color: var(--bg-color);
+	transition: all 0.2s;
+
+	.Label {
+		@apply font-bold;
+		color: var(--label-color);
+	}
+
+	&:hover {
+		background-color: var(--hovered-bg-color);
+
+		.Label {
+			color: var(--hovered-label-color);
+		}
+	}
+
+	&:active {
+		background-color: var(--pressed-bg-color);
+
+		.Label {
+			color: var(--pressed-label-color);
+		}
+	}
+
+	// --- Color: Primary
+	&.ColorPrimary {
+		--bg-color: var(--color-primary);
+		--label-color: var(--color-on-primary);
+		--hovered-bg-color: var(--color-primary-lighter);
+		--hovered-label-color: var(--color-on-primary);
+		--pressed-bg-color: var(--color-primary-darker);
+		--pressed-label-color: var(--color-on-primary);
+	}
+
+}
