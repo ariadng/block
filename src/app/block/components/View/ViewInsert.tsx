@@ -7,7 +7,7 @@ export default function ViewInsert () {
 	return (
 		<div className="ViewInsert">
 			<div className="Line"></div>
-			<Button label="Add Section" leadingIcon="add" color="accent" shape="pill"/>
+			<Button label="Section" leadingIcon="add" color="accent" shape="pill"/>
 		</div>
 	);
 

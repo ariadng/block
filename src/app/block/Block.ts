@@ -1,6 +1,7 @@
 import React from "react";
 import { CSSProperties } from "react";
 import { v4 as uuid } from "uuid";
+import ViewInsert from "./components/View/ViewInsert";
 import BlockAlignment, { BlockAlignmentDefault } from "./interfaces/BlockAlignment";
 import BlockAlignmentInterface from "./interfaces/BlockAlignmentInterface";
 import BlockInterface from "./interfaces/BlockInterface";
@@ -218,11 +219,14 @@ export default class Block {
 			style: this.style,
 		};
 
+		
 		// Children.
 		const children: React.ReactNode[] = [];
 		for (let child of this.children) {
 			const childComponent = child.toReactComponent();
-			if (childComponent !== null) children.push(childComponent);
+			if (childComponent !== null) {
+				children.push(childComponent);
+			}
 		}
 		
 		// Return the component.
