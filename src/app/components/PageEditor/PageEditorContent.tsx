@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import Block from "../../block/Block";
+import BlockViewer from "../../block/BlockViewer";
 import "./PageEditorContent.scss";
 
 interface Props {
@@ -10,9 +11,13 @@ export default function PageEditorContent ({
 	content,
 }: Props) {
 
+	const [ editMode, setEditMode ] = useState<boolean>(true);
+
 	return (
 		<div className="PageEditorContent">
-			{content && content.toReactComponent()}		
+			{content && (
+				<BlockViewer block={content} editMode={editMode} />
+			)}		
 		</div>
 	);
 

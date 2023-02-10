@@ -1,4 +1,4 @@
-import React, { Children } from "react";
+import React, { Children, useRef, useState } from "react";
 import Block from "../../Block";
 import BlockContext from "../../BlockContext";
 import { useContext } from "react";
@@ -8,7 +8,7 @@ import ViewInsert from "./ViewInsert";
 
 export default function View (props: ViewProps) {
 
-	const { view } = useContext(BlockContext);
+	const { view, hoveredId, setHoveredId } = useContext(BlockContext);
 
 	// *** Props Management *** //
 	const { tag, alignment, style, children, className, ...otherProps } = props;
@@ -37,9 +37,20 @@ export default function View (props: ViewProps) {
 	const getClassName = () => {
 		let result: string[] = ["View"];
 		if (className) result.push(className);
+		if (hoveredId === props.id) result.push("State_Hovered");
 		result.push(getAlignmentClassName());
 		return result.join(' ');
 	};
+
+	// *** Events *** //
+	const handleMouseOver: React.MouseEventHandler = (event) => {
+		event.stopPropagation();
+		if (props.id) setHoveredId(props.id);
+	}
+	const handleMouseLeave: React.MouseEventHandler = (event) => {
+		event.stopPropagation();
+		if (props.id === hoveredId) setHoveredId(null);
+	}
 
 	// *** JSX Element *** //
 	const getElement = () => {
@@ -50,6 +61,8 @@ export default function View (props: ViewProps) {
 			className: getClassName(),
 			style: getStyle(),
 			children,
+			onMouseOver: handleMouseOver,
+			onMouseLeave: handleMouseLeave,
 			...otherProps,
 		}, [...childrenList]);
 		return element;
