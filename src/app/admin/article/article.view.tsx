@@ -6,6 +6,8 @@ import { AdminContext } from "../admin.context";
 import ReactMarkdown from "react-markdown";
 import { DateTime } from "luxon";
 import { Typo } from "../../typo";
+import TypoEditor from "../../TypoEditor/TypoEditor";
+import TypoUtils from "../../TypoEditor/TypoUtils";
 
 export default function ArticleView () {
 
@@ -230,12 +232,18 @@ export default function ArticleView () {
 				<div className="Content">
 					
 
-					{!isEditingArticle && <div dangerouslySetInnerHTML={{__html: getContent()}}></div>}
+					{!isEditingArticle && <div dangerouslySetInnerHTML={{__html: TypoUtils.markdownToHTML(getContent())}}></div>}
 
 
 					{ isEditingArticle && <>
 						<label className="EditLabel">Content ({language})</label>
-						<Typo value={getEditContent()} onChange={handleEditContentChange} />
+						<TypoEditor value={getEditContent()} onUpdate={handleEditContentChange} options={{
+							input: "html",
+							showToolbar: false,
+							showOtherInput: false,
+							showPreview: false,
+							showEditorToolbar: false,
+						}} />
 					</>}
 				</div>
 			</div>

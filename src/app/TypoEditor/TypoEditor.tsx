@@ -103,7 +103,6 @@ export default function TypoEditor ({
 	};
 
 	const handleDocumentSelectionChange = (event: Event) => {
-		console.log(TypoUtils.getSelection()?.anchorOffset)
 		TypoUtils.setSelectionToEnd()
 		if (htmlContentEditorRef.current) {
 			const element = TypoUtils.getSelectionParentElement();
@@ -138,6 +137,13 @@ export default function TypoEditor ({
 		}
 	}, [htmlContentEditorScrollPercentage.current]);
 
+	useEffect(() => {
+		if (value !== markdown) {
+			setRawHtml(TypoUtils.markdownToHTML(value));
+			setMarkdown(value);
+		}
+	}, [value]);
+
 	// Add event listeners
 	useEffect(() => {
 		document.addEventListener("selectionchange", handleDocumentSelectionChange);
@@ -150,39 +156,39 @@ export default function TypoEditor ({
 		<div className="TypoEditor">
 
 			{/* Toolbar */}
-			<div className="Toolbar">
+			{editorOptions.showToolbar && <div className="Toolbar">
 				<div className="Title">Toolbar</div>
 				<div className="Actions">
 					<button onClick={() => {TypoUtils.setSelectionToEnd()}}>Select</button>
 				</div>
-			</div>
+			</div>}
 
 			{/* Editor */}
 			<div className="Editors">
 				{/* Markdown */}
-				<div className="Editor MarkdownEditor">
-					<div className="EditorToolbar">
+				{(editorOptions.input == "markdown" || editorOptions.showOtherInput) && <div className="Editor MarkdownEditor">
+					{editorOptions.showEditorToolbar && <div className="EditorToolbar">
 						<div className="EditorName">Markdown</div>
-					</div>
+					</div>}
 					<textarea ref={markdownContentEditorRef} className="ContentEditor" value={markdown} onChange={handleMarkdownChange} />
-				</div>
+				</div>}
 				
 				{/* HTML Editor */}
-				<div className="Editor HTMLPreview">
-					<div className="EditorToolbar">
+				{(editorOptions.input == "html" || editorOptions.showOtherInput) && <div className="Editor HTMLPreview">
+					{editorOptions.showEditorToolbar && <div className="EditorToolbar">
 						<div className="EditorName">HTML</div>
-					</div>
+					</div>}
 					<TypoInsert show={showInsert} position={insertPosition} onUpdate={() => {updateHTML()}} />
 					<div ref={htmlContentEditorRef} className="ContentEditor" dangerouslySetInnerHTML={{__html: rawHtml}} contentEditable={editorOptions.input === "html"} suppressContentEditableWarning={true} onInput={handleHTMLChange} onKeyDown={handleHTMLKeyDown} onScroll={handleHTMLScroll}></div>
-				</div>
+				</div>}
 
 				{/* HTML Preview */}
-				<div className="Editor HTMLPreview">
-					<div className="EditorToolbar">
+				{editorOptions.showPreview && <div className="Editor HTMLPreview">
+					{editorOptions.showEditorToolbar && <div className="EditorToolbar">
 						<div className="EditorName">Preview</div>
-					</div>
+					</div>}
 					<div ref={htmlContentPreviewRef} className="ContentEditor" dangerouslySetInnerHTML={{__html: html}}></div>
-				</div>
+				</div>}
 			</div>
 		
 		</div>
