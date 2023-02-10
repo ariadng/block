@@ -38,7 +38,7 @@ export default class ArticleModel {
 				categories: true,
 			},
 			orderBy: {
-				title: "asc"
+				updatedAt: "desc"
 			}
 		});
 		return articles;
