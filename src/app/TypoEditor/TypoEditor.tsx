@@ -103,6 +103,8 @@ export default function TypoEditor ({
 	};
 
 	const handleDocumentSelectionChange = (event: Event) => {
+		console.log(TypoUtils.getSelection()?.anchorOffset)
+		TypoUtils.setSelectionToEnd()
 		if (htmlContentEditorRef.current) {
 			const element = TypoUtils.getSelectionParentElement();
 			const parent = htmlContentEditorRef.current.parentElement;
@@ -150,7 +152,9 @@ export default function TypoEditor ({
 			{/* Toolbar */}
 			<div className="Toolbar">
 				<div className="Title">Toolbar</div>
-				<div className="Actions">Actions</div>
+				<div className="Actions">
+					<button onClick={() => {TypoUtils.setSelectionToEnd()}}>Select</button>
+				</div>
 			</div>
 
 			{/* Editor */}

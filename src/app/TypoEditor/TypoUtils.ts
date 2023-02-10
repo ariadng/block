@@ -17,12 +17,13 @@ export default class TypoUtils {
 
 	public static sanitizeHTML (input: string): string {
 		const sanitizeConf = {
-			allowedTags: ["b", "i", "a", "p", "h2", "h3", "h4", "h5", "h6", "div", "img", "video"],
+			allowedTags: ["b", "i", "a", "p", "h2", "h3", "h4", "h5", "h6", "div", "img", "video", "audio"],
 			allowedAttributes: {
 				p: [ "class", "data-id" ],
 				a: [ "class", "href" ],
 				img: [ "class", "src" ],
 				video: [ "class", "src", "controls" ],
+				audio: [ "class", "src", "controls" ],
 				div: [ "class" ],
 			},
 		};
@@ -53,6 +54,14 @@ export default class TypoUtils {
     		(document as any).getSelection()?.addRange(range);
 		}
 		return null;
+	}
+
+	public static getSelectionCursorPosition () {
+		const selection = this.getSelection();
+		if (!selection) return null;
+
+		const range = selection.getRangeAt(0);
+		return range;
 	}
 
 	public static getSelectionPosition (): null | { top: number, left: number, width: number, height: number } {
@@ -95,6 +104,19 @@ export default class TypoUtils {
 		range.setStart(element.firstChild, 0);
 		range.setEnd(element.firstChild, 0);
 		TypoUtils.setSelection(range);
+	}
+
+	public static setSelectionToEnd () {
+		const element = this.getSelectionElement();
+		if (!element) return;
+		const parent = this.getSelectionParentElement();
+		if (!parent) return;
+		let range = new Range();
+		range.setStart(element, 0);
+		range.setEnd(element, parent.childNodes.length);
+		console.log(parent)
+		console.log(parent.childNodes)
+		// console.log(range.cloneContents())
 	}
 
 	public static insertElementAfterCursor (element: HTMLElement) {

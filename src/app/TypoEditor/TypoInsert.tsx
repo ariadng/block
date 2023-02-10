@@ -22,6 +22,7 @@ export default function TypoInsert ({
 
 	const imageSelector = useRef<HTMLInputElement>(null);
 	const videoSelector = useRef<HTMLInputElement>(null);
+	const audioSelector = useRef<HTMLInputElement>(null);
 
 	const openImageSelector = () => {
 		if (imageSelector.current) {
@@ -94,6 +95,42 @@ export default function TypoInsert ({
 		}
 	};
 
+	const openAudioSelector = () => {
+		if (audioSelector.current) {
+			audioSelector.current.click();
+		}
+	};
+
+	const handleAudioSelector: React.ChangeEventHandler<HTMLInputElement> = async (event) => {
+		if (event.target.files && event.target.files.length > 0) {
+			const file = event.target.files[0];
+			let formData = new FormData();
+			formData.set("file", file);
+			const response = await SecuredAPI.post("file", formData);
+			if (response.status === 200) {
+				const filePath = response.data.path;
+				let elementToReplace = TypoUtils.getSelectionParentElement();
+				if (!elementToReplace) return;
+				let parent = elementToReplace.parentElement;
+				if (!parent) return;
+				let newElement = document.createElement("div");
+				newElement.classList.add("ContentAudio");
+				let contentElement = document.createElement("audio");
+				contentElement.controls = true;
+				contentElement.src = filePath;
+				newElement.appendChild(contentElement);
+				parent.replaceChild(newElement, elementToReplace);
+				const emptyParagraph = document.createElement("p");
+				emptyParagraph.appendChild(document.createTextNode(""));
+				TypoUtils.insertElementAfterCursor(emptyParagraph);
+				if (onUpdate) onUpdate();
+				setIsOpen(false);
+			} else {
+				console.error(response);
+			}
+		}
+	};
+
 	useEffect(() => {
 		if (!show) setIsOpen(false);
 	}, [show])
@@ -106,6 +143,7 @@ export default function TypoInsert ({
 
 			<input ref={imageSelector} onChange={handleImageSelector} type="file" accept="image/*" />
 			<input ref={videoSelector} onChange={handleVideoSelector} type="file" accept="video/*" />
+			<input ref={audioSelector} onChange={handleAudioSelector} type="file" accept="audio/*" />
 
 			<button className="PlusButton" onClick={() => {setIsOpen(!isOpen)}}>
 				<div className="Icon">add</div>
@@ -119,13 +157,9 @@ export default function TypoInsert ({
 					<div className="Icon">play_arrow</div>
 					<div className="Label">Video</div>
 				</div>
-				<div className="button MenuItem">
+				<div className="button MenuItem" onClick={() => { openAudioSelector() }}>
 					<div className="Icon">mic</div>
 					<div className="Label">Audio</div>
-				</div>
-				<div className="button MenuItem">
-					<div className="Icon">data_object</div>
-					<div className="Label">Embed</div>
 				</div>
 			</div>
 		</div>
