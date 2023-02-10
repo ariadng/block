@@ -17,11 +17,12 @@ export default class TypoUtils {
 
 	public static sanitizeHTML (input: string): string {
 		const sanitizeConf = {
-			allowedTags: ["b", "i", "a", "p", "h2", "h3", "h4", "h5", "h6", "div", "img"],
+			allowedTags: ["b", "i", "a", "p", "h2", "h3", "h4", "h5", "h6", "div", "img", "video"],
 			allowedAttributes: {
 				p: [ "class", "data-id" ],
 				a: [ "class", "href" ],
 				img: [ "class", "src" ],
+				video: [ "class", "src", "controls" ],
 				div: [ "class" ],
 			},
 		};
@@ -101,6 +102,7 @@ export default class TypoUtils {
 		if (!container) return;
 		if (container.classList.contains("ContentEditor")) {
 			container.appendChild(element);
+			this.setCursorToElement(element);
 			return;
 		}
 		const parent = container.parentElement;

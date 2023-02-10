@@ -21,6 +21,7 @@ export default function TypoInsert ({
 	const [ isOpen, setIsOpen ] = useState<boolean>(false);
 
 	const imageSelector = useRef<HTMLInputElement>(null);
+	const videoSelector = useRef<HTMLInputElement>(null);
 
 	const openImageSelector = () => {
 		if (imageSelector.current) {
@@ -46,6 +47,45 @@ export default function TypoInsert ({
 				contentElement.src = imagePath;
 				newElement.appendChild(contentElement);
 				parent.replaceChild(newElement, elementToReplace);
+				const emptyParagraph = document.createElement("p");
+				emptyParagraph.appendChild(document.createTextNode(""));
+				TypoUtils.insertElementAfterCursor(emptyParagraph);
+				if (onUpdate) onUpdate();
+				setIsOpen(false);
+			} else {
+				console.error(response);
+			}
+		}
+	};
+
+	const openVideoSelector = () => {
+		if (videoSelector.current) {
+			videoSelector.current.click();
+		}
+	};
+
+	const handleVideoSelector: React.ChangeEventHandler<HTMLInputElement> = async (event) => {
+		if (event.target.files && event.target.files.length > 0) {
+			const file = event.target.files[0];
+			let formData = new FormData();
+			formData.set("file", file);
+			const response = await SecuredAPI.post("file", formData);
+			if (response.status === 200) {
+				const filePath = response.data.path;
+				let elementToReplace = TypoUtils.getSelectionParentElement();
+				if (!elementToReplace) return;
+				let parent = elementToReplace.parentElement;
+				if (!parent) return;
+				let newElement = document.createElement("div");
+				newElement.classList.add("ContentVideo");
+				let contentElement = document.createElement("video");
+				contentElement.controls = true;
+				contentElement.src = filePath;
+				newElement.appendChild(contentElement);
+				parent.replaceChild(newElement, elementToReplace);
+				const emptyParagraph = document.createElement("p");
+				emptyParagraph.appendChild(document.createTextNode(""));
+				TypoUtils.insertElementAfterCursor(emptyParagraph);
 				if (onUpdate) onUpdate();
 				setIsOpen(false);
 			} else {
@@ -65,6 +105,7 @@ export default function TypoInsert ({
 		}}>
 
 			<input ref={imageSelector} onChange={handleImageSelector} type="file" accept="image/*" />
+			<input ref={videoSelector} onChange={handleVideoSelector} type="file" accept="video/*" />
 
 			<button className="PlusButton" onClick={() => {setIsOpen(!isOpen)}}>
 				<div className="Icon">add</div>
@@ -74,7 +115,7 @@ export default function TypoInsert ({
 					<div className="Icon">image</div>
 					<div className="Label">Image</div>
 				</div>
-				<div className="button MenuItem">
+				<div className="button MenuItem" onClick={() => { openVideoSelector() }}>
 					<div className="Icon">play_arrow</div>
 					<div className="Label">Video</div>
 				</div>

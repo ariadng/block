@@ -25,6 +25,11 @@ export default function TypoEditor ({
 	const [ html, setHtml ] = useState<string>(TypoUtils.markdownToHTML(value));
 
 	const htmlContentEditorRef = useRef<HTMLDivElement>(null);
+	const htmlContentEditorScroll = useRef<number>(0);
+	const htmlContentEditorScrollPercentage = useRef<number>(0);
+	
+	const markdownContentEditorRef = useRef<HTMLTextAreaElement>(null);
+	const htmlContentPreviewRef = useRef<HTMLDivElement>(null);
 
 	// Insert Tool
 	const [ showInsert, setShowInsert ] = useState<boolean>(false);
@@ -60,6 +65,22 @@ export default function TypoEditor ({
 			TypoUtils.insertElementAfterCursor(newElement);
 		}
 	}
+
+	const handleHTMLScroll: React.UIEventHandler<HTMLDivElement> = (event) => {
+		if (htmlContentEditorRef.current !== null) {
+			const scrollTop = htmlContentEditorRef.current.scrollTop - htmlContentEditorScroll.current;
+			htmlContentEditorScroll.current = htmlContentEditorRef.current.scrollTop;
+			setInsertPosition({
+				top: insertPosition.top - scrollTop,
+				left: insertPosition.left,
+			});
+
+			const htmlEditorContentHeight = htmlContentEditorRef.current.scrollHeight;
+			const htmlEditorScrollPercentage = htmlContentEditorRef.current.scrollTop / htmlEditorContentHeight;
+			htmlContentEditorScrollPercentage.current = htmlEditorScrollPercentage;
+
+		}
+	};
 
 	const updateHTML = (input?: string) => {
 		if (input) {
@@ -100,6 +121,21 @@ export default function TypoEditor ({
 		}
 	};
 
+	useEffect(() => {
+		if (htmlContentPreviewRef.current !== null) {
+			const height = htmlContentPreviewRef.current.scrollHeight;
+			htmlContentPreviewRef.current.scrollTo({
+				top: height * htmlContentEditorScrollPercentage.current,
+			})
+		}
+		if (markdownContentEditorRef.current !== null) {
+			const height = markdownContentEditorRef.current.scrollHeight;
+			markdownContentEditorRef.current.scrollTo({
+				top: height * htmlContentEditorScrollPercentage.current,
+			})
+		}
+	}, [htmlContentEditorScrollPercentage.current]);
+
 	// Add event listeners
 	useEffect(() => {
 		document.addEventListener("selectionchange", handleDocumentSelectionChange);
@@ -124,7 +160,7 @@ export default function TypoEditor ({
 					<div className="EditorToolbar">
 						<div className="EditorName">Markdown</div>
 					</div>
-					<textarea className="ContentEditor" value={markdown} onChange={handleMarkdownChange} />
+					<textarea ref={markdownContentEditorRef} className="ContentEditor" value={markdown} onChange={handleMarkdownChange} />
 				</div>
 				
 				{/* HTML Editor */}
@@ -133,7 +169,7 @@ export default function TypoEditor ({
 						<div className="EditorName">HTML</div>
 					</div>
 					<TypoInsert show={showInsert} position={insertPosition} onUpdate={() => {updateHTML()}} />
-					<div ref={htmlContentEditorRef} className="ContentEditor" dangerouslySetInnerHTML={{__html: rawHtml}} contentEditable={editorOptions.input === "html"} suppressContentEditableWarning={true} onInput={handleHTMLChange} onKeyDown={handleHTMLKeyDown}></div>
+					<div ref={htmlContentEditorRef} className="ContentEditor" dangerouslySetInnerHTML={{__html: rawHtml}} contentEditable={editorOptions.input === "html"} suppressContentEditableWarning={true} onInput={handleHTMLChange} onKeyDown={handleHTMLKeyDown} onScroll={handleHTMLScroll}></div>
 				</div>
 
 				{/* HTML Preview */}
@@ -141,7 +177,7 @@ export default function TypoEditor ({
 					<div className="EditorToolbar">
 						<div className="EditorName">Preview</div>
 					</div>
-					<div className="ContentEditor" dangerouslySetInnerHTML={{__html: html}}></div>
+					<div ref={htmlContentPreviewRef} className="ContentEditor" dangerouslySetInnerHTML={{__html: html}}></div>
 				</div>
 			</div>
 		
