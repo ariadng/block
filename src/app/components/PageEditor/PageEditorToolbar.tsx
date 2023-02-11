@@ -29,8 +29,10 @@ export default function PageEditorToolbar () {
 					<Button leadingIcon="palette" />
 				</div>
 				<div className="Trailing">
+					<Button leadingIcon="translate" />
+					<Button leadingIcon="devices" />
 					<Button leadingIcon="settings" />
-					<Button label="Update" color="primary" />
+					<Button label="Save" color="primary" />
 				</div>
 			</div>
 
