@@ -1,0 +1,19 @@
+.ListView {
+	display: flex;
+	padding: 0;
+	list-style-position: inside;
+
+	li {
+		display: flex;
+		align-items: center;
+		margin-bottom: 0.5rem;
+
+		&::before {
+			content: "";
+			width: 1rem;
+			height: 1rem;
+			margin-right: 0.5rem;
+			background: url("./icons/bullet.svg");
+		}
+	}
+}

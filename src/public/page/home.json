@@ -194,12 +194,33 @@
 								},
 
 								{
-									"type": "ParagraphView",
+									"type": "ListView",
 									"props": {
-										"text": {
-											"en": "Teu justo porttitor, a auctor diam condimentum. Aliquam ac elit id dui varius posuere.",
-											"id": "Teu justo porttitor, a auctor diam condimentum. Aliquam ac elit id dui varius posuere."
-										}
+										"type": "bulleted",
+										"items": [
+											{
+												"en": "Bus Operator",
+												"id": "Operator Bus"
+											},
+											{
+												"en": "Taxi Service",
+												"id": "Layanan Taksi"
+											},
+											{
+												"en": "Hospital Fleet",
+												"id": "Armada Rumah Sakit"
+											},
+											{
+												"en": "Office Builing",
+												"id": "Gedung Perkantoran"
+											},
+											{
+												"en": "Government Fleet Operation",
+												"id": "Operasional Armada Pemerintahan"
+											}
+
+
+										]
 									}
 								}
 

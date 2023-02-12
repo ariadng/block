@@ -3,6 +3,7 @@ import HeadingView from "../components/HeadingView/HeadingView";
 import HorizontalView from "../components/HorizontalView/HorizontalView";
 import ImageView from "../components/ImageView/ImageView";
 import LayoutView from "../components/LayoutView/LayoutView";
+import ListView from "../components/ListView/ListView";
 import PageView from "../components/PageView/PageView";
 import ParagraphView from "../components/ParagraphView/ParagraphView";
 import SectionView from "../components/SectionView/SectionView";
@@ -23,6 +24,7 @@ const ComponentMap: {[key: string]: any} = {
 	'HeadingView': HeadingView,
 	'TextView': TextView,
 	'ParagraphView': ParagraphView,
+	'ListView': ListView,
 	// Media
 	'ImageView': ImageView,
 	// Button
