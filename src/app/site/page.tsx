@@ -51,10 +51,7 @@ export default function SitePage () {
 	return (
 		<SiteLayout>
 			<div className="SitePage">
-				<p>{page.title['en']}</p>
-				<p>{typeof page.content}</p>
-				<p>{content?.toString()}</p>
-				{/* { block && <BlockViewer block={block} /> } */}
+				{ content && <BlockViewer block={content} /> }
 			</div>
 		</SiteLayout>
 	);

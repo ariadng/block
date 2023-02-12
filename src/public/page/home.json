@@ -27,8 +27,7 @@
 						"default": {
 							"maxWidth": 600
 						}
-					},
-					"children": []
+					}
 				},
 				{
 					"type": "LayoutView",
@@ -54,8 +53,7 @@
 									"id": "Hubungi Tim Ahli Kami"
 								},
 								"color": "Primary"
-							},
-							"children": []
+							}
 						},
 						{
 							"type": "ButtonView",
@@ -66,8 +64,7 @@
 								},
 								"color": "OnPrimary",
 								"variant": "Outlined"
-							},
-							"children": []
+							}
 						}
 					]
 				}
@@ -82,10 +79,340 @@
 					"paddingBottom": 72,
 					"paddingLeft": 100,
 					"paddingRight": 100,
+					"backgroundColor": "#e7e7e7"
+				}
+			},
+			"children": [
+				{
+					"type": "HeadingView",
+					"props": {
+						"level": 6,
+						"text": {
+							"en": "What We Do",
+							"id": "Bisnis Kami"
+						}
+					},
+					"style": {
+						"default": {
+							"marginBottom": 24,
+							"textAlign": "center"
+						}
+					}
+				},
+				{
+					"type": "HeadingView",
+					"props": {
+						"level": 2,
+						"text": {
+							"en": "We enable electric vehicle charging station to connect with public transportation",
+							"id": "Kami menghubungkan layanan transportasi publik dengan stasiun pengisian"
+						}
+					},
+					"style": {
+						"default": {
+							"textAlign": "center"
+						}
+					}
+				}
+			]
+		},
+
+		{
+			"type": "SectionView",
+			"style": {
+				"default": {
+					"paddingTop": 150,
+					"paddingBottom": 150,
+					"paddingLeft": 150,
+					"paddingRight": 150,
 					"backgroundColor": "#f7f7f7"
 				}
 			},
-			"children": []
+			"children": [
+				{
+					"type": "LayoutView",
+					"alignment": {
+						"default": {
+							"layout": "Horizontal",
+							"mainAxis": "Start",
+							"crossAxis": "Stretch"
+						}
+					},
+					"children": [
+						{
+							"type": "HeadingView",
+							"props": {
+								"level": 6,
+								"text": {
+									"en": "Placeholder",
+									"id": "Placeholder"
+								}
+							},
+							"style": {
+								"default": {
+									"width": "50%"
+								}
+							}
+						},
+						{
+							"type": "LayoutView",
+							"style": {
+								"default": {
+									"width": "50%"
+								}
+							},
+							"children": [
+								{
+									"type": "HeadingView",
+									"props": {
+										"level": 6,
+										"text": {
+											"en": "Who Will Use Transisi",
+											"id": "Kami Ada untuk Anda"
+										}
+									},
+									"style": {
+										"default": {
+											"marginBottom": 24
+										}
+									}
+								},
+								{
+									"type": "HeadingView",
+									"props": {
+										"level": 2,
+										"text": {
+											"en": "We Enable Electric Charging Service for the Needs",
+											"id": "Kami Menyediakan Layanan Bagi Stasiun Pengisian Listrik"
+										}
+									},
+									"style": {
+										"default": {
+											"marginBottom": 24
+										}
+									}
+								},
+
+								{
+									"type": "ParagraphView",
+									"props": {
+										"text": {
+											"en": "Teu justo porttitor, a auctor diam condimentum. Aliquam ac elit id dui varius posuere.",
+											"id": "Teu justo porttitor, a auctor diam condimentum. Aliquam ac elit id dui varius posuere."
+										}
+									},
+									"style": {
+										"default": {
+											"marginBottom": 16
+										}
+									}
+								},
+
+								{
+									"type": "ParagraphView",
+									"props": {
+										"text": {
+											"en": "Teu justo porttitor, a auctor diam condimentum. Aliquam ac elit id dui varius posuere.",
+											"id": "Teu justo porttitor, a auctor diam condimentum. Aliquam ac elit id dui varius posuere."
+										}
+									}
+								}
+
+							]
+						}
+					]
+				}
+			]
+		},
+
+		{
+			"type": "SectionView",
+			"alignment": {
+				"default": {
+					"layout": "Vertical",
+					"crossAxis": "Center"
+				}
+			},
+			"style": {
+				"default": {
+					"paddingTop": 100,
+					"paddingBottom": 100,
+					"paddingLeft": 100,
+					"paddingRight": 100,
+					"backgroundColor": "#474747"
+				}
+			},
+			"children": [
+
+				{
+					"type": "HeadingView",
+					"props": {
+						"level": 2,
+						"text": {
+							"en": "Come and Join Us!",
+							"id": "Ayo Bergabung Bersama Kami!"
+						}
+					},
+					"style": {
+						"default": {
+							"marginBottom": 24,
+							"color": "#ffffff"
+						}
+					}
+				},
+				{
+					"type": "ParagraphView",
+					"props": {
+						"text": {
+							"en": "To make sure we achieve our goal we will need a lot of resources. Interested to be part of our journey?",
+							"id": "Untuk memastikan kita mencapai tujuan kita, kita akan membutuhkan banyak sumber daya. Tertarik untuk menjadi bagian dari perjalanan kami?"
+						}
+					},
+					"style": {
+						"default": {
+							"marginBottom": 24,
+							"color": "#ffffff",
+							"opacity": 0.75
+						}
+					}
+				},
+				{
+					"type": "LayoutView",
+					"alignment": {
+						"default": {
+							"layout": "Horizontal"
+						}
+					},
+					"children": [
+						{
+							"type": "ButtonView",
+							"props": {
+								"label": {
+									"en": "Talk to Our Expert",
+									"id": "Hubungi Tim Ahli Kami"
+								},
+								"color": "Accent"
+							}
+						}
+					]
+				}
+
+			]
+		},
+
+		{
+			"type": "SectionView",
+			"alignment": {
+				"default": {
+					"layout": "Vertical",
+					"crossAxis": "Center"
+				}
+			},
+			"style": {
+				"default": {
+					"paddingTop": 100,
+					"paddingBottom": 100,
+					"paddingLeft": 100,
+					"paddingRight": 100,
+					"backgroundColor": "#303030"
+				}
+			},
+			"children": [
+
+				{
+					"type": "HeadingView",
+					"props": {
+						"level": 2,
+						"text": {
+							"en": "Transisi Journey for the Past Few Years",
+							"id": "Perjalanan Transisi Beberapa Tahun Terakhir"
+						}
+					},
+					"style": {
+						"default": {
+							"marginBottom": 24,
+							"color": "#ffffff"
+						}
+					}
+				}
+
+			]
+		},
+
+		{
+			"type": "SectionView",
+			"alignment": {
+				"default": {
+					"layout": "Vertical",
+					"crossAxis": "Center"
+				}
+			},
+			"style": {
+				"default": {
+					"paddingTop": 100,
+					"paddingBottom": 100,
+					"paddingLeft": 100,
+					"paddingRight": 100,
+					"backgroundColor": "#ffffff"
+				}
+			},
+			"children": [
+
+				{
+					"type": "HeadingView",
+					"props": {
+						"level": 2,
+						"text": {
+							"en": "Our Transisi Dashboard",
+							"id": "Dahsboard Transisi"
+						}
+					},
+					"style": {
+						"default": {
+							"marginBottom": 24
+						}
+					}
+				}
+
+			]
+		},
+
+		{
+			"type": "SectionView",
+			"alignment": {
+				"default": {
+					"layout": "Vertical",
+					"crossAxis": "Center"
+				}
+			},
+			"style": {
+				"default": {
+					"paddingTop": 100,
+					"paddingBottom": 100,
+					"paddingLeft": 100,
+					"paddingRight": 100,
+					"backgroundColor": "#ffffff"
+				}
+			},
+			"children": [
+
+				{
+					"type": "HeadingView",
+					"props": {
+						"level": 2,
+						"text": { 
+							"en": "Become Our Partner",
+							"id": "Menjadi Partner Kami"
+						}
+					},
+					"style": {
+						"default": {
+							"marginBottom": 24
+						}
+					}
+				}
+
+			]
 		}
 
 	]
