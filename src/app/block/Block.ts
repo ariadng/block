@@ -237,6 +237,27 @@ export default class Block {
 
 	// *** [ Static Utilities ] *** //
 
+	// --- Merge styles.
+	public static mergeStyles (...styles: BlockStyle[]) {
+		let mergedStyle: BlockStyle = {
+			default: {},
+			mobile: {},
+			tablet: {},
+			desktop: {},
+			ultrawide: {},
+		};
+
+		for (let style of styles) {
+			if (style.default) mergedStyle.default = { ...mergedStyle.default, ...style.default };
+			if (style.mobile) mergedStyle.mobile = { ...mergedStyle.mobile, ...style.mobile };
+			if (style.tablet) mergedStyle.tablet = { ...mergedStyle.tablet, ...style.tablet };
+			if (style.desktop) mergedStyle.desktop = { ...mergedStyle.desktop, ...style.desktop };
+			if (style.ultrawide) mergedStyle.ultrawide = { ...mergedStyle.ultrawide, ...style.ultrawide };
+		}
+
+		return mergedStyle;
+	}
+
 	// --- Get alignment.
 	public static getAlignment (blockAlignment: BlockAlignment, view: BlockView = BlockView.Default): BlockAlignmentInterface {
 		// Default

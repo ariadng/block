@@ -20,7 +20,11 @@ export default function PageEditor ({
 		const response = await SecuredAPI.get("page/" + pageId);
 		if (response.status === 200) {
 			setPage(response.data);
-			setContent(new Block(response.data.content));
+			const contentObject = Block.objectToBlockInterface(response.data.content);
+			if (contentObject === null) return;
+			const contentBlock = new Block(contentObject);
+			if (contentBlock === null) return;
+			setContent(contentBlock);
 		}
 	};
 

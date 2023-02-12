@@ -17,8 +17,7 @@ import UserCard from "./admin/user/user.view";
 import SitePage from "./site/page";
 
 const AppRoutes = [
-	{ path: "/", element: <SitePage /> },
-	{ path: "/:slug", element: <SitePage /> },
+	
 	
 	// Admin
 	{ path: "admin", element: <AdminLayout />, children: [
@@ -42,6 +41,10 @@ const AppRoutes = [
 		{ path: "account", element: "admin account" },
 		{ path: "editor", element: <Editor /> },
 	]},
+
+	// Site
+	{ path: "/", element: <SitePage /> },
+	{ path: "/:slug", element: <SitePage /> },
 ]
 
 export default AppRoutes;
