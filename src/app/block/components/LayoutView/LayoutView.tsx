@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
+import BlockContext from "../../BlockContext";
 import View from "../View/View";
 import ViewProps from "../View/ViewProps";
 import "./LayoutView.scss";
+import LayoutViewProps from "./LayoutViewProps";
 
-export default function LayoutView (props: ViewProps) {
+export default function LayoutView (props: LayoutViewProps) {
+
+	const { view } = useContext(BlockContext);
 
 	// *** Props Management *** //
 	const { className, ...otherProps } = props;

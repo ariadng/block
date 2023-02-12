@@ -1,33 +1,6 @@
 .View {
 
 	display: flex;
-	
-	&.Alignment_Layout_Horizontal {
-		flex-direction: row;
-	}
-	
-	&.Alignment_Layout_Vertical {
-		flex-direction: column;
-	}
-
-	&.Alignment_MainAxis_Start {
-		justify-content: flex-start;
-	}
-
-	&.Alignment_CrossAxis_Start {
-		align-items: flex-start;
-	}
-
-	&.Alignment_CrossAxis_Center {
-		align-items: center;
-	}
-
-	&.Alignment_CrossAxis_End {
-		align-items: flex-end;
-	}
-
-	&.Alignment_CrossAxis_Stretch {
-		align-items: stretch;
-	}
+	flex-direction: column;
 
 }

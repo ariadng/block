@@ -13,23 +13,10 @@ export default function View (props: ViewProps) {
 	// *** Props Management *** //
 	const { tag, alignment, style, children, className, ...otherProps } = props;
 
-	// *** Alignment *** //
-	const getAlignmentClassName = () => {
-		if (!alignment) return "";
-		const alignmentObject = Block.getAlignment(alignment, view);
-		let alignmentClassName: string[] = [];
-		alignmentClassName.push("Alignment_Layout_" + alignmentObject.layout);
-		alignmentClassName.push("Alignment_MainAxis_" + alignmentObject.mainAxis);
-		alignmentClassName.push("Alignment_CrossAxis_" + alignmentObject.crossAxis);
-		return alignmentClassName.join(' ');
-	};
-
-	getAlignmentClassName();
-
 	// *** Style *** //
 	const getStyle = () => {
 		if (!style) return {};
-		const styleObject = Block.getStyle(style, view);
+		const styleObject = Block.getStyle(style, alignment, view);
 		return styleObject;
 	};
 
@@ -38,7 +25,6 @@ export default function View (props: ViewProps) {
 		let result: string[] = ["View"];
 		if (className) result.push(className);
 		if (hoveredId === props.id) result.push("State_Hovered");
-		result.push(getAlignmentClassName());
 		return result.join(' ');
 	};
 

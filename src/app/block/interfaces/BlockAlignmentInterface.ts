@@ -1,11 +1,13 @@
 export default interface BlockAlignmentInterface {
-	layout: "Horizontal" | "Vertical" | "Grid",
-	mainAxis: "Start" | "Center" | "End" | "Stretch",
-	crossAxis: "Start" | "Center" | "End" | "Stretch",
+	layout: "Horizontal" | "Vertical" | "Grid" | "Default",
+	mainAxis: "Start" | "Center" | "End" | "Stretch" | "Default",
+	crossAxis: "Start" | "Center" | "End" | "Stretch" | "Default",
+	gap: number,
 }
 
 export const BlockAlignmentInterfaceDefault: BlockAlignmentInterface = {
-	layout: "Vertical",
-	mainAxis: "Start",
-	crossAxis: "Stretch",
+	layout: "Default",
+	mainAxis: "Default",
+	crossAxis: "Default",
+	gap: 0,
 }

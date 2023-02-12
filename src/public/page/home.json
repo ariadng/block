@@ -130,37 +130,21 @@
 			},
 			"children": [
 				{
-					"type": "LayoutView",
+					"type": "HorizontalView",
 					"alignment": {
 						"default": {
-							"layout": "Horizontal",
-							"mainAxis": "Start",
-							"crossAxis": "Stretch"
+							"gap": 32
 						}
 					},
 					"children": [
 						{
-							"type": "HeadingView",
+							"type": "ImageView",
 							"props": {
-								"level": 6,
-								"text": {
-									"en": "Placeholder",
-									"id": "Placeholder"
-								}
-							},
-							"style": {
-								"default": {
-									"width": "50%"
-								}
+								"src": "https://digitalassets-shop.tesla.com/image/upload/f_auto,q_auto/v1/content/dam/tesla/teslaweb/homepage/Wall_Connector_banner_web.jpg"
 							}
 						},
 						{
 							"type": "LayoutView",
-							"style": {
-								"default": {
-									"width": "50%"
-								}
-							},
 							"children": [
 								{
 									"type": "HeadingView",

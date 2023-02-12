@@ -78,7 +78,8 @@ export default class Block {
 
 	// --- Get style.
 	public getStyle (view: BlockView = BlockView.Default): CSSProperties {
-		return Block.getStyle(this.style, view);
+		let style = Block.getStyle(this.style, this.alignment, view);
+		return style;
 	}
 
 	// *** [ Children Block ] *** //
@@ -256,7 +257,7 @@ export default class Block {
 	}
 
 	// --- Get style.
-	public static getStyle (blockStyle: BlockStyle, view: BlockView = BlockView.Default): CSSProperties {
+	public static getStyle (blockStyle: BlockStyle, blockAlignment?: BlockAlignment, view: BlockView = BlockView.Default): CSSProperties {
 		// Default
 		let style = blockStyle[BlockView.Default];
 		if (view === BlockView.Default) return style;
@@ -271,7 +272,30 @@ export default class Block {
 		if (view === BlockView.Desktop) return style;
 		// Ultrawide
 		style = { ...style, ...blockStyle[BlockView.Ultrawide] };
-		return style;
+
+		// Add style from alignment
+		let styleFromAlignment: CSSProperties = {};
+		
+		if (blockAlignment) {
+			const alignment = Block.getAlignment(blockAlignment, view);
+			// Flex Direction (Layout)
+			if (alignment.layout === "Vertical") styleFromAlignment.flexDirection = "column";
+			else if (alignment.layout === "Horizontal") styleFromAlignment.flexDirection = "row";
+			// Justify Content (Main Axis)
+			if (alignment.mainAxis === "Start") styleFromAlignment.justifyContent = "flex-start";
+			else if (alignment.mainAxis === "End") styleFromAlignment.justifyContent = "flex-end";
+			else if (alignment.mainAxis === "Center") styleFromAlignment.justifyContent = "center";
+			else if (alignment.mainAxis === "Stretch") styleFromAlignment.justifyContent = "stretch";
+			// Align Items (Cross Axis)
+			if (alignment.crossAxis === "Start") styleFromAlignment.alignItems = "flex-start";
+			else if (alignment.crossAxis === "End") styleFromAlignment.alignItems = "flex-end";
+			else if (alignment.crossAxis === "Center") styleFromAlignment.alignItems = "center";
+			else if (alignment.crossAxis === "Stretch") styleFromAlignment.alignItems = "stretch";
+			// Gap
+			if (alignment.gap) styleFromAlignment.gap = alignment.gap;
+		}
+
+		return { ...styleFromAlignment, ...style };
 	}
 
 	// *** [ Static Type Conversion ] *** //
