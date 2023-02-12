@@ -1,6 +1,6 @@
 .View {
 
-	@apply flex;
+	display: flex;
 	
 	&.Alignment_Layout_Horizontal {
 		flex-direction: row;

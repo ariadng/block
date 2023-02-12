@@ -8,12 +8,13 @@ import ButtonViewProps from "./ButtonViewProps";
 export default function ButtonView (props: ButtonViewProps) {
 
 	// *** Props Management *** //
-	const { label, color, className, alignment, ...otherProps } = props;
+	const { label, color, variant, className, alignment, ...otherProps } = props;
 
 	// *** CSS Classes *** //
 	const getClassName = () => {
 		let result: string[] = ["ButtonView"];
 		result.push("Color" + (color ? color : "Default"));
+		result.push("Variant" + (variant ? variant : "Default"));
 		return result.join(' ');
 	};
 	

@@ -1,24 +1,32 @@
 .ButtonView {
 
-	--bg-color: rgb(241, 245, 249);
-	--label-color: rgb(30, 41, 59);
-	--hovered-bg-color: rgb(226, 232, 240);
-	--hovered-label-color: rgb(30, 41, 59);
-	--pressed-bg-color: rgb(203, 213, 225);
-	--pressed-label-color: rgb(30, 41, 59);
+	--bg-color: #f1f5f9;
+	--border-color: #f1f5f9;
+	--label-color: #1e293b;
+	--hovered-bg-color: #e2e8f0;
+	--hovered-border-color: #e2e8f0;
+	--hovered-label-color: #1e293b;
+	--pressed-bg-color: #bfc8d2;
+	--pressed-border-color: #bfc8d2;
+	--pressed-label-color: #1e293b;
 
-	@apply h-14 px-6;
-	@apply flex items-center;
+	height: 3rem;
+	padding: 0 1rem;
+	align-items: center;
 	background-color: var(--bg-color);
+	border: 1px solid var(--border-color);
 	transition: all 0.2s;
+	cursor: pointer;
 
 	.Label {
-		@apply font-bold;
+		font-weight: 600;
+		font-size: 1rem;
 		color: var(--label-color);
 	}
 
 	&:hover {
 		background-color: var(--hovered-bg-color);
+		border-color: var(--hovered-border-color);
 
 		.Label {
 			color: var(--hovered-label-color);
@@ -27,6 +35,7 @@
 
 	&:active {
 		background-color: var(--pressed-bg-color);
+		border-color: var(--pressed-border-color);
 
 		.Label {
 			color: var(--pressed-label-color);
@@ -36,11 +45,33 @@
 	// --- Color: Primary
 	&.ColorPrimary {
 		--bg-color: var(--color-primary);
+		--border-color: var(--color-primary);
 		--label-color: var(--color-on-primary);
 		--hovered-bg-color: var(--color-primary-lighter);
+		--hovered-border-color: var(--color-primary-lighter);
 		--hovered-label-color: var(--color-on-primary);
 		--pressed-bg-color: var(--color-primary-darker);
+		--pressed-border-color: var(--color-primary-darker);
 		--pressed-label-color: var(--color-on-primary);
+	}
+
+	// --- Color: OnPrimary
+	&.ColorOnPrimary {
+		--bg-color: var(--color-on-primary);
+		--border-color: var(--color-on-primary);
+		// --label-color: var(--color-primary);
+		--hovered-bg-color: var(--color-on-primary-lighter);
+		--hovered-border-color: var(--color-on-primary-lighter);
+		// --hovered-label-color: var(--color-primary);
+		--pressed-bg-color: var(--color-on-primary-darker);
+		--pressed-border-color: var(--color-on-primary-darker);
+		// --pressed-label-color: var(--color-primary);
+	}
+
+	// --- Variant: Outlined
+	&.VariantOutlined {
+		--bg-color: transparent;
+		--label-color: var(--border-color);
 	}
 
 }

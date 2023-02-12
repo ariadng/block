@@ -14,10 +14,11 @@ import UserCreate from "./admin/user/user.create";
 import UserIndex from "./admin/user/user.index";
 import UserLayout from "./admin/user/user.layout";
 import UserCard from "./admin/user/user.view";
-import { Typo } from "./typo";
+import SitePage from "./site/page";
 
 const AppRoutes = [
-	{ path: "/", element: "Site" },
+	{ path: "/", element: <SitePage /> },
+	{ path: "/:slug", element: <SitePage /> },
 	
 	// Admin
 	{ path: "admin", element: <AdminLayout />, children: [

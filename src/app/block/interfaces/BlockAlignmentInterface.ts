@@ -7,5 +7,5 @@ export default interface BlockAlignmentInterface {
 export const BlockAlignmentInterfaceDefault: BlockAlignmentInterface = {
 	layout: "Vertical",
 	mainAxis: "Start",
-	crossAxis: "Start",
+	crossAxis: "Stretch",
 }
