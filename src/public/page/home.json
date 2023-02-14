@@ -534,9 +534,44 @@
 					},
 					"style": {
 						"default": {
-							"marginBottom": 24
+							"marginBottom": 72
 						}
 					}
+				},
+
+				{
+					"type": "StepsView",
+					"style": {
+						"default": {
+							"maxWidth": 900
+						}
+					},
+					"props": {
+						"steps": [
+							{
+								"image": "/icons/connect.svg",
+								"text": {
+									"en": "Connect with our Expert Team",
+									"id": "Hubungi Tim Ahli Kami"
+								}
+							},
+							{
+								"image": "/icons/know.svg",
+								"text": {
+									"en": "Get to Know Our Product",
+									"id": "Pelajari Produk Kami"
+								}
+							},
+							{
+								"image": "/icons/join.svg",
+								"text": {
+									"en": "Join the Journey of Transisi",
+									"id": "Bergabung dalam Perjalanan Kami"
+								}
+							}
+						]
+					}
+
 				}
 
 			]
