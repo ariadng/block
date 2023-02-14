@@ -48,6 +48,12 @@ model Page {
   photo       String?
 }
 
+model CustomComponent {
+  slug        String      @unique
+  name        String
+  content     Json
+}
+
 model Article {
   id          Int         @default(autoincrement()) @id
   slug        String      @unique
