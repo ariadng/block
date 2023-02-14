@@ -1,11 +1,22 @@
 export default interface BlockBackgroundInterface {
 	type: "solid" | "linear" | "radial" | "image",
 	// Type: Solid
-	fillColor?: "string",
+	color?: "string",
 	// Type: Image
 	imageUrl?: "string",
-	imageSize?: "cover" | {
-		width?: string | number,
-		height?: string | number,
-	}
+	imageSize?: "cover" | "contain" | {
+		width?: number,
+		height?: number,
+	},
+	position?: {
+		x?: number,
+		y?: number,
+	},
+	// Type: Gradient (linear, radial)
+	gradientAngle?: number,
+	gradientStops?: {
+		position: number,
+		color: string,
+		opacity?: number,
+	}[],
 }

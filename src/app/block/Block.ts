@@ -337,9 +337,9 @@ export default class Block {
 		}
 
 		// Style from "background" props.
-		// const backgroundStyle = BlockBackground.convertToStyle(blockBackgrounds); 
+		const backgroundStyle = BlockBackground.convertToStyle(blockBackgrounds); 
 		
-		return { ...styleFromAlignment, ...style };
+		return { ...styleFromAlignment, ...backgroundStyle, ...style };
 	}
 
 	// *** [ Static Type Conversion ] *** //

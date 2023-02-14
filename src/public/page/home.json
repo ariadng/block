@@ -3,14 +3,43 @@
 	"children": [
 		{
 			"type": "SectionView",
+			"backgrounds": [
+				{
+					"type": "image",
+					"imageUrl": "/images/home-pattern.svg",
+					"position": {
+						"x": 0,
+						"y": 0
+					},
+					"imageSize": {
+						"width": 343,
+						"height": 414
+					}
+				},
+				{
+					"type": "linear",
+					"gradientStops": [
+						{ "color": "#000000", "opacity": 0.8 },
+						{ "color": "#000000", "opacity": 0.4 }
+					]
+				},
+				{
+					"type": "image",
+					"imageUrl": "/images/home-bg.jpg",
+					"imageSize": "cover"
+				},
+				{
+					"type": "solid",
+					"color": "#272727"
+				}
+			],
 			"style": {
 				"default": {
-					"paddingTop": 176,
+					"paddingTop": 256,
 					"paddingBottom": 176,
 					"paddingLeft": 100,
 					"paddingRight": 100,
-					"color": "#ffffff",
-					"backgroundColor": "#171717"
+					"color": "#ffffff"
 				}
 			},
 			"children": [
@@ -121,13 +150,38 @@
 
 		{
 			"type": "SectionView",
+			"backgrounds": [
+				{
+					"type": "image",
+					"imageUrl": "/images/home-market-bg.svg",
+					"position": {
+						"x": 85,
+						"y": 85
+					},
+					"imageSize": {
+						"width": 400
+					}
+				},
+				{
+					"type": "linear",
+					"gradientStops": [
+						{
+							"color": "#F8F8FC",
+							"opacity": 0
+						},
+						{
+							"color": "#F8F8FC",
+							"opacity": 1
+						}
+					]
+				}
+			],
 			"style": {
 				"default": {
 					"paddingTop": 150,
 					"paddingBottom": 150,
 					"paddingLeft": 150,
-					"paddingRight": 150,
-					"backgroundColor": "#f7f7f7"
+					"paddingRight": 150
 				}
 			},
 			"children": [
@@ -142,12 +196,21 @@
 						{
 							"type": "ImageView",
 							"props": {
-								"height": 400,
-								"src": "https://digitalassets-shop.tesla.com/image/upload/f_auto,q_auto/v1/content/dam/tesla/teslaweb/homepage/Wall_Connector_banner_web.jpg"
+								"src": "/images/home-market-photo.jpg"
+							},
+							"style": {
+								"default": {
+									"width": "50%"
+								}
 							}
 						},
 						{
 							"type": "LayoutView",
+							"style": {
+								"default": {
+									"width": "50%"
+								}
+							},
 							"children": [
 								{
 									"type": "HeadingView",
@@ -160,7 +223,8 @@
 									},
 									"style": {
 										"default": {
-											"marginBottom": 24
+											"marginBottom": 24,
+											"color": "#000A6C"
 										}
 									}
 								},
@@ -175,7 +239,8 @@
 									},
 									"style": {
 										"default": {
-											"marginBottom": 24
+											"marginBottom": 24,
+											"color": "#000644"
 										}
 									}
 								},
@@ -190,13 +255,20 @@
 									},
 									"style": {
 										"default": {
-											"marginBottom": 16
+											"marginBottom": 16,
+											"color": "#000644"
 										}
 									}
 								},
 
 								{
 									"type": "ListView",
+									"style": {
+										"default": {
+											"color": "#000A6C",
+											"fontWeight": "500"
+										}
+									},
 									"props": {
 										"type": "bulleted",
 										"items": [
@@ -241,13 +313,32 @@
 					"crossAxis": "Center"
 				}
 			},
+			"backgrounds": [
+				{
+					"type": "linear",
+					"gradientStops": [
+						{
+							"color": "#000A6C",
+							"opacity": 0.5
+						},
+						{
+							"color": "#000A6C",
+							"opacity": 0.5
+						}
+					]
+				},
+				{
+					"type": "image",
+					"imageUrl": "/images/home-join-photo.jpg",
+					"imageSize": "cover"
+				}
+			],
 			"style": {
 				"default": {
-					"paddingTop": 100,
+					"paddingTop": 300,
 					"paddingBottom": 100,
 					"paddingLeft": 100,
-					"paddingRight": 100,
-					"backgroundColor": "#474747"
+					"paddingRight": 100
 				}
 			},
 			"children": [
@@ -316,13 +407,18 @@
 					"crossAxis": "Center"
 				}
 			},
+			"backgrounds": [
+				{
+					"type": "solid",
+					"color": "#000860"
+				}
+			],
 			"style": {
 				"default": {
 					"paddingTop": 150,
 					"paddingBottom": 150,
 					"paddingLeft": 100,
-					"paddingRight": 100,
-					"backgroundColor": "#303030"
+					"paddingRight": 100
 				}
 			},
 			"children": [
@@ -428,6 +524,7 @@
 			"alignment": {
 				"default": {
 					"layout": "Vertical",
+					"mainAxis": "Center",
 					"crossAxis": "Center"
 				}
 			},
@@ -461,6 +558,7 @@
 					"type": "ImageView",
 					"props": {
 						"width": 800,
+						"height": "auto",
 						"src": "/images/transisi-dashboard.png"
 					}
 				},
@@ -472,6 +570,19 @@
 							"crossAxis": "Center"
 						}
 					},
+					"backgrounds": [
+						{
+							"type": "image",
+							"imageUrl": "/images/home-demo-pattern.svg",
+							"imageSize": {
+								"width": 800
+							},
+							"position": {
+								"x": 600,
+								"y": -400
+							}
+						}
+					],
 					"style": {
 						"default": {
 							"maxWidth": 900,
@@ -487,6 +598,12 @@
 								"text": {
 									"en": "Get the Demo",
 									"id": "Coba Sekarang"
+								}
+							},
+							"style": {
+								"default": {
+									"color": "#000644",
+									"fontWeight": 700
 								}
 							}
 						},

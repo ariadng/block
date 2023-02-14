@@ -61,10 +61,22 @@ export default function ImageView (props: ImageViewProps) {
 	const getImageStyle = (): CSSProperties => {
 		let imageStyle: CSSProperties = {};
 		// Width and Height
-		if (typeof width !== "undefined" || typeof height !== "undefined") {
-			imageStyle.width = "100%";
-			imageStyle.height = "100%";
-			imageStyle.objectFit = "cover";
+		if (typeof width !== "undefined" && typeof height !== "undefined") {
+			imageStyle.width = width;
+			imageStyle.height = height;
+		}
+		else if (typeof width !== "undefined" && typeof height === "undefined") {
+			imageStyle.width = width;
+			imageStyle.height = "auto";
+		}
+
+		else if (typeof width === "undefined" || typeof height !== "undefined") {
+			imageStyle.width = "auto";
+			imageStyle.height = height;
+		}
+		else {
+			imageStyle.width = "auto";
+			imageStyle.height = "auto";
 		}
 		return imageStyle;
 	};
