@@ -35,7 +35,7 @@ export default function StepsView (props: StepsViewProps) {
 			{...otherProps}
 		>
 			{steps && steps.map((step, index) => (
-				<>
+				<React.Fragment key={index}>
 					<div className={`Step`} key={index}>
 						<div className={`StepIcon ${!step.image || step.image === "" ? "NoImage" : ""}`}>
 							{step.image && step.image !== "" && <img src={step.image} />}
@@ -43,8 +43,8 @@ export default function StepsView (props: StepsViewProps) {
 						</div>
 						{step.text && <div className="Text">{getText(step.text)}</div>}
 					</div>
-					{(index < steps.length - 1) && <div className="Line"></div>}
-				</>
+					{(index < steps.length - 1) && <div key={'step-line-' + index} className="Line"></div>}
+				</React.Fragment>
 			))}
 		</View>
 	);
