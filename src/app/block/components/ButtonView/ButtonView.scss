@@ -56,6 +56,19 @@
 		--pressed-label-color: var(--color-on-primary);
 	}
 
+	// --- Color: Accent
+	&.ColorAccent {
+		--bg-color: var(--color-accent);
+		--border-color: var(--color-accent);
+		--label-color: var(--color-on-accent);
+		--hovered-bg-color: var(--color-accent-lighter);
+		--hovered-border-color: var(--color-accent-lighter);
+		--hovered-label-color: var(--color-on-accent);
+		--pressed-bg-color: var(--color-accent-darker);
+		--pressed-border-color: var(--color-accent-darker);
+		--pressed-label-color: var(--color-on-accent);
+	}
+
 	// --- Color: OnPrimary
 	&.ColorOnPrimary {
 		--bg-color: var(--color-on-primary);

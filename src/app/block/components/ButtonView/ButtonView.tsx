@@ -25,6 +25,7 @@ export default function ButtonView (props: ButtonViewProps) {
 				layout: "Horizontal",
 				mainAxis: "Start",
 				crossAxis: "Center",
+				gap: 8,
 			},
 			mobile: {},
 			tablet: {},
