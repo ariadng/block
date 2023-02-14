@@ -60,6 +60,7 @@ export default class PageModel {
 	// Get page by id
 	public static async get(id: number | string): Promise<PageInterface|null> {
 		const pageId = (typeof id === "string") ? parseInt(id) : id;
+		if (isNaN(pageId)) return null;
 		const page = await prisma.page.findFirst({
 			where: {
 				id: pageId,

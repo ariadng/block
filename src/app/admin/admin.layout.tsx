@@ -63,11 +63,13 @@ export default function AdminLayout () {
 	const [ articles, setArticles ] = useState<any[]>([]);
 	const [ categories, setCategories ] = useState<any[]>([]);
 	const [ pages, setPages ] = useState<any[]>([]);
+	const [ components, setComponents ] = useState<any[]>([]);
 	// - State
 	const [ isLoadingUsers, setIsLoadingUsers ] = useState<boolean>(false);
 	const [ isLoadingArticles, setIsLoadingArticles ] = useState<boolean>(false);
 	const [ isLoadingCategories, setIsLoadingCategories ] = useState<boolean>(false);
 	const [ isLoadingPages, setIsLoadingPages ] = useState<boolean>(false);
+	const [ isLoadingComponents, setIsLoadingComponents ] = useState<boolean>(false);
 
 	const contextValue: AdminContextInterface = {
 		user: user,
@@ -83,6 +85,7 @@ export default function AdminLayout () {
 			articles: articles,
 			categories: categories,
 			pages: pages,
+			components: components,
 			// - Actions
 			loadUsers: async () => {
 				const response = await SecuredAPI.get("user");
@@ -100,11 +103,16 @@ export default function AdminLayout () {
 				const response = await SecuredAPI.get("page");
 				setPages(response.data);
 			},
+			loadComponents: async () => {
+				const response = await SecuredAPI.get("component");
+				setComponents(response.data);
+			},
 			// - State
 			isLoadingUsers: isLoadingUsers,
 			isLoadingArticles: isLoadingArticles,
 			isLoadingCategories: isLoadingCategories,
 			isLoadingPages: isLoadingPages,
+			isLoadingComponents: isLoadingPages,
 		}
 	};
 	
@@ -127,6 +135,10 @@ export default function AdminLayout () {
 						<Link to="/admin/page" className="MenuItem" getActiveProps={() => ({ className: 'Active' })}>
 							<Icon>auto_stories</Icon>
 							<span className="Label">Pages</span>
+						</Link>
+						<Link to="/admin/component" className="MenuItem" getActiveProps={() => ({ className: 'Active' })}>
+							<Icon>dashboard</Icon>
+							<span className="Label">Components</span>
 						</Link>
 						<Link to="/admin/article" className="MenuItem" getActiveProps={() => ({ className: 'Active' })}>
 							<Icon>newspaper</Icon>

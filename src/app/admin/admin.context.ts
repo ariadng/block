@@ -13,16 +13,19 @@ export interface AdminContextInterface {
 		articles: any[],
 		categories: any[],
 		pages: any[],
+		components: any[],
 		// - Actions
 		loadUsers: () => void,
 		loadArticles: () => void,
 		loadCategories: () => void,
 		loadPages: () => void,
+		loadComponents: () => void,
 		// - State
 		isLoadingUsers: boolean,
 		isLoadingArticles: boolean,
 		isLoadingCategories: boolean,
 		isLoadingPages: boolean,
+		isLoadingComponents: boolean,
 	}
 }
 
@@ -39,15 +42,18 @@ export const AdminContext = createContext<AdminContextInterface>({
 		articles: [],
 		categories: [],
 		pages: [],
+		components: [],
 		// - Actions
 		loadUsers: async () => {},
 		loadArticles: async () => {},
 		loadCategories: async () => {},
 		loadPages: async () => {},
+		loadComponents: async () => {},
 		// - State
 		isLoadingUsers: false,
 		isLoadingArticles: false,
 		isLoadingCategories: false,
 		isLoadingPages: false,
+		isLoadingComponents: false,
 	}
 });
