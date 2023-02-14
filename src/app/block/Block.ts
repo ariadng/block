@@ -307,6 +307,7 @@ export default class Block {
 			else if (alignment.mainAxis === "End") styleFromAlignment.justifyContent = "flex-end";
 			else if (alignment.mainAxis === "Center") styleFromAlignment.justifyContent = "center";
 			else if (alignment.mainAxis === "Stretch") styleFromAlignment.justifyContent = "stretch";
+			else if (alignment.mainAxis === "Spaced") styleFromAlignment.justifyContent = "space-between";
 			// Align Items (Cross Axis)
 			if (alignment.crossAxis === "Start") styleFromAlignment.alignItems = "flex-start";
 			else if (alignment.crossAxis === "End") styleFromAlignment.alignItems = "flex-end";

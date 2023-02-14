@@ -1,6 +1,6 @@
 export default interface BlockAlignmentInterface {
 	layout: "Horizontal" | "Vertical" | "Grid" | "Default",
-	mainAxis: "Start" | "Center" | "End" | "Stretch" | "Default",
+	mainAxis: "Start" | "Center" | "End" | "Stretch" | "Default" | "Spaced",
 	crossAxis: "Start" | "Center" | "End" | "Stretch" | "Default",
 	gap: number,
 }

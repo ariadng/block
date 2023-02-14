@@ -1,10 +1,10 @@
 import React from "react";
 import BlockAlignment from "../../interfaces/BlockAlignment";
+import LayoutViewProps from "../LayoutView/LayoutViewProps";
 import View from "../View/View";
-import ViewProps from "../View/ViewProps";
 import "./HorizontalView.scss";
 
-export default function HorizontalView (props: ViewProps) {
+export default function HorizontalView (props: LayoutViewProps) {
 
 	// *** Props Management *** //
 	const { className, alignment, ...otherProps } = props;
@@ -20,8 +20,8 @@ export default function HorizontalView (props: ViewProps) {
 		const viewAlignment: BlockAlignment = {
 			default: {
 				layout: "Horizontal",
-				mainAxis: "Start",
-				crossAxis: "Start",
+				mainAxis: alignment && alignment['default'] ? alignment['default'].mainAxis :"Start",
+				crossAxis: alignment && alignment['default'] ? alignment['default'].crossAxis :"Start",
 				gap: alignment && alignment['default'] ? alignment['default'].gap : 0,
 			},
 			mobile: {},

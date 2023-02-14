@@ -316,8 +316,8 @@
 			},
 			"style": {
 				"default": {
-					"paddingTop": 100,
-					"paddingBottom": 100,
+					"paddingTop": 150,
+					"paddingBottom": 150,
 					"paddingLeft": 100,
 					"paddingRight": 100,
 					"backgroundColor": "#303030"
@@ -336,10 +336,86 @@
 					},
 					"style": {
 						"default": {
-							"marginBottom": 24,
+							"marginBottom": 72,
 							"color": "#ffffff"
 						}
 					}
+				},
+
+				{
+					"type": "TimelineView",
+					"props": {
+						"variant": "dotted",
+						"points": [
+							{
+								"title": {
+									"en": "2017",
+									"id": "2017"
+								},
+								"leadingText": {
+									"en": "Transisi was founded",
+									"id": "Transisi didirikan"
+								}
+							},
+							{
+								"title": {
+									"en": "2020",
+									"id": "2020"
+								},
+								"leadingText": {
+									"en": "We received $500k investment from Enpact",
+									"id": "Menerima investasi $500k dari Enpact"
+								},
+								"secondaryText": {
+									"en": "First EV bus in Indonesia",
+									"id": "Bus listrik pertama di Indonesia"
+								}
+							},
+							{
+								"title": {
+									"en": "2021",
+									"id": "2021"
+								},
+								"leadingText": {
+									"en": "Incubation program by Enpact",
+									"id": "Program inkubasi dari Enpact"
+								},
+								"secondaryText": {
+									"en": "+30 EV bus in Indonesia",
+									"id": "+30 bus listrik di Indonesia"
+								}
+							},
+							{
+								"title": {
+									"en": "2022",
+									"id": "2022"
+								},
+								"leadingText": {
+									"en": "Incubation program by Enpact",
+									"id": "Program inkubasi dari Enpact"
+								},
+								"secondaryText": {
+									"en": "+56 EV bus in Indonesia",
+									"id": "+56 bus listrik di Indonesia"
+								}
+							},
+							{
+								"title": {
+									"en": "Now",
+									"id": "Sekarang"
+								},
+								"leadingText": {
+									"en": "Incubation program by Enpact",
+									"id": "Program inkubasi dari Enpact"
+								},
+								"secondaryText": {
+									"en": "+88 EV bus in Indonesia",
+									"id": "+88 bus listrik di Indonesia"
+								}
+							}
+						]
+					}
+
 				}
 
 			]
@@ -375,9 +451,54 @@
 					},
 					"style": {
 						"default": {
-							"marginBottom": 24
+							"marginBottom": 72
 						}
 					}
+				},
+				{
+					"type": "ImageView",
+					"props": {
+						"width": 800,
+						"src": "/images/transisi-dashboard.png"
+					}
+				},
+				{
+					"type": "HorizontalView",
+					"alignment": {
+						"default": {
+							"mainAxis": "Spaced",
+							"crossAxis": "Center"
+						}
+					},
+					"style": {
+						"default": {
+							"maxWidth": 900,
+							"padding": 40,
+							"border": "1px solid #E4E4E9"
+						}
+					},
+					"children": [
+						{
+							"type": "HeadingView",
+							"props": {
+								"level": 4,
+								"text": {
+									"en": "Get the Demo",
+									"id": "Coba Sekarang"
+								}
+							}
+						},
+						{
+							"type": "ButtonView",
+							"props": {
+								"label": {
+									"en": "Talk to Our Expert",
+									"id": "Hubungi Tim Ahli Kami"
+								},
+								"color": "Accent"
+							}
+						}
+					]
 				}
 
 			]
@@ -393,7 +514,7 @@
 			},
 			"style": {
 				"default": {
-					"paddingTop": 100,
+					"paddingTop": 0,
 					"paddingBottom": 100,
 					"paddingLeft": 100,
 					"paddingRight": 100,

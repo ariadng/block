@@ -8,6 +8,7 @@ import PageView from "../components/PageView/PageView";
 import ParagraphView from "../components/ParagraphView/ParagraphView";
 import SectionView from "../components/SectionView/SectionView";
 import TextView from "../components/TextView/TextView";
+import TimelineView from "../components/TimelineView/TimelineView";
 import VerticalView from "../components/VerticalView/VerticalView";
 import View from "../components/View/View";
 
@@ -24,7 +25,9 @@ const ComponentMap: {[key: string]: any} = {
 	'HeadingView': HeadingView,
 	'TextView': TextView,
 	'ParagraphView': ParagraphView,
+	// List
 	'ListView': ListView,
+	'TimelineView': TimelineView,
 	// Media
 	'ImageView': ImageView,
 	// Button
