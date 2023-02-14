@@ -9,6 +9,8 @@ import BlockProps from "./interfaces/BlockProps";
 import BlockStyle, { BlockStyleDefault } from "./interfaces/BlockStyle";
 import BlockView from "./interfaces/BlockView";
 import ComponentMap from "./interfaces/ComponentMap";
+import BlockBackground from "./properties/background/BlockBackground";
+import BlockBackgroundInterface from "./properties/background/BlockBackgroundInterface";
 
 export default class Block {
 
@@ -17,6 +19,7 @@ export default class Block {
 	public id: string;
 	public props: BlockProps;
 	public alignment: BlockAlignment;
+	public backgrounds: BlockBackgroundInterface[];
 	public style: BlockStyle;
 	public children: Block[];
 	
@@ -30,6 +33,7 @@ export default class Block {
 		this.id = value.id ? value.id : uuid();
 		this.props = value.props ? value.props : {};
 		this.alignment = value.alignment ? value.alignment : BlockAlignmentDefault;
+		this.backgrounds = value.backgrounds ? value.backgrounds : [];
 		this.style = value.style ? value.style : BlockStyleDefault;
 		const children: Block[] = [];
 		// Process the children.
@@ -78,7 +82,7 @@ export default class Block {
 
 	// --- Get style.
 	public getStyle (view: BlockView = BlockView.Default): CSSProperties {
-		let style = Block.getStyle(this.style, this.alignment, view);
+		let style = Block.getStyle(this, view);
 		return style;
 	}
 
@@ -191,6 +195,7 @@ export default class Block {
 			props: this.props,
 			alignment: this.alignment,
 			style: this.style,
+			backgrounds: this.backgrounds,
 			children: [],
 		};
 		for (let child of this.children) {
@@ -218,6 +223,7 @@ export default class Block {
 			id: this.id,
 			alignment: this.alignment,
 			style: this.style,
+			block: this,
 		};
 
 		
@@ -236,6 +242,13 @@ export default class Block {
 	}
 
 	// *** [ Static Utilities ] *** //
+
+	// --- Copy block.
+	public static copy (block: Block): Block {
+		const object: BlockInterface = block.toObject();
+		const duplicate: Block = new Block(object);
+		return duplicate;
+	}
 
 	// --- Merge styles.
 	public static mergeStyles (...styles: BlockStyle[]) {
@@ -278,7 +291,13 @@ export default class Block {
 	}
 
 	// --- Get style.
-	public static getStyle (blockStyle: BlockStyle, blockAlignment?: BlockAlignment, view: BlockView = BlockView.Default): CSSProperties {
+	// public static getStyle (blockStyle: BlockStyle, blockAlignment?: BlockAlignment, view: BlockView = BlockView.Default): CSSProperties {
+	public static getStyle (block: Block, view: BlockView = BlockView.Default): CSSProperties {
+		
+		const blockStyle = block.style;
+		const blockAlignment = block.alignment;
+		const blockBackgrounds = block.backgrounds;
+		
 		// Default
 		let style = blockStyle[BlockView.Default];
 		if (view === BlockView.Default) return style;
@@ -293,7 +312,7 @@ export default class Block {
 		if (view === BlockView.Desktop) return style;
 		// Ultrawide
 		style = { ...style, ...blockStyle[BlockView.Ultrawide] };
-
+		
 		// Add style from alignment
 		let styleFromAlignment: CSSProperties = {};
 		
@@ -317,6 +336,9 @@ export default class Block {
 			if (alignment.gap) styleFromAlignment.gap = alignment.gap;
 		}
 
+		// Style from "background" props.
+		// const backgroundStyle = BlockBackground.convertToStyle(blockBackgrounds); 
+		
 		return { ...styleFromAlignment, ...style };
 	}
 
@@ -329,6 +351,7 @@ export default class Block {
 		let id = object.id;
 		let props = object.props;
 		let alignment = object.alignment;
+		let backgrounds = object.backgrounds;
 		let style = object.style;
 		let children: BlockInterface[] = [];
 		
@@ -354,6 +377,7 @@ export default class Block {
 			alignment,
 			style,
 			children,
+			backgrounds,
 		};
 	}
 

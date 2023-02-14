@@ -79,7 +79,7 @@
 					"paddingBottom": 72,
 					"paddingLeft": 100,
 					"paddingRight": 100,
-					"backgroundColor": "#e7e7e7"
+					"backgroundColor": "#FFEBE4"
 				}
 			},
 			"children": [
@@ -95,7 +95,8 @@
 					"style": {
 						"default": {
 							"marginBottom": 24,
-							"textAlign": "center"
+							"textAlign": "center",
+							"color": "#000A6C"
 						}
 					}
 				},
@@ -110,7 +111,8 @@
 					},
 					"style": {
 						"default": {
-							"textAlign": "center"
+							"textAlign": "center",
+							"color": "#000644"
 						}
 					}
 				}

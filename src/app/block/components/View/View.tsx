@@ -11,12 +11,12 @@ export default function View (props: ViewProps) {
 	const { view, hoveredId, setHoveredId } = useContext(BlockContext);
 
 	// *** Props Management *** //
-	const { tag, alignment, style, children, className, ...otherProps } = props;
+	const { block, tag, alignment, style, children, className, ...otherProps } = props;
 
 	// *** Style *** //
 	const getStyle = () => {
 		if (!style) return {};
-		const styleObject = Block.getStyle(style, alignment, view);
+		const styleObject = block ? Block.getStyle(block, view) : {};
 		return styleObject;
 	};
 

@@ -1,4 +1,5 @@
 import React from "react";
+import Block from "../../Block";
 import BlockAlignment from "../../interfaces/BlockAlignment";
 import TextView from "../TextView/TextView";
 import View from "../View/View";
@@ -8,7 +9,7 @@ import ButtonViewProps from "./ButtonViewProps";
 export default function ButtonView (props: ButtonViewProps) {
 
 	// *** Props Management *** //
-	const { label, color, variant, className, alignment, ...otherProps } = props;
+	const { block, label, color, variant, className, ...otherProps } = props;
 
 	// *** CSS Classes *** //
 	const getClassName = () => {
@@ -17,10 +18,16 @@ export default function ButtonView (props: ButtonViewProps) {
 		result.push("Variant" + (variant ? variant : "Default"));
 		return result.join(' ');
 	};
-	
-	// *** Alignment *** //
-	const getAlignment = () => {
-		const buttonAlignment: BlockAlignment = {
+
+	const getBlock = (): Block | null => {
+		
+		if (!block) return null;
+
+		let updatedBlock: Block = Block.copy(block);
+
+		// ## Alignment
+		// Alignment value.
+		let alignment: BlockAlignment = {
 			default: {
 				layout: "Horizontal",
 				mainAxis: "Start",
@@ -31,13 +38,17 @@ export default function ButtonView (props: ButtonViewProps) {
 			tablet: {},
 			desktop: {},
 			ultrawide: {},
-		}
-		return buttonAlignment;
-	}
+		};
+		updatedBlock = updatedBlock.updateAlignment(alignment);
 
+		// ## Block
+		// Return the updated block.
+		return updatedBlock;
+
+	};
 	// *** JSX Element *** //
 	return (
-		<View tag="button" alignment={getAlignment()} className={getClassName()} {...otherProps}>
+		<View block={getBlock()} tag="button" className={getClassName()} {...otherProps}>
 			{label && <TextView text={label} className="Label" />}
 		</View>
 	);
