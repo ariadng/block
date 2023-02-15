@@ -8,7 +8,7 @@ import ViewInsert from "./ViewInsert";
 
 export default function View (props: ViewProps) {
 
-	const { view, hoveredId, setHoveredId } = useContext(BlockContext);
+	const { view, editMode, hoveredId, setHoveredId, selectedIds, setSelectedIds } = useContext(BlockContext);
 
 	// *** Props Management *** //
 	const { block, tag, alignment, style, children, className, ...otherProps } = props;
@@ -37,6 +37,49 @@ export default function View (props: ViewProps) {
 		event.stopPropagation();
 		if (props.id === hoveredId) setHoveredId(null);
 	}
+	const handleOnClick: React.MouseEventHandler = (event) => {
+		if (editMode && block) {
+			event.stopPropagation();
+			setSelectedIds([block.id]);
+		}
+	}
+
+	// *** States *** //
+	const elementRef = useRef(null);
+	const isHovered = (): boolean => {
+		if (!block) return false;
+		if (block.id === hoveredId) return true;
+		return false;
+	};
+	const getHoverIndicator = () => {
+		if (!elementRef.current) return <></>;
+		const element = elementRef.current as HTMLElement;
+		const rect = element.getBoundingClientRect();
+		return <div className="HoverIndicator" style={{
+			width: rect.width,
+			height: rect.height,
+			top: rect.top,
+			left: rect.left,
+		}}></div>;
+	}
+	const isSelected = (): boolean => {
+		if (!block) return false;
+		if (selectedIds.includes(block.id)) return true;
+		return false;
+	};
+	const getSelectedIndicator = () => {
+		if (!elementRef.current) return <></>;
+		const element = elementRef.current as HTMLElement;
+		const { width, height, top, left } = element.getBoundingClientRect();
+		return (
+			<div className="SelectedIndicator" style={{width, height, top, left}}>
+				<div className="DragPoint TopLeft" style={{top: (-4), left: (-4)}}></div>
+				<div className="DragPoint TopRight" style={{top: (-4), left: (width-6)}}></div>
+				<div className="DragPoint BottomLeft" style={{top: (height-6), left: (-4)}}></div>
+				<div className="DragPoint BottomRight" style={{top: (height-6), left: (width-6)}}></div>
+			</div>
+		);
+	}
 
 	// *** JSX Element *** //
 	const getElement = () => {
@@ -47,6 +90,8 @@ export default function View (props: ViewProps) {
 			className: getClassName(),
 			style: getStyle(),
 			children,
+			ref: elementRef,
+			// onClick: handleOnClick,
 			onMouseOver: handleMouseOver,
 			onMouseLeave: handleMouseLeave,
 			...otherProps,
@@ -55,9 +100,11 @@ export default function View (props: ViewProps) {
 	};
 
 	return (
-		<>
+		<React.Fragment>
 			{getElement()}
-		</>
+			{editMode && isHovered() && getHoverIndicator()}
+			{/* {editMode && isSelected() && getSelectedIndicator()} */}
+		</React.Fragment>
 	);
 
 }

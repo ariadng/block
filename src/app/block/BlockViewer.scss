@@ -1,5 +1,5 @@
 .BlockViewer {
-
+	// position: relative;
 }
 
 // --- Edit Mode
@@ -8,13 +8,6 @@
 	.View:not(.PageView) {
 		cursor: default;
 		user-select: none;
-		
-		// Outline on hover
-		&.State_Hovered {
-			outline: #880088 solid 2px;
-			outline-offset: -1px;
-		}
-
 	}
 
 }

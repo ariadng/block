@@ -25,12 +25,14 @@ export default function BlockViewer ({ block, editMode, width, height }: Props) 
 
 	// -- State
 	const [ hoveredId, setHoveredId ] = useState<string|null>(null);
+	const [ selectedIds, setSelectedIds ] = useState<string[]>([]);
 
 	// --- Site Language
 	const [ language, setLanguage ] = useState("en");
 
 	const contextValue: BlockContextInterface = {
 		hoveredId, setHoveredId, view, language, setLanguage, editMode,
+		selectedIds, setSelectedIds,
 	}
 
 	// --- ClassName

@@ -1,6 +1,41 @@
 .View {
-
 	display: flex;
 	flex-direction: column;
+}
 
+// # State Indicators
+// ## Hover
+.HoverIndicator {
+	position: absolute;
+	box-shadow: inset 0 0 0 1px #880088;
+	pointer-events: none;
+}
+
+// ## Selected
+.SelectedIndicator {
+	position: absolute;
+	box-shadow: inset 0 0 0 1px #880088;
+	pointer-events: none;
+
+	.DragPoint {
+		position: absolute;
+		width: 10px;
+		height: 10px;
+		background-color: #ffffff;
+		border: 1px solid #880088;
+		pointer-events: all;
+
+		&.TopLeft {
+			cursor: nw-resize;
+		}
+		&.TopRight {
+			cursor: ne-resize;
+		}
+		&.BottomLeft {
+			cursor: sw-resize;
+		}
+		&.BottomRight {
+			cursor: se-resize;
+		}
+	}
 }

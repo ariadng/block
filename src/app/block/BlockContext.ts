@@ -4,6 +4,8 @@ import BlockView from "./interfaces/BlockView";
 export interface BlockContextInterface {
 	hoveredId: string | null,
 	setHoveredId: (id: string | null) => void,
+	selectedIds: string[],
+	setSelectedIds: (ids: string[]) => void,
 	view: BlockView,
 	language: string,
 	setLanguage: (lang: string) => void,
@@ -13,7 +15,9 @@ export interface BlockContextInterface {
 export const BlockContextDefault: BlockContextInterface = {
 	hoveredId: null,
 	setHoveredId: () => {},
+	selectedIds: [],
 	view: BlockView.Default,
+	setSelectedIds: () => {},
 	language: "en",
 	setLanguage: () => {},
 	editMode: false,
