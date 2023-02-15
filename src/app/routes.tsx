@@ -4,6 +4,7 @@ import ArticleCreate from "./admin/article/article.create";
 import ArticleIndex from "./admin/article/article.index";
 import ArticleLayout from "./admin/article/article.layout";
 import ArticleView from "./admin/article/article.view";
+import ComponentCreate from "./admin/component/component.create";
 import ComponentIndex from "./admin/component/component.index";
 import ComponentLayout from "./admin/component/component.layout";
 import Editor from "./admin/editor";
@@ -31,7 +32,7 @@ const AppRoutes = [
 		]},
 		{ path: "component", element: <ComponentLayout />, children: [
 			{ path: "/", element: <ComponentIndex /> },
-			{ path: "/create", element: <PageCreate /> },
+			{ path: "/create", element: <ComponentCreate /> },
 			{ path: "/:slug", element: <PageViewer /> },
 		]},
 		{ path: "article", element: <ArticleLayout />, children: [

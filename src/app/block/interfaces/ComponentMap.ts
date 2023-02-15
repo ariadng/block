@@ -1,4 +1,5 @@
 import ButtonView from "../components/ButtonView/ButtonView";
+import ComponentView from "../components/ComponentView/ComponentView";
 import HeadingView from "../components/HeadingView/HeadingView";
 import HorizontalView from "../components/HorizontalView/HorizontalView";
 import ImageView from "../components/ImageView/ImageView";
@@ -22,6 +23,7 @@ const ComponentMap: {[key: string]: any} = {
 	'SectionView': SectionView,
 	// Page
 	'PageView': PageView,
+	'ComponentView': ComponentView,
 	// Text
 	'HeadingView': HeadingView,
 	'TextView': TextView,
