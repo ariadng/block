@@ -15,7 +15,10 @@
 	}
 
 	// Views
-	.ComponentView {
+	.ComponentView,
+	.VerticalView,
+	.HorizontalView
+	{
 		min-height: 100px;
 	}
 }

@@ -5,4 +5,5 @@ export default interface ButtonViewProps extends ViewProps {
 	label?: BlockText,
 	color?: "Default" | "Primary" | "Accent" | "OnPrimary",
 	variant?: "Default" | "Outlined",
+	tooltip?: BlockText,
 }

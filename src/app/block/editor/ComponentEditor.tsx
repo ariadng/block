@@ -23,6 +23,11 @@ export default function ComponentEditor ({
 		const name = "NewComponent";
 		const contentObject = {
 			type: "ComponentView",
+			style: {
+				default: {
+					padding: 20,
+				}
+			}
 		};
 		const blockObject = Block.objectToBlockInterface(contentObject);
 		return {
@@ -49,8 +54,28 @@ export default function ComponentEditor ({
 
 		let componentBlock: Block | null = null;
 
+		// HorizontalView
+		if (type === "HorizontalView") {
+			const object = Block.objectToBlockInterface({
+				type: "HorizontalView",
+				children: [],
+			});
+			if (!object) return;
+			componentBlock = new Block(object);
+		}
+
+		// VerticalView
+		else if (type === "VerticalView") {
+			const object = Block.objectToBlockInterface({
+				type: "VerticalView",
+				children: [],
+			});
+			if (!object) return;
+			componentBlock = new Block(object);
+		}
+
 		// TextView
-		if (type === "TextView") {
+		else if (type === "TextView") {
 			const object = Block.objectToBlockInterface({
 				type: "TextView",
 				props: {
@@ -63,6 +88,63 @@ export default function ComponentEditor ({
 			if (!object) return;
 			componentBlock = new Block(object);
 		}
+
+		// ImageView
+		else if (type === "ImageView") {
+			const object = Block.objectToBlockInterface({
+				type: "ImageView",
+				props: {},
+			});
+			if (!object) return;
+			componentBlock = new Block(object);
+		}
+
+		// AudioView
+		else if (type === "AudioView") {
+			const object = Block.objectToBlockInterface({
+				type: "AudioView",
+				props: {},
+			});
+			if (!object) return;
+			componentBlock = new Block(object);
+		}
+
+		// AudioView
+		else if (type === "AudioView") {
+			const object = Block.objectToBlockInterface({
+				type: "AudioView",
+				props: {},
+			});
+			if (!object) return;
+			componentBlock = new Block(object);
+		}
+
+		// VideoView
+		else if (type === "VideoView") {
+			const object = Block.objectToBlockInterface({
+				type: "VideoView",
+				props: {},
+			});
+			if (!object) return;
+			componentBlock = new Block(object);
+		}
+
+		// ButtonView
+		else if (type === "ButtonView") {
+			const object = Block.objectToBlockInterface({
+				type: "ButtonView",
+				props: {
+					label: {
+						en: "Button",
+						id: "Tombol",
+					}
+				},
+			});
+			if (!object) return;
+			componentBlock = new Block(object);
+		}
+
+		else return;
 
 		// Insert
 		if (!componentBlock) return;
