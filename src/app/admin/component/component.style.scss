@@ -3,6 +3,7 @@
 	height: 100%;
 	display: flex;
 	align-items: stretch;
+	background-color: #f7f7f7;
 
 	.ComponentList {
 		width: 380px;
@@ -130,7 +131,7 @@
 		}
 	}
 
-	.ComponentView {
+	.ComponentViewer {
 		min-width: 0;
 		flex-shrink: 0;
 		flex-grow: 1;

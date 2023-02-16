@@ -4,6 +4,60 @@
 		{
 			"type": "SectionView",
 			"backgrounds": [
+				{ "type": "solid", "color": "transparent" }
+			],
+			"style": {
+				"default": {
+					"paddingTop": 20, 
+					"paddingBottom": 20,
+					"paddingLeft": 100,
+					"paddingRight": 100,
+					"position": "absolute",
+					"top": 0,
+					"left": 0,
+					"width": "100%",
+					"zIndex": 7000,
+					"borderBottom": "1px solid rgba(255,255,255,.3)"
+				}
+			},
+			"children": [
+				{
+					"type": "HorizontalView",
+					"alignment": {
+						"default": {
+							"crossAxis": "Center"
+						}
+					},
+					"children": [
+						{
+							"type": "ImageView",
+							"props": {
+								"src": "/images/logo_white.svg"
+							},
+							"style": {
+								"default": {
+									"height": 24,
+									"marginRight": "auto"
+								}
+							}
+						},
+						{
+							"type": "ButtonView",
+							"props": {
+								"label": {
+									"en": "Talk to Our Expert",
+									"id": "Hubungi Tim Ahli Kami"
+								},
+								"color": "Primary"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"type": "SectionView",
+			"backgrounds": [
 				{
 					"type": "image",
 					"imageUrl": "/images/home-pattern.svg",

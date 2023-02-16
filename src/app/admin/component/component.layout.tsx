@@ -56,7 +56,7 @@ export default function ComponentLayout () {
 				</div>
 			</div>
 
-			<div className="ComponentView">
+			<div className="ComponentViewer">
 				<Outlet />
 			</div>
 		</div>
